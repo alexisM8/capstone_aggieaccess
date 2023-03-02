@@ -1,19 +1,20 @@
 <?php
     require_once 'creds.php';
 
-    echo 'this is a test';
-
     $conn = new mysqli($host, $user, $pass, $dbname);
     
     if($conn->connect_error){
-        echo 'in if conn->error';
+        echo 'in if conn->error\n';
         die("Fatal Error");
     }
+
     $query = "select * from student";
     $result = $conn->query($query);
     if(!$result){
         die("Fatal Error at query");
     }
+
+    echo 'past query request and connection';
 
     $rows = $result->num_rows;
 
@@ -29,5 +30,4 @@
 
     $result->close();
     $conn->close();
-    
 ?>
