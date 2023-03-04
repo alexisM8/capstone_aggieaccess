@@ -16,16 +16,14 @@
             r.roomNum AS Room 
         FROM course AS c INNER JOIN class AS cl ON c.courseID = cl.courseID 
         INNER JOIN enrollment AS e ON cl.classID = e.classID 
-        INNER JOIN student AS s ON e.studentID = s.sid 
-        INNER JOIN enrollment AS z ON cl.classID = z.classID 
+        INNER JOIN student AS s ON e.studentID = s.sid AND s.fname = 'Rachel'
+        INNER JOIN enrollment AS z ON cl.classID = z.classID AND z.studentID = s.sid
         INNER JOIN faculty AS f ON z.facultyID = f.fid 
         INNER JOIN time AS t ON cl.timeID = t.timeID 
         INNER JOIN day AS d ON cl.dayID = d.daysID 
         INNER JOIN date AS dt ON cl.dateID = dt.dateID 
         INNER JOIN location AS l ON cl.locationID = l.locationID 
-        INNER JOIN rooms AS r ON l.roomID = r.roomID, student
-        WHERE student.sid in 
-        (SELECT e.studentID from enrollment as e where student.fname = 'Rachel')";
+        INNER JOIN rooms AS r ON l.roomID = r.roomID";
         
     $result = $conn->query($query);
     if(!$result){
