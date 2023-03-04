@@ -1,18 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Sign Up</title>
+	<title>Login Form</title>
 	<style>
 		body {
 			background-color: #f2f2f2;
-			font-family: Arial, sans-serif;
 		}
-
-		h1 {
-			text-align: center;
-			margin-top: 50px;
-		}
-
 		form {
 			background-color: #fff;
 			margin: auto;
@@ -22,7 +15,6 @@
 			box-shadow: 0 0 10px rgba(0,0,0,0.2);
 			width: 400px;
 		}
-
 		input[type="text"], input[type="password"] {
 			padding: 10px;
 			border-radius: 5px;
@@ -32,7 +24,6 @@
 			box-sizing: border-box;
 			font-size: 16px;
 		}
-
 		input[type="submit"] {
 			background-color: #4CAF50;
 			color: white;
@@ -41,43 +32,50 @@
 			border-radius: 5px;
 			cursor: pointer;
 			margin-top: 20px;
-			font-size: 16px;
 		}
-
 		input[type="submit"]:hover {
 			background-color: #45a049;
 		}
-
 		label {
 			display: block;
 			font-weight: bold;
 			margin-top: 20px;
 			font-size: 16px;
 		}
+		h1 {
+			text-align: center;
+			margin-top: 50px;
+		}
+		.radio {
+			display: inline-block;
+			margin-right: 10px;
+			margin-bottom: 10px;
+		}
 	</style>
 </head>
 <body>
-	<h1>Sign Up</h1>
-	<form action="">
-		<label for="f_name">First Name:</label>
-		<input type="text" id="f_name" name="f_name" required>
-
-		<label for="l_name">Last Name:</label>
-		<input type="text" id="l_name" name="l_name" required>
-
+	<h1>Login Form</h1>
+	<form action="#" method="post">
 		<label for="username">Username:</label>
 		<input type="text" id="username" name="username" required>
 
 		<label for="password">Password:</label>
 		<input type="password" id="password" name="password" required>
 
-		<label for="c_password">Confirm Password:</label>
-		<input type="password" id="c_password" name="c_password" required>
+		<label>Are you a student or faculty member?</label>
+		<div class="radio">
+			<input type="radio" id="student" name="user-type" value="student" required>
+		</div>
+		<div class="radio">
+			<input type="radio" id="faculty" name="user-type" value="faculty" required>
+		</div>
+		<p>Don't have an account? <a href="signup_page.html">Sign up</a></p>
+		
+		<div class="forgot-password">
+			<a href="forgot_password.html">Forgot Password?</a>
+		</div>
 
-        <p>Already have an account? <a href="login.html">Log in</a></p>
-
-
-		<input type="submit" value="Submit">
+		<input type="submit" value="Login">
 	</form>
 </body>
 </html>
