@@ -1,0 +1,11 @@
+//Shows all students enrolled into a course.
+//Give CRN from course and time range from time
+
+SELECT student.fname, student.lname, student.email 
+FROM enrollment 
+JOIN student ON enrollment.studentID = student.sid 
+JOIN class ON enrollment.classID = class.classID
+JOIN time ON class.timeID = time.timeID
+JOIN course ON course.courseID = class.courseID
+WHERE course.CRN = 'CS 1314'
+AND time.timeRange = '12:00-1:00PM';
