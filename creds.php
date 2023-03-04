@@ -1,6 +1,7 @@
 <?php
-    $host = 'ada.cameron.edu';
+    $host = 'localhost';
     $dbname = 'team1';
-    $user = 'team1';
-    $pass = 'yaHVPw5y';
+    $user = 'root';
+    $pass = 'root';
+    $port = '8889';
 ?>

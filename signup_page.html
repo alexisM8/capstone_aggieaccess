@@ -1,29 +1,83 @@
 <!DOCTYPE html>
 <html>
-    <body>
+<head>
+	<title>Sign Up</title>
+	<style>
+		body {
+			background-color: #f2f2f2;
+			font-family: Arial, sans-serif;
+		}
 
-        <h1>Sign Up</h1>
+		h1 {
+			text-align: center;
+			margin-top: 50px;
+		}
 
-        <form action="login.php" method="post"> 
-            <label for = "f_name">First Name:</label><br>
-            <input type = "text" id = "f_name" name = "f_name" value = ""><br>
+		form {
+			background-color: #fff;
+			margin: auto;
+			padding: 20px;
+			border: 1px solid #ccc;
+			border-radius: 5px;
+			box-shadow: 0 0 10px rgba(0,0,0,0.2);
+			width: 400px;
+		}
 
-            <label for = "l_name">Last Name:</label><br>
-            <input type = "text" id = "l_name" name = "l_name" value = ""><br>
+		input[type="text"], input[type="password"] {
+			padding: 10px;
+			border-radius: 5px;
+			border: 1px solid #ccc;
+			margin: 10px;
+			width: 100%;
+			box-sizing: border-box;
+			font-size: 16px;
+		}
 
-            <label for = "username"> Username:</label><br>
-            <input type = "email" id = "username" name = "username" value = ""><br>
-            <!--<label for ="username"> @cameron.edu</label><br>-->
+		input[type="submit"] {
+			background-color: #4CAF50;
+			color: white;
+			padding: 10px 20px;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+			margin-top: 20px;
+			font-size: 16px;
+		}
 
-            <label for = "password"> Password:</label><br>
-            <input type = "password" id = "password" name = "password" value = ""><br>
+		input[type="submit"]:hover {
+			background-color: #45a049;
+		}
 
-            <label for = "c_password"> Confirm Password:</label><br>
-            <input type = "password" id = "c_password" name = "c_password" value = ""><br><br>
+		label {
+			display: block;
+			font-weight: bold;
+			margin-top: 20px;
+			font-size: 16px;
+		}
+	</style>
+</head>
+<body>
+	<h1>Sign Up</h1>
+	<form action="">
+		<label for="f_name">First Name:</label>
+		<input type="text" id="f_name" name="f_name" required>
 
-            <input type = "submit" value = "Submit">
-        </form> 
+		<label for="l_name">Last Name:</label>
+		<input type="text" id="l_name" name="l_name" required>
 
-    </body>
+		<label for="username">Username:</label>
+		<input type="text" id="username" name="username" required>
 
+		<label for="password">Password:</label>
+		<input type="password" id="password" name="password" required>
+
+		<label for="c_password">Confirm Password:</label>
+		<input type="password" id="c_password" name="c_password" required>
+
+        <p>Already have an account? <a href="login.html">Log in</a></p>
+
+
+		<input type="submit" value="Submit">
+	</form>
+</body>
 </html>

@@ -22,6 +22,7 @@
 			margin: 10px;
 			width: 100%;
 			box-sizing: border-box;
+			font-size: 16px;
 		}
 		input[type="submit"] {
 			background-color: #4CAF50;
@@ -39,6 +40,7 @@
 			display: block;
 			font-weight: bold;
 			margin-top: 20px;
+			font-size: 16px;
 		}
 		h1 {
 			text-align: center;
@@ -63,11 +65,14 @@
 		<label>Are you a student or faculty member?</label>
 		<div class="radio">
 			<input type="radio" id="student" name="user-type" value="student" required>
-			<label for="student">Student</label>
 		</div>
 		<div class="radio">
 			<input type="radio" id="faculty" name="user-type" value="faculty" required>
-			<label for="faculty">Faculty</label>
+		</div>
+		<p>Don't have an account? <a href="signup_page.html">Sign up</a></p>
+		
+		<div class="forgot-password">
+			<a href="forgot_password.html">Forgot Password?</a>
 		</div>
 
 		<input type="submit" value="Login">
