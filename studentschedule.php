@@ -16,7 +16,7 @@
             r.roomNum AS Room 
         FROM course AS c INNER JOIN class AS cl ON c.courseID = cl.courseID 
         INNER JOIN enrollment AS e ON cl.classID = e.classID 
-        INNER JOIN student AS s ON e.studentID = s.sid AND s.fname = 'Rachel'
+        INNER JOIN student AS s ON e.studentID = s.sid AND s.fname = 'Gabriel'
         INNER JOIN enrollment AS z ON cl.classID = z.classID AND z.studentID = s.sid
         INNER JOIN faculty AS f ON z.facultyID = f.fid 
         INNER JOIN time AS t ON cl.timeID = t.timeID 
@@ -31,6 +31,7 @@
     }
 
     $rows = $result->fetch_all(MYSQLI_ASSOC);
+    
     echo '<html>';
     echo'
     <style>
