@@ -33,6 +33,8 @@
 		<label for="c_password">Confirm Password:</label>
 		<input type="password" id="c_password" name="c_password" required>
 
+		<p>Remember your login info? <a href="login.php">Login here</a>.</p>
+
 		<label for="user_type">User Type:</label>
 		<select id="user_type" name="user_type" required onchange="displayOptions()">
 			<option value="">Select user type</option>
@@ -63,6 +65,8 @@
         }
         ?>
     </select>
+
+	
 		</div>
 
 		<div id="faculty_options" style="display: none;">
