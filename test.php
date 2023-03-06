@@ -7,21 +7,24 @@
     <title>Login Form</title>
 </head>
 <body>
-    <form action = "test.php" method = "get"><!--form is a special html element that allows the user to input info 
+    <form action = "test.php" method = "post"><!--form is a special html element that allows the user to input info 
 passes the info to the php programs, form acts as the middle man passing info from html to php. The action determines 
 that test.php handles what happens with the form. The method tells the form what we are doing with it. -->
-Name: <input type = "text" name= "name" > <!--will allow the user to input info to pass to php, type=text will give us a textbox , name describe what
+<!--Password: <input type = "password" name="password"> <br> will allow the user to input info to pass to php, type=text will give us a textbox , name describe what
 content your getting-->
-
-Age: <input type = "number" name="age">
-<input type= "submit"> <!--will submit all the info--> 
+<!--Apples:<input type= "checkbox" name ="fruits[]" value ="apples" > <br> when we use checkboxes store them in an array, value is the value that the checkbox will be associated with -->
+<!--Oranges:<input type= "checkbox" name ="fruits[]" value ="oranges" > <br> -->
+<!--Pears:<input type= "checkbox" name ="fruits[]" value ="pears" > <br>  -->
+<input type="submit"> <!--will submit all the info--> 
     </form>
-    <br>
 
     <?php
+    //$fruits = $_POST["fruits"]; // storing all the fruits that the user check and submitted
+    //echo $fruits[1];// what the first fruit that was checked is
+    //$friends = array("Kevin","Karen","Oscar","Jim"); // declaring an array, store multiple pieces of data
+    //echo count($friends); // counts how many elements are in the array
+    //echo $_POST["password"]; // will do the same thing as get but it is more secure, will not show info in url
     //echo $_GET["name"];//gets the entered name from the form, displays the entered name, the parameters have to match in the form
-    //echo "<br>";
-    //echo $_GET["age"]; // gets the entered age from the form, displays the entered age, the parameters have to match in the form
     //$num = 10; // can store integer values
     //echo floor(3.3); // no matter what it will round the number down
     //echo ceil(3.3); // no matter what it will round the number up
