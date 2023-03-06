@@ -68,6 +68,8 @@
         <?php } ?>
 
         <input type="submit" name="submit" value="Login">
+
+        <p>Don't have an account? <a href="signup_page.php">Sign up here</a>.</p>
     </form>
 </body>
 </html>
