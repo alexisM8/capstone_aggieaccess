@@ -109,7 +109,8 @@
 
                     $sql = "INSERT INTO student (fname, lname, email, phone, classification, major) VALUES ('$fname', '$lname', '$email', '$phone', '$classification', '$major')";
                     // Insert password into "student_passwords" table
-                    $sql_password = "INSERT INTO student_passwords (password) VALUES ('$password')";
+                    $sql_password = "INSERT INTO student_passwords (password, studentID) 
+                                        VALUES ('$password', (SELECT sid FROM student WHERE student.email = '$email'))";
 
                 } else if ($user_type == "faculty") {
                     $role = $_POST['role'];
@@ -117,7 +118,8 @@
 
                     $sql = "INSERT INTO faculty (fname, lname, email, phone, role, office) VALUES ('$fname', '$lname', '$email', '$phone', '$role', '$office')";
                     // Insert password into "faculty_passwords" table
-                    $sql_password = "INSERT INTO faculty_passwords (password) VALUES ('$password')";
+                    $sql_password = "INSERT INTO faculty_passwords (password, facultyID)
+                                        VALUES('$password', (SELECT fid from faculty WHERE faculty.email = '$email'))";
                 }
 
                 // Execute SQL query

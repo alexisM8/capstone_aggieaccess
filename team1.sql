@@ -227,12 +227,13 @@ CREATE TABLE `faculty` (
   `lname` varchar(20) NOT NULL,
   `role` int(11) NOT NULL,
   `office` int(11) NOT NULL,
+  `phone` varchar(12) DEFAULT NULL,
   PRIMARY KEY (`fid`),
   UNIQUE KEY `email` (`email`),
   KEY `role` (`role`),
   KEY `office` (`office`),
-  CONSTRAINT `faculty_ibfk_2` FOREIGN KEY (`office`) REFERENCES `location` (`locationID`),
-  CONSTRAINT `faculty_ibfk_1` FOREIGN KEY (`role`) REFERENCES `faculty_roles` (`frid`)
+  CONSTRAINT `faculty_ibfk_1` FOREIGN KEY (`role`) REFERENCES `faculty_roles` (`frid`),
+  CONSTRAINT `faculty_ibfk_2` FOREIGN KEY (`office`) REFERENCES `location` (`locationID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -242,7 +243,7 @@ CREATE TABLE `faculty` (
 
 LOCK TABLES `faculty` WRITE;
 /*!40000 ALTER TABLE `faculty` DISABLE KEYS */;
-INSERT INTO `faculty` VALUES (1,'Chao','cz@cameron.edu','Zhao',1,6),(2,'Muhammad','mj@cameron.edu','Javed',3,7),(3,'Jawad','jd@cameron.edu','Drissi',1,8),(4,'Abbus','aj@cameron.edu','Johari',1,8),(5,'Teressa','th@cameron.edu','Hickerson',1,6),(6,'Feridoon','fm@cameron.edu','Moinian',1,6),(7,'Mike','me@cameron.edu','Estep',1,7),(9,'Harry','hk@cameron.edu','Kimberling',1,8),(10,'Ioannis','ia@cameron.edu','Argyros',1,8),(11,'Gregory','gh@cameron.edu','Herring',1,8),(12,'Hong','hl@cameron.edu','Li',1,6),(13,'Christopher','cs@cameron.edu','Sauer',1,7);
+INSERT INTO `faculty` VALUES (1,'Chao','cz@cameron.edu','Zhao',1,6,NULL),(2,'Muhammad','mj@cameron.edu','Javed',3,7,NULL),(3,'Jawad','jd@cameron.edu','Drissi',1,8,NULL),(4,'Abbus','aj@cameron.edu','Johari',1,8,NULL),(5,'Teressa','th@cameron.edu','Hickerson',1,6,NULL),(6,'Feridoon','fm@cameron.edu','Moinian',1,6,NULL),(7,'Mike','me@cameron.edu','Estep',1,7,NULL),(9,'Harry','hk@cameron.edu','Kimberling',1,8,NULL),(10,'Ioannis','ia@cameron.edu','Argyros',1,8,NULL),(11,'Gregory','gh@cameron.edu','Herring',1,8,NULL),(12,'Hong','hl@cameron.edu','Li',1,6,NULL),(13,'Christopher','cs@cameron.edu','Sauer',1,7,NULL);
 /*!40000 ALTER TABLE `faculty` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -439,4 +440,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-03-04 10:10:43
+-- Dump completed on 2023-03-06 11:47:03
