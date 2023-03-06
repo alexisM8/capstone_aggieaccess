@@ -116,7 +116,8 @@
                     $role = $_POST['role'];
                     $office = $_POST['office'];
 
-                    $sql = "INSERT INTO faculty (fname, lname, email, phone, role, office) VALUES ('$fname', '$lname', '$email', '$phone', '$role', '$office')";
+                    $sql = "INSERT INTO faculty (fname, email, lname,role, office, phone) 
+								VALUES ('$fname', '$email', '$lname',(SELECT frid from faculty_roles WHERE faculty_roles.roles = '$role'), $office, '$phone')";
                     // Insert password into "faculty_passwords" table
                     $sql_password = "INSERT INTO faculty_passwords (password, facultyID)
                                         VALUES('$password', (SELECT fid from faculty WHERE faculty.email = '$email'))";
@@ -124,7 +125,11 @@
 
                 // Execute SQL query
                 if (mysqli_query($conn, $sql)) {
-                    echo "User created successfully";
+					if(mysqli_query($conn, $sql_password)){
+						echo "User created successfully";
+					}else{
+						echo "Error creating user: " . mysqli_error($conn);
+					}
                 } else {
                     echo "Error creating user: " . mysqli_error($conn);
                 }
