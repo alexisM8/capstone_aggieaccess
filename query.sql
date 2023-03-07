@@ -1,5 +1,5 @@
-//Shows all students enrolled into a course.
-//Give CRN from course and time range from time
+/* Shows all students enrolled into a course.
+   Give CRN from course and time range from time */
 
 SELECT student.fname, student.lname, student.email 
 FROM enrollment 
@@ -10,22 +10,28 @@ JOIN course ON course.courseID = class.courseID
 WHERE course.CRN = 'CS 1314'
 AND time.timeRange = '12:00-1:00PM';
 
-//insert a student into the student table
-//phone number and advisor are null by default the others must have a value
+/* insert a student into the student table
+   phone number and advisor are null by default the others must have a value 
+   reminder $varname are variables that we create to store the values in the 
+   form. we access form values by using post array. ex 
+   $fname = $_POST['fname']; */
 
 insert into student(fname, email, lname, major, classification)
-values("FirstName", "Email", "LastName", "major", "classification")
+values('$fname', "$email", "$lname", "$major", "$classification")
 
-//update information of a student
-//we should query to get the sid of a student
+/*update information of a student
+we should query to get the sid of a student we also want the form to have 
+a default value of the student information as it currently is so we will 
+have to query for the student and save it into a  $variable then give the form 
+the default vaule of the query we made eariler */
 
 update student
-set fname = "NewName",
-    email = "NewEmail",
-    lname = "NewName",
-    major = "NewMajor",
-    classification = "NewClassification"
-where sid in (select sid from student where email = "OldEmail");
+set fname = "$fname",
+    email = "$email",
+    lname = "$lname",
+    major = "$major",
+    classification = "$classification"
+where sid in (select sid from student where email = "$email");
 
 //deleting a student and all instances of the student
 //student is referenced in enrollment, student and student password
