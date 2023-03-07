@@ -77,7 +77,13 @@
 
         <input type="submit" name="submit" value="Login">
 
-        <p>Don't have an account? <a href="signup_page.php">Sign up here</a>.</p>
+        
+        <div class="forgot-password">
+            <p>Don't remember your password?
+			<a href="forgot_password.html"> Forgot Password?</a>
+            </p>
+		</div>
+        
     </form>
 </body>
 </html>
