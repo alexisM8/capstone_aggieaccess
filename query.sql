@@ -69,3 +69,18 @@ SELECT DISTINCT c.courseTitle AS Course_Title,
         INNER JOIN date AS dt ON cl.dateID = dt.dateID 
         INNER JOIN location AS l ON cl.locationID = l.locationID 
         INNER JOIN rooms AS r ON l.roomID = r.roomID;
+
+
+/*
+List all classes and informatino about them
+*/
+
+SELECT course.courseTitle, course.CRN, faculty.lname, time.timeRange, date.startDate, date.endDate, rooms.roomNum, building.buildAbbrv
+FROM course 
+JOIN class ON course.courseID = class.courseID 
+JOIN time ON class.timeID = time.timeID 
+JOIN date ON class.dateID = date.dateID 
+JOIN location ON class.locationID = location.locationID 
+JOIN rooms ON location.roomID = rooms.roomID
+JOIN building ON location.buildID = building.buildID
+JOIN faculty ON class.profID = faculty.fid;
