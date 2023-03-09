@@ -150,3 +150,32 @@ JOIN rooms ON location.roomID = rooms.roomID
 JOIN building ON location.buildID = building.buildID
 JOIN faculty ON class.profID = faculty.fid;
 
+/*
+Shows all classes that match a given CRN
+*/
+
+SELECT course.courseTitle, course.CRN, faculty.lname, time.timeRange, date.startDate, date.endDate, rooms.roomNum, building.buildAbbrv
+FROM course 
+JOIN class ON course.courseID = class.courseID 
+JOIN time ON class.timeID = time.timeID 
+JOIN date ON class.dateID = date.dateID 
+JOIN location ON class.locationID = location.locationID 
+JOIN rooms ON location.roomID = rooms.roomID
+JOIN building ON location.buildID = building.buildID
+JOIN faculty ON class.profID = faculty.fid
+WHERE course.CRN = ‘CS 4233’;
+
+
+/*
+Shows all from course table while hiding courseID
+*/
+
+SELECT course.courseTitle, course.CRN FROM course;
+
+
+/*
+Show all from course table where the CRN contains “CS”
+Replace the CS to search for other classes
+*/
+
+SELECT course.courseTitle, course.CRN FROM course WHERE CRN LIKE '%CS%';
