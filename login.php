@@ -16,7 +16,7 @@
         // Verify user credentials
         if ($email == "admin@example.com" && $password == "admin123") { // If the user is an admin
             // Redirect to the admin page
-            header("Location: admin.html");
+            header("Location: admin.php");
             exit;
         } else if ($_POST['user_type'] == "student") { // If the user is a student
             // Construct the SQL query to select the student's information
