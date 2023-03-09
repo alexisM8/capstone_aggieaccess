@@ -1,6 +1,14 @@
+/*
+//////////////////////// STUDENT INFORMATION /////////////////
+//      Below is all the querys to do on a student as       //
+//           well as querys a student would do              //
+//////////////////////////////////////////////////////////////
+*/
+
 /* 
 Shows all students enrolled into a course.
-Give CRN from course and time range from time 
+Given CRN from course and time range from time 
+Essentially this can be uesd to display the class roster
 */
 
 SELECT student.fname, student.lname, student.email 
@@ -9,8 +17,12 @@ JOIN student ON enrollment.studentID = student.sid
 JOIN class ON enrollment.classID = class.classID
 JOIN time ON class.timeID = time.timeID
 JOIN course ON course.courseID = class.courseID
-WHERE course.CRN = 'CS 1314'
-AND time.timeRange = '12:00-1:00PM';
+WHERE course.CRN = '$CRN'
+AND time.timeRange = '$time';
+
+/*
+get information from a student based
+*/
 
 /* 
 insert a student into the student table
@@ -20,24 +32,26 @@ form. we access form values by using post array. ex
 $fname = $_POST['fname']; 
 */
 
-insert into student(fname, email, lname, major, classification)
-values('$fname', "$email", "$lname", "$major", "$classification")
+INSERT INTO student(fname, email, lname, major, classification, phone)
+VALUES('$fname', '$email', '$lname', '$major', '$classification', '$phone')
 
 /*
 update information of a student
-we should query to get the sid of a student we also want the form to have 
+we should query to get the sid of a student. we also want the form to have 
 a default value of the student information as it currently is so we will 
-have to query for the student and save it into a  $variable then give the form 
+have to query for the student ino and save it into a $variables then give the form 
 the default vaule of the query we made eariler 
 */
 
-update student
-set fname = "$fname",
-    email = "$email",
-    lname = "$lname",
-    major = "$major",
-    classification = "$classification"
-where sid in (select sid from student where email = "$email");
+UPDATE student
+SET fname = '$fname',
+    email = '$email',
+    lname = '$lname',
+    major = '$major',
+    classification = '$classification',
+    phone = '$phone',
+    advisor = '$advisor'
+WHERE sid IN (SELECT sid FROM student WHERE email = "$email");
 
 /*
 deleting a student and all instances of the student
@@ -45,9 +59,16 @@ student is referenced in enrollment, student and student password
 !!NEVER run a delete query with out a where clause if you do all records will be deleted
 */
 
-delete from enrollment where studentID in (select sid from student where email = "StudentEmail");
-delete from student_passwords where studentID in (select sid from student where email = "StudentEmail");
-delete from student where sid in (select sid from student where email = "StudentEmail");
+DELETE FROM enrollment WHERE studentID IN (SELECT sid FROM student WHERE email = "$email");
+DELETE FROM student_passwords WHERE studentID IN (SELECT sid FROM student WHERE email = "$email");
+DELETE FROM student WHERE sid IN (SELECT sid FROM student WHERE email = "$email");
+
+/*
+//////////////////////// FACULTY INFORMATION /////////////////
+//      Below is all the querys to do on a faculty as       //
+//           well as querys a faculty would do              //
+//////////////////////////////////////////////////////////////
+*/
 
 /*
 insert faculty into faculty table
@@ -58,12 +79,42 @@ and location respectivly
 
 INSERT INTO faculty (fname, email, lname,role, office, phone) 
 	VALUES ('$fname', '$email', '$lname',
-                (SELECT frid from faculty_roles 
+                (SELECT frid FROM faculty_roles 
                 WHERE faculty_roles.roles = '$role'),$office, '$phone');
 
 
 /*
-show all classes a professor is enrolled into based on last name and
+update information of a faculty
+we should query to get the fid of a faculty. we also want the form to have 
+a default value of the faculty information as it currently is so we will 
+have to query for the faculty ino and save it into $variables then give the form 
+the default vaule of the query we made eariler 
+*/
+
+UPDATE faculty
+SET fname = '$fname',
+    email = '$email',
+    lname = '$lname',
+    phone = '$phone',
+    role = (select locationID 
+            FROM (SELECT locationID, buildAbbrv, roomNum
+                    FROM location 
+                    JOIN building ON location.buildID = building.buildID
+                    JOIN rooms ON location.roomID = rooms.roomID) 
+            as temp where temp.buildAbbrv = '$builAbbrv' AND temp.roomNUM = '$roomNum';) 
+WHERE fid IN (SELECT fid FROM faculty WHERE email = "$email");
+/*
+deleting a aculty and all instances of the faculty
+faculty is referenced in enrollment, faculty and faculty password
+!!NEVER run a delete query with out a where clause if you do all records will be deleted
+*/
+
+DELETE FROM enrollment WHERE facultyID IN (SELECT fid FROM faculty WHERE email = "$email");
+DELETE FROM faculty_passwords WHERE facultyID IN (SELECT fid FROM faculty WHERE email = "$email");
+DELETE FROM faculty WHERE fid IN (SELECT sid FROM faculty WHERE email = "$email");
+
+/*
+show all classes a professor is enrolled into based on last name and faculty ID
 */
 
 SELECT DISTINCT c.courseTitle AS Course_Title,
@@ -98,3 +149,4 @@ JOIN location ON class.locationID = location.locationID
 JOIN rooms ON location.roomID = rooms.roomID
 JOIN building ON location.buildID = building.buildID
 JOIN faculty ON class.profID = faculty.fid;
+
