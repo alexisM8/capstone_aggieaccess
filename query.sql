@@ -82,7 +82,6 @@ INSERT INTO faculty (fname, email, lname,role, office, phone)
                 (SELECT frid FROM faculty_roles 
                 WHERE faculty_roles.roles = '$role'),$office, '$phone');
 
-
 /*
 update information of a faculty
 we should query to get the fid of a faculty. we also want the form to have 

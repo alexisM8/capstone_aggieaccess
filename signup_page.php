@@ -33,8 +33,10 @@
 		<label for="c_password">Confirm Password:</label>
 		<input type="password" id="c_password" name="c_password" required>
 
+		<!-- 
 		<p>Remember your login info? <a href="login.php">Login here</a>.</p>
-
+		-->
+		
 		<label for="user_type">User Type:</label>
 		<select id="user_type" name="user_type" required onchange="displayOptions()">
 			<option value="">Select user type</option>
@@ -68,7 +70,7 @@
 
 	
 		</div>
-
+		
 		<div id="faculty_options" style="display: none;">
 			<label for="role">Role:</label>
 			<select id="role" name="role">
@@ -84,7 +86,6 @@
 				<?php
 
         // Retrieve data from "location" table
-        //$result = mysqli_query($conn, "SELECT locationID FROM location");
 		$result = mysqli_query($conn, "SELECT buildAbbrv, roomNum
 		FROM location JOIN building ON location.buildID = building.buildID
 		JOIN rooms ON location.roomID = rooms.roomID where RIGHT(roomNUM, 1) in ('A', 'B', 'C', 'D')");
@@ -101,7 +102,6 @@
         <?php
 
             if(isset($_POST['submit'])){
-
                 $fname = $_POST['fname'];
                 $lname = $_POST['lname'];
                 $email = $_POST['email'];
@@ -122,16 +122,16 @@
                 } else if ($user_type == "faculty") {
                     $role = $_POST['role'];
                     $office = $_POST['office'];
-                    $sql = "INSERT INTO faculty (fname, email, lname,role, office, phone) 
+                    $sql = "INSERT INTO faculty (fname, email, lname, role, office, phone) 
 								VALUES ('$fname', '$email', '$lname',
-									(SELECT frid from faculty_roles WHERE faculty_roles.roles = '$role'),
-									(select locationID from (SELECT locationID, buildAbbrv, roomNum
+									(SELECT frid FROM faculty_roles WHERE faculty_roles.roles = '$role'),
+									(SELECT locationID FROM (SELECT locationID, buildAbbrv, roomNum
 															FROM location JOIN building ON location.buildID = building.buildID
 																JOIN rooms ON location.roomID = rooms.roomID) AS temp 
 																WHERE CONCAT(temp.buildAbbrv, temp.roomNUM) = '$office'), '$phone')";
                     // Insert password into "faculty_passwords" table
                     $sql_password = "INSERT INTO faculty_passwords (password, facultyID)
-                                        VALUES('$password', (SELECT fid from faculty WHERE faculty.email = '$email'))";
+                                        VALUES('$password', (SELECT fid FROM faculty WHERE faculty.email = '$email'))";
                 }
 
                 // Execute SQL query
@@ -172,5 +172,4 @@
 		}
 	</script>
 </body>
-
 </html>
