@@ -33,6 +33,8 @@
 		<label for="c_password">Confirm Password:</label>
 		<input type="password" id="c_password" name="c_password" required>
 
+		<p>Remember your login info? <a href="login.php">Login here</a>.</p>
+
 		<label for="user_type">User Type:</label>
 		<select id="user_type" name="user_type" required onchange="displayOptions()">
 			<option value="">Select user type</option>
@@ -66,6 +68,8 @@
         }
         ?>
     </select>
+
+	
 		</div>
 
 		<div id="faculty_options" style="display: none;">
@@ -114,20 +118,27 @@
 
                     $sql = "INSERT INTO student (fname, lname, email, phone, classification, major) VALUES ('$fname', '$lname', '$email', '$phone', '$classification', '$major')";
                     // Insert password into "student_passwords" table
-                    $sql_password = "INSERT INTO student_passwords (password) VALUES ('$password')";
+                    $sql_password = "INSERT INTO student_passwords (password, studentID) 
+                                        VALUES ('$password', (SELECT sid FROM student WHERE student.email = '$email'))";
 
                 } else if ($user_type == "faculty") {
                     $role = $_POST['role'];
                     $office = $_POST['office'];
 
-                    $sql = "INSERT INTO faculty (fname, lname, email, phone, role, office) VALUES ('$fname', '$lname', '$email', '$phone', '$role', '$office')";
+                    $sql = "INSERT INTO faculty (fname, email, lname,role, office, phone) 
+								VALUES ('$fname', '$email', '$lname',(SELECT frid from faculty_roles WHERE faculty_roles.roles = '$role'), $office, '$phone')";
                     // Insert password into "faculty_passwords" table
-                    $sql_password = "INSERT INTO faculty_passwords (password) VALUES ('$password')";
+                    $sql_password = "INSERT INTO faculty_passwords (password, facultyID)
+                                        VALUES('$password', (SELECT fid from faculty WHERE faculty.email = '$email'))";
                 }
 
                 // Execute SQL query
                 if (mysqli_query($conn, $sql)) {
-                    echo "User created successfully";
+					if(mysqli_query($conn, $sql_password)){
+						echo "User created successfully";
+					}else{
+						echo "Error creating user: " . mysqli_error($conn);
+					}
                 } else {
                     echo "Error creating user: " . mysqli_error($conn);
                 }
