@@ -104,7 +104,7 @@ $sql_students = "SELECT s.sid, s.fname, s.lname, s.email, s.major, s.classificat
 $result_students = mysqli_query($conn, $sql_students);
 
 // Construct the SQL query to select all the faculty members' information
-$sql_faculty = "SELECT f.fid, f.fname, f.lname, f.email, f.role FROM faculty f";
+$sql_faculty = "SELECT f.fid, f.fname, f.lname, f.email, fr.roles, b.buildName, r.roomNum FROM faculty f JOIN faculty_roles fr ON f.role = fr.frid JOIN location l ON f.office = l.locationID JOIN building b ON l.buildID = b.buildID JOIN rooms r ON l.roomID = r.roomID;";
 $result_faculty = mysqli_query($conn, $sql_faculty);
 ?>
 
