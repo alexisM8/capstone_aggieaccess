@@ -362,7 +362,7 @@ CREATE TABLE `student` (
   `fname` varchar(20) NOT NULL,
   `email` varchar(50) NOT NULL,
   `lname` varchar(20) NOT NULL,
-  `major` varchar(2) NOT NULL,
+  `major` varchar(4) NOT NULL,
   `classification` varchar(10) NOT NULL,
   `phone` varchar(12) DEFAULT NULL,
   `advisorID` int(11) DEFAULT NULL,
@@ -443,4 +443,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-03-10  9:34:43
+-- Dump completed on 2023-03-13 10:17:47

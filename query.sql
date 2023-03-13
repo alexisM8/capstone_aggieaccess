@@ -77,10 +77,13 @@ roll and office are foreign key values of faculty_roles
 and location respectivly
 */
 
-INSERT INTO faculty (fname, email, lname,role, office, phone) 
+INSERT INTO faculty (fname, email, lname, role, office, phone) 
 	VALUES ('$fname', '$email', '$lname',
-                (SELECT frid FROM faculty_roles 
-                WHERE faculty_roles.roles = '$role'),$office, '$phone');
+	(SELECT frid FROM faculty_roles WHERE faculty_roles.roles = '$role'),
+	(SELECT locationID FROM (SELECT locationID, buildAbbrv, roomNum
+	    FROM location JOIN building ON location.buildID = building.buildID
+		JOIN rooms ON location.roomID = rooms.roomID) AS temp 
+		WHERE CONCAT(temp.buildAbbrv, temp.roomNUM) = '$office'), '$phone');
 
 /*
 update information of a faculty
@@ -102,6 +105,7 @@ SET fname = '$fname',
                     JOIN rooms ON location.roomID = rooms.roomID) 
             as temp where temp.buildAbbrv = '$builAbbrv' AND temp.roomNUM = '$roomNum';) 
 WHERE fid IN (SELECT fid FROM faculty WHERE email = "$email");
+
 /*
 deleting a aculty and all instances of the faculty
 faculty is referenced in enrollment, faculty and faculty password
@@ -125,7 +129,7 @@ SELECT DISTINCT c.courseTitle AS Course_Title,
             r.roomNum AS Room 
         FROM course AS c INNER JOIN class AS cl ON c.courseID = cl.courseID 
         INNER JOIN enrollment AS e ON cl.classID = e.classID 
-        INNER JOIN faculty AS g ON e.facultyID = g.fid AND g.lname = '$fname'
+        INNER JOIN faculty AS g ON e.facultyID = g.fid AND g.lname = '$lname'
         INNER JOIN enrollment AS z ON cl.classID = z.classID AND z.facultyID = g.fid
         INNER JOIN faculty AS f ON z.facultyID = f.fid 
         INNER JOIN time AS t ON cl.timeID = t.timeID 
@@ -162,7 +166,7 @@ JOIN location ON class.locationID = location.locationID
 JOIN rooms ON location.roomID = rooms.roomID
 JOIN building ON location.buildID = building.buildID
 JOIN faculty ON class.profID = faculty.fid
-WHERE course.CRN = ‘CS 4233’;
+WHERE course.CRN = '$CRN';
 
 
 /*
@@ -173,8 +177,11 @@ SELECT course.courseTitle, course.CRN FROM course;
 
 
 /*
-Show all from course table where the CRN contains “CS”
-Replace the CS to search for other classes
+Show all from course table where the CRN contains “$departmentAbbrv”
+EX: if $departmentAbbrv is 'CS' query will display all 12 CS courses
 */
 
-SELECT course.courseTitle, course.CRN FROM course WHERE CRN LIKE '%CS%';
+SELECT courseTitle, CRN, departmentAbbrv
+FROM course 
+JOIN department ON course.departmentID = department.departmentID
+WHERE departmentAbbrv = '$departmantAbbrv';
