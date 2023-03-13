@@ -104,7 +104,7 @@ $sql_students = "SELECT s.sid, s.fname, s.lname, s.email, s.major, s.classificat
 $result_students = mysqli_query($conn, $sql_students);
 
 // Construct the SQL query to select all the faculty members' information
-$sql_faculty = "SELECT f.fid, f.fname, f.lname, f.email, fr.roles, b.buildName, r.roomNum FROM faculty f JOIN faculty_roles fr ON f.role = fr.frid JOIN location l ON f.office = l.locationID JOIN building b ON l.buildID = b.buildID JOIN rooms r ON l.roomID = r.roomID;";
+$sql_faculty = "SELECT f.fid, f.fname, f.lname, f.email, fr.roles, b.buildAbbrv, r.roomNum, f.phone FROM faculty f JOIN faculty_roles fr ON f.role = fr.frid JOIN location l ON f.office = l.locationID JOIN building b ON l.buildID = b.buildID JOIN rooms r ON l.roomID = r.roomID;";
 $result_faculty = mysqli_query($conn, $sql_faculty);
 ?>
 
@@ -251,6 +251,8 @@ $result_faculty = mysqli_query($conn, $sql_faculty);
             <th>Last Name</th>
             <th>Email</th>
             <th>Role</th>
+            <th>Office</th>
+            <th>Phone</th>
         </tr>
     </thead>
     <tbody>
@@ -260,7 +262,9 @@ $result_faculty = mysqli_query($conn, $sql_faculty);
                 <td><?php echo $row['fname']; ?></td>
                 <td><?php echo $row['lname']; ?></td>
                 <td><?php echo $row['email']; ?></td>
-                <td><?php echo $row['role']; ?></td>
+                <td><?php echo $row['roles']; ?></td>
+                <td><?php echo $row['buildAbbrv'].$row['roomNum']; ?></td>
+                <td><?php echo $row['phone']; ?></td>
                 <td>
                 <form method="post" action="admin.php">
                     <input type="hidden" name="fid" value="<?php echo $row['fid']; ?>">
