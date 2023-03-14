@@ -327,6 +327,31 @@ INSERT INTO `location` VALUES (1,1,1),(2,1,2),(3,1,3),(4,1,4),(5,1,5),(6,1,6),(7
 UNLOCK TABLES;
 
 --
+-- Table structure for table `major`
+--
+
+DROP TABLE IF EXISTS `major`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `major` (
+  `majorID` int(11) NOT NULL AUTO_INCREMENT,
+  `majorAbbrv` varchar(5) NOT NULL,
+  `major` varchar(50) NOT NULL,
+  PRIMARY KEY (`majorID`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `major`
+--
+
+LOCK TABLES `major` WRITE;
+/*!40000 ALTER TABLE `major` DISABLE KEYS */;
+INSERT INTO `major` VALUES (1,'CS','Computer Science'),(2,'IT','Information Technology');
+/*!40000 ALTER TABLE `major` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `rooms`
 --
 
@@ -366,10 +391,13 @@ CREATE TABLE `student` (
   `classification` varchar(10) NOT NULL,
   `phone` varchar(12) DEFAULT NULL,
   `advisorID` int(11) DEFAULT NULL,
+  `majorID` int(11) NOT NULL,
   PRIMARY KEY (`sid`),
   UNIQUE KEY `email` (`email`),
   KEY `advisorID` (`advisorID`),
-  CONSTRAINT `student_ibfk_1` FOREIGN KEY (`advisorID`) REFERENCES `faculty` (`fid`)
+  KEY `majorID` (`majorID`),
+  CONSTRAINT `student_ibfk_1` FOREIGN KEY (`advisorID`) REFERENCES `faculty` (`fid`),
+  CONSTRAINT `student_ibfk_2` FOREIGN KEY (`majorID`) REFERENCES `major` (`majorID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -379,7 +407,7 @@ CREATE TABLE `student` (
 
 LOCK TABLES `student` WRITE;
 /*!40000 ALTER TABLE `student` DISABLE KEYS */;
-INSERT INTO `student` VALUES (1,'Alexis','ar@cameron.edu','Rodriguez','CS','senior',NULL,NULL),(2,'Rachel','rv@cameron.edu','Vanderlely','CS','senior',NULL,NULL),(3,'Gabriel','gr@cameron.edu','Perry-Ruiz','CS','senior',NULL,NULL),(4,'Bob','bd@cameron.edu','Dylan','Mu','freshman','215-262-7810',NULL),(5,'Cade','cr@cameron.edu','Ruple','CS','Senior','580-583-9772',NULL),(6,'Christopher','ca@cameron.edu','Argyros','CS','Senior',NULL,NULL),(7,'Preston','pm@cameron.edu','Meek','CS','Senior',NULL,NULL),(8,'Aaron','ah@cameron.edu','Hendri','CS','Senior',NULL,NULL),(9,'Kettisark','kd@cameron.edu','Dy','CS','Senior',NULL,NULL),(10,'Avontae','ab@cameron.edu','Broomfield','CS','Senior',NULL,NULL),(11,'Jeffery','jw@cameron.edu','Warden','CS','Senior',NULL,NULL),(12,'Dylan','dg@cameron.edu','Griggs','CS','Senior',NULL,NULL),(13,'Nathaniel','nb@cameron.edu','Bryant','CS','Senior',NULL,NULL),(14,'Aaron','an@cameron.edu','Nettles','CS','Senior',NULL,NULL),(15,'Jason','jc@cameron.edu','Caha','CS','Senior',NULL,NULL),(16,'Abdul','abr@cameron.edu','Rahman','CS','Senior',NULL,NULL),(17,'Kimberly','kj@cameron.edu','Jones','CS','Senior',NULL,NULL);
+INSERT INTO `student` VALUES (1,'Alexis','ar@cameron.edu','Rodriguez','CS','senior',NULL,NULL,1),(2,'Rachel','rv@cameron.edu','Vanderlely','CS','senior',NULL,NULL,1),(3,'Gabriel','gr@cameron.edu','Perry-Ruiz','CS','senior',NULL,NULL,1),(4,'Bob','bd@cameron.edu','Dylan','Mu','freshman','215-262-7810',NULL,1),(5,'Cade','cr@cameron.edu','Ruple','CS','Senior','580-583-9772',NULL,1),(6,'Christopher','ca@cameron.edu','Argyros','CS','Senior',NULL,NULL,1),(7,'Preston','pm@cameron.edu','Meek','CS','Senior',NULL,NULL,1),(8,'Aaron','ah@cameron.edu','Hendri','CS','Senior',NULL,NULL,1),(9,'Kettisark','kd@cameron.edu','Dy','CS','Senior',NULL,NULL,1),(10,'Avontae','ab@cameron.edu','Broomfield','CS','Senior',NULL,NULL,1),(11,'Jeffery','jw@cameron.edu','Warden','CS','Senior',NULL,NULL,1),(12,'Dylan','dg@cameron.edu','Griggs','CS','Senior',NULL,NULL,1),(13,'Nathaniel','nb@cameron.edu','Bryant','CS','Senior',NULL,NULL,1),(14,'Aaron','an@cameron.edu','Nettles','CS','Senior',NULL,NULL,1),(15,'Jason','jc@cameron.edu','Caha','CS','Senior',NULL,NULL,1),(16,'Abdul','abr@cameron.edu','Rahman','CS','Senior',NULL,NULL,1),(17,'Kimberly','kj@cameron.edu','Jones','CS','Senior',NULL,NULL,1);
 /*!40000 ALTER TABLE `student` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -443,4 +471,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-03-13 10:17:47
+-- Dump completed on 2023-03-14 10:21:57
