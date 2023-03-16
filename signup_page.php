@@ -1,11 +1,13 @@
-<?php
+<?php // start of PHP
     require_once 'creds.php'; // get credentials from creds.php
 
     $conn = new mysqli($host, $user, $pass, $dbname, $port); // create a new connection between MySQL and PHP with those credentials  
     
     if($conn->connect_error){ // if there is a connection error
         die("Fatal Error"); // kill the connection, and display error
-    }?>
+	}
+	// end of PHP
+	?> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -56,7 +58,7 @@
 			<select id="major" name="major">
         <option value="">Select major</option>
 
-        <?php // PHP
+        <?php //  start of PHP
 
         // Query to retrieve departmentAbbrv from the department table
         $result = mysqli_query($conn, "SELECT departmentAbbrv FROM department");
