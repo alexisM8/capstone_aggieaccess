@@ -7,18 +7,32 @@
     <title>Login Form</title>
 </head>
 <body>
-    <form action = "test.php" method = "post"><!--form is a special html element that allows the user to input info 
-passes the info to the php programs, form acts as the middle man passing info from html to php. The action determines 
+    <form action = "test.php" method = "post"><!--form is a special html element that allows the user to input info. 
+Passes the info to the php files, form acts as the middle man passing info from html to php. The action determines 
 that test.php handles what happens with the form. The method tells the form what we are doing with it. -->
-<!--Password: <input type = "password" name="password"> <br> will allow the user to input info to pass to php, type=text will give us a textbox , name describe what
-content your getting-->
+<!--Password: <input type = "password" name="password"> <br> will allow the user to input info to pass to php, type=text will give us a textbox , name describe what content your getting-->
 <!--Apples:<input type= "checkbox" name ="fruits[]" value ="apples" > <br> when we use checkboxes store them in an array, value is the value that the checkbox will be associated with -->
 <!--Oranges:<input type= "checkbox" name ="fruits[]" value ="oranges" > <br> -->
 <!--Pears:<input type= "checkbox" name ="fruits[]" value ="pears" > <br>  -->
-<input type="submit"> <!--will submit all the info--> 
+<!--<input type="text" name="student"> -->
+<!--<input type="submit"> will submit all the info--> 
     </form>
-
+    
     <?php
+    
+    /*
+    function cube($num){
+        //echo "Hello";// will print this out since it came before return
+        return $num * $num * $num; // the return keyword RETURNS the value back to the caller, 
+        //echo "Hello"; //php will break out of the function once it comes across return, will never print Hello
+    }*/
+    //cube(4); // will give us the four cubed which is 64.
+    /*function sayHi($name){ // small program to do a certain task
+        echo "Hello $name";
+    }
+    sayHi("Avontae"); // call the function with a parameter*/
+    //$grades = array("Jim"=>"A+", "Pam"=>"B-", "Oscar"=>"C+"); // associative arrays store key value pairs, the key need to be uniquely named, the values can be the same
+    //echo $grades[$_POST["student"]]; // grabbing the value the user entered, then accessing that element in the associative array
     //$fruits = $_POST["fruits"]; // storing all the fruits that the user check and submitted
     //echo $fruits[1];// what the first fruit that was checked is
     //$friends = array("Kevin","Karen","Oscar","Jim"); // declaring an array, store multiple pieces of data
