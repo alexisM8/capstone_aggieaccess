@@ -8,12 +8,13 @@
         die("Fatal Error"); // kill the connection if there was an error
     }
 
-//Retrieve the CS student's and instructor queries from the database
+//Retrieve the CS student's and instructor columns from the database
     $sql = "SELECT 'student' AS type, fname, lname, email
             FROM student
             UNION ALL
             SELECT 'faculty' AS type, fname, lname, email
             FROM faculty ";
+    //execute the SQL query
     $result = $conn->query($sql);
 
     if(!$result){ // If the query fails kill the connection
