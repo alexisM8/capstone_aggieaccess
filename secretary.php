@@ -9,16 +9,14 @@
     }
 
 //Retrieve the CS student's and instructor queries from the database
-    $sql = "SELECT 
-            student.fname AS s_fname, 
-            student.lname AS s_lname, 
-            student.email AS s_email 
+    $sql = "SELECT 'student' AS type, fname, lname, email
             FROM student
-            INNER JOIN faculty AS f
-            ON student.fname = faculty.fname ";
+            UNION ALL
+            SELECT 'faculty' AS type, fname, lname, email
+            FROM faculty ";
     $result = $conn->query($sql);
 
-    if(!$result){ // If the query fails
+    if(!$result){ // If the query fails kill the connection
         die("Fatal Error at query");
     }   
 
@@ -35,27 +33,27 @@ echo'
 /*Style for the table */
     table{
         border-collapse: collapse; /*takes the double borders away*/
-        border: 1px solid #988000;
+        border: 1px solid black;
         width: 75%;
-        color: white;
+        
     }
 
 /*Style for the table header */
     th,td{
-        border:2px solid #988000;
+        border:2px solid;
         width: 5px 20px;
         text-align: left;
     } 
 
-/*Style for the body */
+/*Style for the body 
     body{
         background-color: #171A1B;
-}
+}*/
     </style>';
 //End of Style tag
 
 // Start of Tables 
-        // foreach($rows as $row){
+        //foreach($rows as $row){
     echo
     '<table>
         <tr>
