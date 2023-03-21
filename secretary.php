@@ -24,17 +24,27 @@
     //fetch all the 
     $rows = $result->fetch_all(MYSQLI_ASSOC);
 
-//Start of HTML tag
-    echo '<html>';
+    //! TODO  Redo the the HTML to the way in the admin page
+    //TODO Create a Contact Form for communication 
 
-//Start of Style tag
-echo'
-    <style>
+//END of PHP
+?>
 
+<!--Start of HTML -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secretary Page</title>
+</head>
+<!--Start of Style tag-->
+<style>
 /*Style for the table */
-    table{
+table{
         border-collapse: collapse; /*takes the double borders away*/
-        border: 1px solid black;
+        border: 1px solid black; /*border is a thin solid black */
         width: 75%;
         
     }
@@ -46,38 +56,29 @@ echo'
         text-align: left;
     } 
 
-/*Style for the body 
+/*Styling for the body 
     body{
         background-color: #171A1B;
 }*/
-    </style>';
-//End of Style tag
 
-// Start of Tables 
-        //foreach($rows as $row){
-    echo
-    '<table>
+</style>
+<!--End of Style tag-->
+
+<!--Body of the Secretary Page -->
+<body>
+    <h1>Secretary Page</h1>
+    <h2>Information</h2>
+    <table>
         <tr>
             <th>Students</th>
             <th>Student Contact</th>
             <th>Advisors</th>
             <th>Advisor Contact</th>
-        </tr>';
-
-        echo'<tr>
-                <td>'.'</td>
-            
-            </tr>';
-    
-    //}
-   //TODO Create a Contact Form for communication 
-//Ending tag of Tables
-    echo'</table>';
-
-//End of HTML tag
-    echo'</html>';
+        </tr>
+    </table>
+</body>
+</html>
+<!--End of HTML -->
 
 
-//END of PHP
-?>
 
