@@ -157,9 +157,6 @@ $result_faculty = mysqli_query($conn, $sql_faculty);
     <div>
     &nbsp
     </div>
-    
-
-
     <button type="submit" name="add_student">Add Student</button>
 </form>
 
@@ -178,11 +175,12 @@ $result_faculty = mysqli_query($conn, $sql_faculty);
     <input type="text" id="phone" name="phone" required>
 
     <label for="role">Role:</label>
-			<select id="role" name="role">
+			<select id="role" name="role" required>
 				<option value="">Select role</option>
 				<option value="professor">Professor</option>
 				<option value="secretary">Secretary</option>
 				<option value="chair">Chair</option>
+                <option value="admin">Admin</option>
 			</select>
     <label for="office">Office:</label>
             <select id="office" name="office">

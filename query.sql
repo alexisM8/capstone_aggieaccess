@@ -64,6 +64,13 @@ DELETE FROM student_passwords WHERE studentID IN (SELECT sid FROM student WHERE 
 DELETE FROM student WHERE sid IN (SELECT sid FROM student WHERE email = "$email");
 
 /*
+show all students and thier advisors
+*/
+
+SELECT s.fname AS first_name, s.lname AS last_name, f.lname AS advisor
+FROM student s JOIN faculty f ON s.advisorID = f.fid
+
+/*
 //////////////////////// FACULTY INFORMATION /////////////////
 //      Below is all the querys to do on a faculty as       //
 //           well as querys a faculty would do              //
