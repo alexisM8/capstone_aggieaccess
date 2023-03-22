@@ -54,6 +54,14 @@ SET fname = '$fname',
 WHERE sid IN (SELECT sid FROM student WHERE email = "$email");
 
 /*
+update student password given the student email
+*/
+
+UPDATE student_passwords as sp
+SET sp.password = 'testing'
+WHERE sp.studentID IN (SELECT s.sid FROM student AS s WHERE s.email = '$email');
+
+/*
 deleting a student and all instances of the student
 student is referenced in enrollment, student and student password
 !!NEVER run a delete query with out a where clause if you do all records will be deleted
@@ -112,6 +120,14 @@ SET fname = '$fname',
                     JOIN rooms ON location.roomID = rooms.roomID) 
             as temp where temp.buildAbbrv = '$builAbbrv' AND temp.roomNUM = '$roomNum';) 
 WHERE fid IN (SELECT fid FROM faculty WHERE email = "$email");
+
+/*
+update faculty password given faculty email
+*/
+
+UPDATE faculty_passwords as fp
+set fp.password = 'facultypass'
+WHERE fp.facultyID IN (SELECT f.fid FROM faculty AS f WHERE f.email = 'cz@cameron.edu');
 
 /*
 deleting a aculty and all instances of the faculty
