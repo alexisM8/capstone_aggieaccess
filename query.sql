@@ -91,7 +91,8 @@ DELETE FROM student WHERE sid IN (SELECT sid FROM student WHERE email = "$email"
 /*
 show all students and thier advisors
 */
-
+SELECT s.fname AS first_name, s.lname AS last_name, f.fname AS advisor
+FROM student s JOIN faculty f ON s.advisorID = f.fid;
 
 
 /*
