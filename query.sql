@@ -32,8 +32,25 @@ form. we access form values by using post array. ex
 $fname = $_POST['fname']; 
 */
 
-INSERT INTO student(fname, email, lname, major, classification, phone)
-VALUES('$fname', '$email', '$lname', '$major', '$classification', '$phone')
+INSERT INTO student (fname, email, lname, major, classification, phone, advisorID, majorID)
+SELECT 
+    '$fname', '$email', '$lname', '$major', '$classification', '$phone',
+     (SELECT majorID FROM major WHERE majorAbbrv = '$majorAbbrv'),
+     advisor_counts.advisorID 
+FROM 
+    (SELECT 
+        f.fid AS advisorID, COUNT(s.advisorID) AS count
+     FROM 
+        faculty f
+        LEFT JOIN student s ON s.advisorID = f.fid
+        JOIN department d ON f.departmentID = d.departmentID
+     WHERE 
+        d.departmentAbbrv = '$departmentAbbrv'
+     GROUP BY 
+        f.fid
+     ORDER BY 
+        count ASC
+     LIMIT 1) advisor_counts;
 
 /*
 update information of a student
@@ -50,7 +67,7 @@ SET fname = '$fname',
     major = '$major',
     classification = '$classification',
     phone = '$phone',
-    advisor = '$advisor'
+    advisor = (SELECT fid from faculty f WHERE f.fname = '$facultyFname' AND f.lname = '$facultyLname')
 WHERE sid IN (SELECT sid FROM student WHERE email = "$email");
 
 /*
