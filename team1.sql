@@ -92,8 +92,11 @@ CREATE TABLE `course` (
   `courseID` int(11) NOT NULL AUTO_INCREMENT,
   `courseTitle` varchar(30) NOT NULL,
   `CRN` varchar(10) NOT NULL,
+  `departmentID` int(11) DEFAULT NULL,
   PRIMARY KEY (`courseID`),
-  UNIQUE KEY `CRN` (`CRN`)
+  UNIQUE KEY `CRN` (`CRN`),
+  KEY `departmentID` (`departmentID`),
+  CONSTRAINT `course_ibfk_1` FOREIGN KEY (`departmentID`) REFERENCES `department` (`departmentID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -103,7 +106,7 @@ CREATE TABLE `course` (
 
 LOCK TABLES `course` WRITE;
 /*!40000 ALTER TABLE `course` DISABLE KEYS */;
-INSERT INTO `course` VALUES (1,'Capstone Project','CS 4233'),(2,'Computer Science I','CS 1314'),(3,'Computer Science II','CS 1514'),(4,'Discrete Math','CS 1523'),(5,'Operating Systems','CS 3513'),(6,'Algorithm Analysis','CS 3713'),(7,'Software Engineering','CS 4202'),(8,'Network Programming','CS 3013'),(9,'Programming I','IT 1414'),(10,'Programming II','IT 2414'),(11,'Data Structures','CS 2413'),(12,'Computer Organization/Arch','CS 2513'),(13,'Database Design & Management','CS 3183'),(14,'Web Systems Technologies','CS 2333'),(15,'E-Commerce and Web Security','IAS 3233'),(16,'Intro to Computer Systems','IT 1013'),(17,'Intro to Networking','IT 1063'),(18,'Internetworking Technologies','IT 2064'),(19,'IT Capstone','IT 4443'),(20,'Pre-Algebra','MATH 0013'),(21,'Beginning Algebra','MATH 0103'),(22,'Intermediate Algebra','MATH 0213'),(23,'Survey of Mathematics','MATH 1413'),(24,'Functions and Modeling','MATH 1463'),(25,'College Algebra','MATH 1513'),(26,'Plane Trigonometry','MATH 1613'),(27,'Calc & Analytic Geom I','MATH 2515'),(28,'Calc & Analytic Geom II','MATH 2535'),(29,'Differential Equations','MATH 3253'),(30,'Discrete Math Structures','MATH 3413'),(31,'Intro to Statistics','STAT 1513'),(32,'Intro to Prabab & Statistics I','STAT 2013');
+INSERT INTO `course` VALUES (1,'Capstone Project','CS 4233',1),(2,'Computer Science I','CS 1314',1),(3,'Computer Science II','CS 1514',1),(4,'Discrete Math','CS 1523',1),(5,'Operating Systems','CS 3513',1),(6,'Algorithm Analysis','CS 3713',1),(7,'Software Engineering','CS 4202',1),(8,'Network Programming','CS 3013',1),(9,'Programming I','IT 1414',2),(10,'Programming II','IT 2414',2),(11,'Data Structures','CS 2413',1),(12,'Computer Organization/Arch','CS 2513',1),(13,'Database Design & Management','CS 3183',1),(14,'Web Systems Technologies','CS 2333',1),(15,'E-Commerce and Web Security','IAS 3233',5),(16,'Intro to Computer Systems','IT 1013',2),(17,'Intro to Networking','IT 1063',2),(18,'Internetworking Technologies','IT 2064',2),(19,'IT Capstone','IT 4443',2),(20,'Pre-Algebra','MATH 0013',3),(21,'Beginning Algebra','MATH 0103',3),(22,'Intermediate Algebra','MATH 0213',3),(23,'Survey of Mathematics','MATH 1413',3),(24,'Functions and Modeling','MATH 1463',3),(25,'College Algebra','MATH 1513',3),(26,'Plane Trigonometry','MATH 1613',3),(27,'Calc & Analytic Geom I','MATH 2515',3),(28,'Calc & Analytic Geom II','MATH 2535',3),(29,'Differential Equations','MATH 3253',3),(30,'Discrete Math Structures','MATH 3413',3),(31,'Intro to Statistics','STAT 1513',4),(32,'Intro to Prabab & Statistics I','STAT 2013',4);
 /*!40000 ALTER TABLE `course` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -168,7 +171,7 @@ CREATE TABLE `department` (
   `departmentName` varchar(30) NOT NULL,
   `departmentAbbrv` varchar(10) DEFAULT NULL,
   PRIMARY KEY (`departmentID`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -177,7 +180,7 @@ CREATE TABLE `department` (
 
 LOCK TABLES `department` WRITE;
 /*!40000 ALTER TABLE `department` DISABLE KEYS */;
-INSERT INTO `department` VALUES (1,'Computer Science','CS'),(2,'Information Technology','IT');
+INSERT INTO `department` VALUES (1,'Computer Science','CS'),(2,'Information Technology','IT'),(3,'Mathematical Sciences','MATH'),(4,'Statistics','STAT'),(5,'International Accounting Stand','IAS');
 /*!40000 ALTER TABLE `department` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -324,6 +327,31 @@ INSERT INTO `location` VALUES (1,1,1),(2,1,2),(3,1,3),(4,1,4),(5,1,5),(6,1,6),(7
 UNLOCK TABLES;
 
 --
+-- Table structure for table `major`
+--
+
+DROP TABLE IF EXISTS `major`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `major` (
+  `majorID` int(11) NOT NULL AUTO_INCREMENT,
+  `majorAbbrv` varchar(5) NOT NULL,
+  `major` varchar(50) NOT NULL,
+  PRIMARY KEY (`majorID`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `major`
+--
+
+LOCK TABLES `major` WRITE;
+/*!40000 ALTER TABLE `major` DISABLE KEYS */;
+INSERT INTO `major` VALUES (1,'CS','Computer Science'),(2,'IT','Information Technology');
+/*!40000 ALTER TABLE `major` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `rooms`
 --
 
@@ -359,14 +387,17 @@ CREATE TABLE `student` (
   `fname` varchar(20) NOT NULL,
   `email` varchar(50) NOT NULL,
   `lname` varchar(20) NOT NULL,
-  `major` varchar(2) NOT NULL,
+  `major` varchar(4) NOT NULL,
   `classification` varchar(10) NOT NULL,
   `phone` varchar(12) DEFAULT NULL,
   `advisorID` int(11) DEFAULT NULL,
+  `majorID` int(11) NOT NULL,
   PRIMARY KEY (`sid`),
   UNIQUE KEY `email` (`email`),
   KEY `advisorID` (`advisorID`),
-  CONSTRAINT `student_ibfk_1` FOREIGN KEY (`advisorID`) REFERENCES `faculty` (`fid`)
+  KEY `majorID` (`majorID`),
+  CONSTRAINT `student_ibfk_1` FOREIGN KEY (`advisorID`) REFERENCES `faculty` (`fid`),
+  CONSTRAINT `student_ibfk_2` FOREIGN KEY (`majorID`) REFERENCES `major` (`majorID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -376,7 +407,7 @@ CREATE TABLE `student` (
 
 LOCK TABLES `student` WRITE;
 /*!40000 ALTER TABLE `student` DISABLE KEYS */;
-INSERT INTO `student` VALUES (1,'Alexis','ar@cameron.edu','Rodriguez','CS','senior',NULL,NULL),(2,'Rachel','rv@cameron.edu','Vanderlely','CS','senior',NULL,NULL),(3,'Gabriel','gr@cameron.edu','Perry-Ruiz','CS','senior',NULL,NULL),(4,'Bob','bd@cameron.edu','Dylan','Mu','freshman','215-262-7810',NULL),(5,'Cade','cr@cameron.edu','Ruple','CS','Senior','580-583-9772',NULL),(6,'Christopher','ca@cameron.edu','Argyros','CS','Senior',NULL,NULL),(7,'Preston','pm@cameron.edu','Meek','CS','Senior',NULL,NULL),(8,'Aaron','ah@cameron.edu','Hendri','CS','Senior',NULL,NULL),(9,'Kettisark','kd@cameron.edu','Dy','CS','Senior',NULL,NULL),(10,'Avontae','ab@cameron.edu','Broomfield','CS','Senior',NULL,NULL),(11,'Jeffery','jw@cameron.edu','Warden','CS','Senior',NULL,NULL),(12,'Dylan','dg@cameron.edu','Griggs','CS','Senior',NULL,NULL),(13,'Nathaniel','nb@cameron.edu','Bryant','CS','Senior',NULL,NULL),(14,'Aaron','an@cameron.edu','Nettles','CS','Senior',NULL,NULL),(15,'Jason','jc@cameron.edu','Caha','CS','Senior',NULL,NULL),(16,'Abdul','abr@cameron.edu','Rahman','CS','Senior',NULL,NULL),(17,'Kimberly','kj@cameron.edu','Jones','CS','Senior',NULL,NULL);
+INSERT INTO `student` VALUES (1,'Alexis','ar@cameron.edu','Rodriguez','CS','senior',NULL,NULL,1),(2,'Rachel','rv@cameron.edu','Vanderlely','CS','senior',NULL,NULL,1),(3,'Gabriel','gr@cameron.edu','Perry-Ruiz','CS','senior',NULL,NULL,1),(4,'Bob','bd@cameron.edu','Dylan','Mu','freshman','215-262-7810',NULL,1),(5,'Cade','cr@cameron.edu','Ruple','CS','Senior','580-583-9772',NULL,1),(6,'Christopher','ca@cameron.edu','Argyros','CS','Senior',NULL,NULL,1),(7,'Preston','pm@cameron.edu','Meek','CS','Senior',NULL,NULL,1),(8,'Aaron','ah@cameron.edu','Hendri','CS','Senior',NULL,NULL,1),(9,'Kettisark','kd@cameron.edu','Dy','CS','Senior',NULL,NULL,1),(10,'Avontae','ab@cameron.edu','Broomfield','CS','Senior',NULL,NULL,1),(11,'Jeffery','jw@cameron.edu','Warden','CS','Senior',NULL,NULL,1),(12,'Dylan','dg@cameron.edu','Griggs','CS','Senior',NULL,NULL,1),(13,'Nathaniel','nb@cameron.edu','Bryant','CS','Senior',NULL,NULL,1),(14,'Aaron','an@cameron.edu','Nettles','CS','Senior',NULL,NULL,1),(15,'Jason','jc@cameron.edu','Caha','CS','Senior',NULL,NULL,1),(16,'Abdul','abr@cameron.edu','Rahman','CS','Senior',NULL,NULL,1),(17,'Kimberly','kj@cameron.edu','Jones','CS','Senior',NULL,NULL,1);
 /*!40000 ALTER TABLE `student` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -440,4 +471,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-03-06 11:47:03
+-- Dump completed on 2023-03-14 10:21:57
