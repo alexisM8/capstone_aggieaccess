@@ -75,8 +75,7 @@ DELETE FROM student WHERE sid IN (SELECT sid FROM student WHERE email = "$email"
 show all students and thier advisors
 */
 
-SELECT s.fname AS first_name, s.lname AS last_name, f.lname AS advisor
-FROM student s JOIN faculty f ON s.advisorID = f.fid
+
 
 /*
 //////////////////////// FACULTY INFORMATION /////////////////
@@ -130,7 +129,7 @@ set fp.password = 'facultypass'
 WHERE fp.facultyID IN (SELECT f.fid FROM faculty AS f WHERE f.email = 'cz@cameron.edu');
 
 /*
-deleting a aculty and all instances of the faculty
+deleting a faculty and all instances of the faculty
 faculty is referenced in enrollment, faculty and faculty password
 !!NEVER run a delete query with out a where clause if you do all records will be deleted
 */
@@ -208,3 +207,26 @@ SELECT courseTitle, CRN, departmentAbbrv
 FROM course 
 JOIN department ON course.departmentID = department.departmentID
 WHERE departmentAbbrv = '$departmantAbbrv';
+
+/*
+inserting into course table
+*/
+
+INSERT INTO course(courseTitle, CRN, departmentID)
+VALUES ('$title', '$CRN', 
+        (SELECT d.departmentID 
+        FROM department d WHERE d.departmentAbbrv = '$departmentAbbrv') );
+
+/*
+delete from course table given CRN
+*/
+
+DELETE course
+FROM course
+JOIN (SELECT courseID FROM course WHERE CRN = '$CRN') AS temp
+ON course.courseID = temp.courseID;
+
+/*
+update course table
+*/
+
