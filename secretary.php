@@ -4,18 +4,17 @@
 //Establish a connection to the mySQL database
     $conn = new mysqli($host, $user, $pass, $dbname, $port);
 
-    if($conn->connect_error){ // Check to see if there is a connection
+// Check to see if there is a connection
+    if($conn->connect_error){ 
         die("Fatal Error"); // kill the connection if there was an error
     }
 
 //Retrieve the CS student's and instructor columns from the database
-    $sql = "SELECT 'student' AS type, fname, lname, email
-            FROM student
-            UNION ALL
-            SELECT 'faculty' AS type, fname, lname, email 
-            FROM faculty ";
-    //execute the SQL query
-    $result = mysqli_query($conn,$sql);
+    $query = "SELECT s.fname AS first_name, s.lname AS last_name, f.lname AS advisor
+    FROM student s JOIN faculty f ON s.advisorID = f.fid";
+
+//execute the SQL query
+    $result = mysqli_query($conn,$query);
 
     if(!$result){ // If the query fails to execute
         die("Fatal Error at query"); // Error at the query 
@@ -71,10 +70,10 @@ table{
             <th>Advisors</th>
             <th>Advisor Contact</th>
         </tr>
-        <?php while($row = mysqli_fetch_assoc($result)){ ?> 
-                <!--display the students first and last name-->
+        <!--display the queries in tables-->
+        <?php while($row = mysqli_fetch_assoc($result)){ ?>
         <tr> 
-            <td> <?php echo $row['lname']; ?></td>
+            <td><?php echo $row['first_name']; ?></td>
         </tr>
         <?php }?>
     </table>
