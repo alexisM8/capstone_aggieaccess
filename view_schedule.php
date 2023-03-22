@@ -1,56 +1,6 @@
 <!DOCTYPE html>
 <html>
 <style>
-     .nav{
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-            background-color: #333333;
-        }
-
-        li {
-            float: left;
-        }
-
-        li a, .drop_button {
-            display: inline-block;
-            color: white;
-            text-align: center;
-            padding: 14px 16px;
-            text-decoration: none;
-        }
-
-        li a:hover, .dropdown:hover .drop_button {
-            background-color: green;
-        }
-
-        li.dropdown {
-            display: inline-block;
-        }
-
-        .drop_content {
-            display: none;
-            position: absolute;
-            background-color: #f2f2f2;
-        }
-
-        .drop_content a {
-            color: black;
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
-            text-align: left;
-        }
-
-        .drop_content a:hover {
-            color: white;
-            background-color: #4CAF50;
-        }
-
-        .dropdown:hover .drop_content {
-            display: block;
-        }
     .info{
         list-style-type: none;
         margin: 0;
@@ -84,18 +34,12 @@
     }
 </style>
 
-<script>
-function removeRow(btn) {
-  var row = btn.parentNode.parentNode;
-  var confirmRemove = confirm("Are you sure you want to remove this course?");
-  if (confirmRemove) {
-    row.parentNode.removeChild(row);
-  }
-}
 
-</script>
 
     <head>
+        <link rel="stylesheet" href="nav_style.css"/>
+        <script type="text/javascript" src="remove_button.js"></script>
+        <title>View Schedule</title>
     </head>
     <body>
         <h1> View Schedule</h1>
@@ -110,7 +54,7 @@ function removeRow(btn) {
                     <a href="#" class="drop_button">My Info</a>
 
                     <div class="drop_content">
-                        <a href="student_schedule.php">View Schedule</a> 
+                        <a href="view_schedule.php">View Schedule</a> 
                         <a href="#">Add Classes</a>     
                     </div> 
                 </li>
@@ -176,6 +120,6 @@ function removeRow(btn) {
     </tr>
     </table>
 
-        <button class="print_btn">Print Schedule</button>
+        <button class="print_btn" onclick="window.print()">Print Schedule</button>
     </body>
     </html>
