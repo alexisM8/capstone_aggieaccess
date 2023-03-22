@@ -12,19 +12,15 @@
     $sql = "SELECT 'student' AS type, fname, lname, email
             FROM student
             UNION ALL
-            SELECT 'faculty' AS type, fname, lname, email
+            SELECT 'faculty' AS type, fname, lname, email 
             FROM faculty ";
     //execute the SQL query
-    $result = $conn->query($sql);
+    $result = mysqli_query($conn,$sql);
 
-    if(!$result){ // If the query fails kill the connection
-        die("Fatal Error at query");
+    if(!$result){ // If the query fails to execute
+        die("Fatal Error at query"); // Error at the query 
     }   
 
-    //fetch all the 
-    $rows = $result->fetch_all(MYSQLI_ASSOC);
-
-    //! TODO  Redo the the HTML to the way in the admin page
     //TODO Create a Contact Form for communication 
 
 //END of PHP
@@ -53,7 +49,7 @@ table{
     th,td{
         border:2px solid;
         width: 5px 20px;
-        text-align: left;
+        text-align: center;
     } 
 
 /*Styling for the body 
@@ -75,6 +71,12 @@ table{
             <th>Advisors</th>
             <th>Advisor Contact</th>
         </tr>
+        <?php while($row = mysqli_fetch_assoc($result)){ ?> 
+                <!--display the students first and last name-->
+        <tr> 
+            <td> <?php echo $row['lname']; ?></td>
+        </tr>
+        <?php }?>
     </table>
 </body>
 </html>
