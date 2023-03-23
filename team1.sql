@@ -267,7 +267,7 @@ CREATE TABLE `faculty_passwords` (
   PRIMARY KEY (`passID`),
   KEY `facultyID` (`facultyID`),
   CONSTRAINT `faculty_passwords_ibfk_1` FOREIGN KEY (`facultyID`) REFERENCES `faculty` (`fid`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -276,7 +276,7 @@ CREATE TABLE `faculty_passwords` (
 
 LOCK TABLES `faculty_passwords` WRITE;
 /*!40000 ALTER TABLE `faculty_passwords` DISABLE KEYS */;
-INSERT INTO `faculty_passwords` VALUES (1,'cIsKing',1),(2,'networkIsKing',2);
+INSERT INTO `faculty_passwords` VALUES (1,'cIsKing',1),(2,'networkIsKing',2),(3,'sec123',14);
 /*!40000 ALTER TABLE `faculty_passwords` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -344,7 +344,7 @@ CREATE TABLE `major` (
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
-
+--
 -- Dumping data for table `major`
 --
 
@@ -474,4 +474,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-03-23 14:36:42
+-- Dump completed on 2023-03-23 14:56:52
