@@ -14,7 +14,7 @@
     FROM student s JOIN faculty f ON s.advisorID = f.fid";
 
 //execute the SQL query
-    $result = mysqli_query($conn,$query);
+    $result = mysqli_query($conn, $query);
 
     if(!$result){ // If the query fails to execute
         die("Fatal Error at query"); // Error at the query 
@@ -63,7 +63,7 @@ table{
     li{
         float: left;
     }
-    li a{
+    .navbar{
         display:block;
         color: white;
         text-align: center;
@@ -71,7 +71,7 @@ table{
         text-decoration: none;
     }
 
-    li a:hover{
+    .navbar:hover{
         background-color: #111;
         color: white;
     }
@@ -87,8 +87,8 @@ table{
 <body>
     <h1>Secretary Page</h1>
         <ul>
-            <li><a class="navbar"> Home</a></li>
-            <li class= "navbar sign"> Sign Out</li>
+            <li div class="navbar"> Home </li>
+            <li div class= "navbar sign"> Sign Out</li> </div>
         </ul>
 
     <h2>Information</h2>
@@ -103,7 +103,9 @@ table{
         <?php while($row = mysqli_fetch_assoc($result)){ ?>
         <tr> 
             <td><?php echo $row['first_name']; ?></td>
+            <td><?php echo $row['f.lname'];?> </td>
         </tr>
+      
         <?php }?>
     </table>
 </body>
