@@ -137,8 +137,12 @@
 			border-radius: 5px;
 			cursor: pointer;
 			transition: all 0.3s ease;
-			margin-left: 500px;
 		}
+
+		.print_btn{
+        margin-top: 10px;
+        float: right;
+    	}
 
 		input[type="submit"]:hover {
 			background-color: #fff;
