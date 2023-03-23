@@ -137,8 +137,12 @@
 			border-radius: 5px;
 			cursor: pointer;
 			transition: all 0.3s ease;
-			margin-left: 500px;
 		}
+
+		.print_btn{
+        margin-top: 10px;
+        float: right;
+    	}
 
 		input[type="submit"]:hover {
 			background-color: #fff;
@@ -158,18 +162,16 @@
 			<li><a href="?page=studentadviser" class="<?php if (isset($_GET['page']) && $_GET['page'] === 'studentadviser')
 				echo 'active'; ?>">Contact
 					Adviser</a></li>
-			<li><a href="?page=studentcourses" class="<?php if (isset($_GET['page']) && $_GET['page'] === 'studentcourses')
+			<li><a href="?page=studentschedule" class="<?php if (isset($_GET['page']) && $_GET['page'] === 'studentschedule')
 				echo 'active'; ?>">View
-					Courses</a></li>
+					Schedule</a></li>
 			<li><a href="?page=studentscourseenrollemnt" class="<?php if (isset($_GET['page']) && $_GET['page'] === 'studentscourseenrollemnt')
 				echo 'active'; ?>">Request
 					A Pin</a></li>
 			<li><a href="?page=studentEnrollclasses" class="<?php if (isset($_GET['page']) && $_GET['page'] === 'studentEnrollclasses')
 				echo 'active'; ?>">Enroll
 					A Class</a></li>
-			<li><a href="?page=studentschedule" class="<?php if (isset($_GET['page']) && $_GET['page'] === 'studentschedule')
-				echo 'active'; ?>">Print
-					Schedule</a></li>
+			
 			<li><a href="?page=logout" class="<?php if (isset($_GET['page']) && $_GET['page'] === 'logout')
 				echo 'active'; ?>">Logout</a>
 			</li>
