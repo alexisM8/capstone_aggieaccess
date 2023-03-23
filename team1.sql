@@ -231,10 +231,13 @@ CREATE TABLE `faculty` (
   `role` int(11) NOT NULL,
   `office` int(11) NOT NULL,
   `phone` varchar(12) DEFAULT NULL,
+  `departmentID` int(11) DEFAULT NULL,
   PRIMARY KEY (`fid`),
   UNIQUE KEY `email` (`email`),
   KEY `role` (`role`),
   KEY `office` (`office`),
+  KEY `departmentID` (`departmentID`),
+  CONSTRAINT `faculty_ibfk_3` FOREIGN KEY (`departmentID`) REFERENCES `department` (`departmentID`),
   CONSTRAINT `faculty_ibfk_1` FOREIGN KEY (`role`) REFERENCES `faculty_roles` (`frid`),
   CONSTRAINT `faculty_ibfk_2` FOREIGN KEY (`office`) REFERENCES `location` (`locationID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
@@ -246,7 +249,7 @@ CREATE TABLE `faculty` (
 
 LOCK TABLES `faculty` WRITE;
 /*!40000 ALTER TABLE `faculty` DISABLE KEYS */;
-INSERT INTO `faculty` VALUES (1,'Chao','cz@cameron.edu','Zhao',1,6,NULL),(2,'Muhammad','mj@cameron.edu','Javed',3,7,NULL),(3,'Jawad','jd@cameron.edu','Drissi',1,8,NULL),(4,'Abbus','aj@cameron.edu','Johari',1,8,NULL),(5,'Teressa','th@cameron.edu','Hickerson',1,6,NULL),(6,'Feridoon','fm@cameron.edu','Moinian',1,6,NULL),(7,'Mike','me@cameron.edu','Estep',1,7,NULL),(9,'Harry','hk@cameron.edu','Kimberling',1,8,NULL),(10,'Ioannis','ia@cameron.edu','Argyros',1,8,NULL),(11,'Gregory','gh@cameron.edu','Herring',1,8,NULL),(12,'Hong','hl@cameron.edu','Li',1,6,NULL),(13,'Christopher','cs@cameron.edu','Sauer',1,7,NULL);
+INSERT INTO `faculty` VALUES (1,'Chao','cz@cameron.edu','Zhao',1,6,NULL,1),(2,'Muhammad','mj@cameron.edu','Javed',3,7,NULL,2),(3,'Jawad','jd@cameron.edu','Drissi',1,8,NULL,1),(4,'Abbus','aj@cameron.edu','Johari',1,8,NULL,2),(5,'Teressa','th@cameron.edu','Hickerson',1,6,NULL,2),(6,'Feridoon','fm@cameron.edu','Moinian',1,6,NULL,1),(7,'Mike','me@cameron.edu','Estep',1,7,NULL,1),(9,'Harry','hk@cameron.edu','Kimberling',1,8,NULL,2),(10,'Ioannis','ia@cameron.edu','Argyros',1,8,NULL,3),(11,'Gregory','gh@cameron.edu','Herring',1,8,NULL,3),(12,'Hong','hl@cameron.edu','Li',1,6,NULL,3),(13,'Christopher','cs@cameron.edu','Sauer',1,7,NULL,3);
 /*!40000 ALTER TABLE `faculty` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -407,7 +410,7 @@ CREATE TABLE `student` (
 
 LOCK TABLES `student` WRITE;
 /*!40000 ALTER TABLE `student` DISABLE KEYS */;
-INSERT INTO `student` VALUES (1,'Alexis','ar@cameron.edu','Rodriguez','CS','senior',NULL,NULL,1),(2,'Rachel','rv@cameron.edu','Vanderlely','CS','senior',NULL,NULL,1),(3,'Gabriel','gr@cameron.edu','Perry-Ruiz','CS','senior',NULL,NULL,1),(4,'Bob','bd@cameron.edu','Dylan','Mu','freshman','215-262-7810',NULL,1),(5,'Cade','cr@cameron.edu','Ruple','CS','Senior','580-583-9772',NULL,1),(6,'Christopher','ca@cameron.edu','Argyros','CS','Senior',NULL,NULL,1),(7,'Preston','pm@cameron.edu','Meek','CS','Senior',NULL,NULL,1),(8,'Aaron','ah@cameron.edu','Hendri','CS','Senior',NULL,NULL,1),(9,'Kettisark','kd@cameron.edu','Dy','CS','Senior',NULL,NULL,1),(10,'Avontae','ab@cameron.edu','Broomfield','CS','Senior',NULL,NULL,1),(11,'Jeffery','jw@cameron.edu','Warden','CS','Senior',NULL,NULL,1),(12,'Dylan','dg@cameron.edu','Griggs','CS','Senior',NULL,NULL,1),(13,'Nathaniel','nb@cameron.edu','Bryant','CS','Senior',NULL,NULL,1),(14,'Aaron','an@cameron.edu','Nettles','CS','Senior',NULL,NULL,1),(15,'Jason','jc@cameron.edu','Caha','CS','Senior',NULL,NULL,1),(16,'Abdul','abr@cameron.edu','Rahman','CS','Senior',NULL,NULL,1),(17,'Kimberly','kj@cameron.edu','Jones','CS','Senior',NULL,NULL,1);
+INSERT INTO `student` VALUES (1,'Alexis','ar@cameron.edu','Rodriguez','CS','senior',NULL,1,1),(2,'Rachel','rv@cameron.edu','Vanderlely','CS','senior',NULL,3,1),(3,'Gabriel','gr@cameron.edu','Perry-Ruiz','CS','senior',NULL,6,1),(4,'Bob','bd@cameron.edu','Dylan','Mu','freshman','215-262-7810',6,1),(5,'Cade','cr@cameron.edu','Ruple','CS','Senior','580-583-9772',3,1),(6,'Christopher','ca@cameron.edu','Argyros','CS','Senior',NULL,1,1),(7,'Preston','pm@cameron.edu','Meek','CS','Senior',NULL,3,1),(8,'Aaron','ah@cameron.edu','Hendri','CS','Senior',NULL,6,1),(9,'Kettisark','kd@cameron.edu','Dy','CS','Senior',NULL,3,1),(10,'Avontae','ab@cameron.edu','Broomfield','CS','Senior',NULL,3,1),(11,'Jeffery','jw@cameron.edu','Warden','CS','Senior',NULL,6,1),(12,'Dylan','dg@cameron.edu','Griggs','CS','Senior',NULL,1,1),(13,'Nathaniel','nb@cameron.edu','Bryant','CS','Senior',NULL,1,1),(14,'Aaron','an@cameron.edu','Nettles','CS','Senior',NULL,1,1),(15,'Jason','jc@cameron.edu','Caha','CS','Senior',NULL,6,1),(16,'Abdul','abr@cameron.edu','Rahman','CS','Senior',NULL,1,1),(17,'Kimberly','kj@cameron.edu','Jones','CS','Senior',NULL,7,1);
 /*!40000 ALTER TABLE `student` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -471,4 +474,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-03-14 10:21:57
+-- Dump completed on 2023-03-22 18:03:11

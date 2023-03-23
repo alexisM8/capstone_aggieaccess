@@ -32,8 +32,25 @@ form. we access form values by using post array. ex
 $fname = $_POST['fname']; 
 */
 
-INSERT INTO student(fname, email, lname, major, classification, phone)
-VALUES('$fname', '$email', '$lname', '$major', '$classification', '$phone')
+INSERT INTO student (fname, email, lname, major, classification, phone, advisorID, majorID)
+SELECT 
+    '$fname', '$email', '$lname', '$major', '$classification', '$phone',
+     (SELECT majorID FROM major WHERE majorAbbrv = '$majorAbbrv'),
+     advisor_counts.advisorID 
+FROM 
+    (SELECT 
+        f.fid AS advisorID, COUNT(s.advisorID) AS count
+     FROM 
+        faculty f
+        LEFT JOIN student s ON s.advisorID = f.fid
+        JOIN department d ON f.departmentID = d.departmentID
+     WHERE 
+        d.departmentAbbrv = '$departmentAbbrv'
+     GROUP BY 
+        f.fid
+     ORDER BY 
+        count ASC
+     LIMIT 1) advisor_counts;
 
 /*
 update information of a student
@@ -50,7 +67,7 @@ SET fname = '$fname',
     major = '$major',
     classification = '$classification',
     phone = '$phone',
-    advisor = '$advisor'
+    advisor = (SELECT fid from faculty f WHERE f.fname = '$facultyFname' AND f.lname = '$facultyLname')
 WHERE sid IN (SELECT sid FROM student WHERE email = "$email");
 
 /*
@@ -74,9 +91,9 @@ DELETE FROM student WHERE sid IN (SELECT sid FROM student WHERE email = "$email"
 /*
 show all students and thier advisors
 */
+SELECT s.fname AS first_name, s.lname AS last_name, f.fname AS advisor
+FROM student s JOIN faculty f ON s.advisorID = f.fid;
 
-SELECT s.fname AS first_name, s.lname AS last_name, f.lname AS advisor
-FROM student s JOIN faculty f ON s.advisorID = f.fid
 
 /*
 //////////////////////// FACULTY INFORMATION /////////////////
@@ -130,7 +147,7 @@ set fp.password = 'facultypass'
 WHERE fp.facultyID IN (SELECT f.fid FROM faculty AS f WHERE f.email = 'cz@cameron.edu');
 
 /*
-deleting a aculty and all instances of the faculty
+deleting a faculty and all instances of the faculty
 faculty is referenced in enrollment, faculty and faculty password
 !!NEVER run a delete query with out a where clause if you do all records will be deleted
 */
@@ -208,3 +225,26 @@ SELECT courseTitle, CRN, departmentAbbrv
 FROM course 
 JOIN department ON course.departmentID = department.departmentID
 WHERE departmentAbbrv = '$departmantAbbrv';
+
+/*
+inserting into course table
+*/
+
+INSERT INTO course(courseTitle, CRN, departmentID)
+VALUES ('$title', '$CRN', 
+        (SELECT d.departmentID 
+        FROM department d WHERE d.departmentAbbrv = '$departmentAbbrv') );
+
+/*
+delete from course table given CRN
+*/
+
+DELETE course
+FROM course
+JOIN (SELECT courseID FROM course WHERE CRN = '$CRN') AS temp
+ON course.courseID = temp.courseID;
+
+/*
+update course table
+*/
+
