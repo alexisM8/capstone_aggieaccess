@@ -1,61 +1,209 @@
-<?php
-    require_once 'creds.php'; // Require the file that contains the database credentials
+<style>
+    /* Global styles */
+    /* Style for body and h1 tags */
+    body {
+        background-color: #f2f2f2;
+        font-family: Arial, sans-serif;
+        margin: 0;
+        background-repeat: no-repeat;
+    background-position: center center;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-image: url('loginImage.jpg');
 
-    // Establish a connection to the database
-    $conn = new mysqli($host, $user, $pass, $dbname, $port);
-    
-    if($conn->connect_error){ // Check if the connection was successful
-        die("Fatal Error"); // Terminate the script if there was an error
     }
-    
-    if(isset($_POST['submit'])){ // Check if the login form was submitted
 
-        $email = $_POST['email']; // Get the email from the form
-        $password = $_POST['password']; // Get the password from the form
-        
-        // Verify user credentials
-        if ($email == "admin@example.com" && $password == "admin123") { // If the user is an admin
-            // Redirect to the admin page
-            header("Location: admin.php");
-            exit;
-        } else if ($_POST['user_type'] == "student") { // If the user is a student
-            // Construct the SQL query to select the student's information
-            $sql = "SELECT s.sid, s.fname, s.lname FROM student s, student_passwords sp WHERE s.email = '$email' AND sp.password = '$password' AND s.sid = sp.studentID";
-            $redirect = "student.html"; // Set the redirect page to the student dashboard
-        } else if ($_POST['user_type'] == "faculty") { // If the user is a faculty member
-            // Construct the SQL query to select the faculty member's information
-            $sql = "SELECT f.fid, f.fname, f.lname FROM faculty f, faculty_passwords fp WHERE f.email = '$email' AND fp.password = '$password' AND f.fid = fp.facultyID";
-            $redirect = "faculty.html"; // Set the redirect page to the faculty dashboard
-        }
-        
-        // Execute the SQL query
+    h1 {
+        color: #009688;
+        text-align: center;
+        margin-top: 100px;
+    }
+
+    /* Style for form */
+    form {
+        background-color: #ffffff;
+        border-radius: 5px;
+        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+        margin: 20px auto;
+        max-width: 500px;
+        padding: 20px;
+    }
+
+    /* Style for form labels */
+    form label {
+        display: block;
+        font-size: 14px;
+        font-weight: bold;
+        margin-top: 10px;
+    }
+
+    /* Style for form inputs */
+    form input[type="text"],
+    form input[type="email"],
+    form input[type="password"],
+    form select {
+        border: none;
+        border-radius: 2px;
+        box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1);
+        padding: 10px;
+        width: 100%;
+    }
+
+    form input[type="submit"] {
+        background-color: #009688;
+        border: none;
+        border-radius: 2px;
+        color: #ffffff;
+        cursor: pointer;
+        font-size: 16px;
+        margin-top: 20px;
+        padding: 10px;
+        width: 100%;
+    }
+
+    form input[type="submit"]:hover {
+        background-color: #008e80;
+    }
+
+    /* Style for form message */
+    form p {
+        font-size: 14px;
+        margin-top: 20px;
+        text-align: center;
+    }
+
+    /* Style for user type options */
+    #user_type {
+        margin-top: 20px;
+    }
+
+    /* Style for student and faculty options */
+    #student_options,
+    #faculty_options {
+        margin-top: 20px;
+        padding: 10px;
+    }
+
+    #student_options label,
+    #faculty_options label {
+        display: inline-block;
+        margin-right: 10px;
+    }
+
+    #student_options select,
+    #faculty_options select {
+        margin-right: 20px;
+        width: 120px;
+    }
+
+    #major {
+        width: 200px;
+    }
+
+    #office {
+        width: 100px;
+    }
+</style>
+<?php
+require_once 'creds.php';
+
+$conn = new mysqli($host, $user, $pass, $dbname, $port);
+
+if ($conn->connect_error) {
+    die("Fatal Error");
+}
+session_start();
+session_destroy();
+setcookie('pin', "", time() - 3600,"/");
+if (isset($_POST['submit']) && $_POST['email'] == 'Admin@gmail.com' && $_POST['password'] == 'Admin12345') {
+    session_start();
+    $_SESSION['email'] = $_POST['email'];
+    $redirect = "Admin.php";
+    header("Location: $redirect");
+
+} else if (isset($_POST['submit'])) {
+
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+    $user_type = $_POST['user_type'];
+
+    // Verify user credentials
+    if ($user_type == "student") {
+        $sql = "SELECT s.sid, s.fname, s.lname FROM student s, student_passwords sp WHERE s.email = '$email' AND sp.password = '$password' AND s.sid = sp.studentID";
+        $redirect = "student.php?page=Home";
         $result = mysqli_query($conn, $sql);
-        
-        if(mysqli_num_rows($result) == 1){ // If there is only one result
-            // Start a session and store the user's information in session variables
+
+        if (mysqli_num_rows($result) == 1) {
+            // Start session and redirect user to dashboard
             session_start();
             $row = mysqli_fetch_assoc($result);
             $_SESSION['id'] = $row['sid'] ?? $row['fid'];
             $_SESSION['fname'] = $row['fname'];
             $_SESSION['lname'] = $row['lname'];
-            $_SESSION['user_type'] = $_POST['user_type'];
-            // Redirect the user to the appropriate dashboard
+            $_SESSION['user_type'] = $user_type;
+            $_SESSION['loggedin'] = true;
+            if ($user_type == "faculty") {
+                if ($row['role'] == 1) {
+                    $redirect = "faculty.php";
+                } else if ($row['role'] == 2) {
+                    $redirect = "Secretary.php";
+                } else if ($row['role'] == 3) {
+                    $redirect = "Chair.php";
+                }
+            }
             header("Location: $redirect");
             exit;
         } else {
-            $error_msg = "Invalid credentials. Please try again."; // Set an error message if the login was unsuccessful
+            $error_msg = "Invalid credentials. Please try again.";
         }
-    }
-?>
+    } else if ($user_type == "faculty") {
+        $sql = "SELECT f.fid, f.fname, f.lname, f.role FROM faculty f, faculty_passwords fp WHERE f.email = '$email' AND fp.password = '$password' AND f.fid = fp.facultyID";
+        $result = mysqli_query($conn, $sql);
 
+        if (mysqli_num_rows($result) == 1) {
+            // Start session and redirect user
+            session_start();
+            $row = mysqli_fetch_assoc($result);
+            $_SESSION['id'] = $row['sid'] ?? $row['fid'];
+            $_SESSION['fname'] = $row['fname'];
+            $_SESSION['lname'] = $row['lname'];
+            $_SESSION['user_type'] = $user_type;
+            $_SESSION['loggedin'] = true;
+            if ($user_type == "faculty") {
+                if ($row['role'] == 1) {
+                    $redirect = "faculty.php?page=Home";
+                } else if ($row['role'] == 2) {
+                    $redirect = "Secretary.php?page=Home";
+                } else if ($row['role'] == 3) {
+                    $redirect = "Chair.php?page=Home";
+                }
+            }
+            header("Location: $redirect");
+            exit;
+        } else {
+            $error_msg = "Invalid credentials. Please try again.";
+        }
+    } else {
+        $error_msg1 = 'Please Select User type';
+        
+
+    }
+    // Execute SQL query
+
+}
+?>
 
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Login</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
+
     <h1>Login</h1>
     <form action="login.php" method="POST">
         <label for="email">Email:</label>
@@ -65,25 +213,28 @@
         <input type="password" id="password" name="password" required>
 
         <label for="user_type">User Type:</label>
-        <select id="user_type" name="user_type" required>
+        <select id="user_type" name="user_type">
             <option value="">Select user type</option>
             <option value="faculty">Faculty</option>
             <option value="student">Student</option>
         </select>
 
-        <?php if(isset($error_msg)){ ?>
-            <p class="error"><?php echo $error_msg; ?></p>   <!-- Display the error message if there was an error -->
+        <?php if (isset($error_msg)) { ?>
+            <p class="error">
+                <?php echo $error_msg; ?>
+            </p>
+        <?php } ?>
+        <?php if (isset($error_msg1)) { ?>
+            <p class="error">
+                <?php echo $error_msg1; ?>
+            </p>
         <?php } ?>
 
         <input type="submit" name="submit" value="Login">
 
-        
-        <div class="forgot-password">
-            <p>Don't remember your password?
-			<a href="forgot_password.html"> Forgot Password?</a>
-            </p>
-		</div>
-        
+        <p>Don't have an account? <a href="signup_page.php">Sign up here</a>.</p>
+        <p>Or you forget password <a href="forgot_password.php">Forget password</a>.</p>
     </form>
 </body>
+
 </html>
