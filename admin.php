@@ -322,7 +322,7 @@
 
 					class="<?php if (isset($_GET['page']) && $_GET['page'] === 'AdminDelete')
 
-						echo 'active'; ?>">Delete Insert</a></li>
+						echo 'active'; ?>">Delete User</a></li>
 
 			<li><a href="?page=logout"
 
