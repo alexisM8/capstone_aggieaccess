@@ -20,7 +20,8 @@
         die("Fatal Error at query"); // Error at the query 
     }   
 
-    //TODO Create a Contact Form for communication 
+//TODO Create a Contact Form for communication 
+/* either do it with html or php for the contact form */
 
 //END of PHP
 ?>
@@ -51,10 +52,33 @@ table{
         text-align: center;
     } 
 
-/*Styling for the body 
-    body{
-        background-color: #171A1B;
-}*/
+    ul{
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: #333;
+    }
+
+    li{
+        float: left;
+    }
+    li a{
+        display:block;
+        color: white;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+    }
+
+    li a:hover{
+        background-color: #111;
+        color: white;
+    }
+.sign{
+        text-align: left;
+        color: white;
+    }
 
 </style>
 <!--End of Style tag-->
@@ -62,6 +86,11 @@ table{
 <!--Body of the Secretary Page -->
 <body>
     <h1>Secretary Page</h1>
+        <ul>
+            <li><a class="navbar"> Home</a></li>
+            <li class= "navbar sign"> Sign Out</li>
+        </ul>
+
     <h2>Information</h2>
     <table>
         <tr>
