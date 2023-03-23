@@ -59,17 +59,15 @@ else
     <form action="?page=studentEnrollclasses" method="POST">
         <label for="pin">Enroll Pin:</label>
         <input type="type" id="pin" name="pin" required>
-
-        
         <?php
 echo '<form method="POST" action="EnrollStudent.php">';
 echo '<label>Choose Class</label>';
-$sql = "SELECT * FROM class";
+$sql = "SELECT course.courseTitle FROM course JOIN class ON course.courseID = class.courseID";
 $result = $conn->query($sql);
 if ($result->num_rows > 0) {
     echo "<select name='your_select_name'>";
     while($row = $result->fetch_assoc()) {
-        echo "<option value='" . $row["classID"] . "'>" ."Class ". $row["classID"] . "</option>";
+        echo "<option value='" . $row["classID"] . "'>" ."Class ". $row["courseTitle"] . "</option>";
     }
     echo "</select>";
 } else {
