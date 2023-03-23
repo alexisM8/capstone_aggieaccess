@@ -46,12 +46,17 @@ table{
     }
 
 /*Style for the table header */
-    th,td{
+    th{
         border:2px solid;
         width: 5px 20px;
         text-align: center;
     } 
 
+    td{
+        text-align: left;
+        border:2px solid;
+        width: 5px 20px;
+    }
     ul{
         list-style-type: none;
         margin: 0;
@@ -75,10 +80,11 @@ table{
         background-color: #111;
         color: white;
     }
-.sign{
-        text-align: left;
+    /*styling for the sign */
+/* .sign{
+        text-align: right;
         color: white;
-    }
+    } */
 
 </style>
 <!--End of Style tag-->
@@ -87,23 +93,25 @@ table{
 <body>
     <h1>Secretary Page</h1>
         <ul>
-            <li div class="navbar"> Home </li>
-            <li div class= "navbar sign"> Sign Out</li> </div>
+            <div>
+            <li class = "navbar"> Home </li> 
+            <li class = "navbar student">Student Contact</li> 
+            <li class = "navbar advisor">Advisor Contact</li> 
+            <li class= "navbar sign" style=" float:right"> Sign Out</li> 
+            </div>
         </ul>
 
     <h2>Information</h2>
     <table>
         <tr>
             <th>Students</th>
-            <th>Student Contact</th>
             <th>Advisors</th>
-            <th>Advisor Contact</th>
         </tr>
         <!--display the queries in tables-->
         <?php while($row = mysqli_fetch_assoc($result)){ ?>
         <tr> 
             <td><?php echo $row['first_name']; ?></td>
-            <td><?php echo $row['f.lname'];?> </td>
+            <td><?php echo $row['advisor'];?> </td>
         </tr>
       
         <?php }?>
