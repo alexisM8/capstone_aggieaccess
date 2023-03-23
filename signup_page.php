@@ -1,5 +1,7 @@
 <?php // start of PHP
     require_once 'creds.php'; // get credentials from creds.php
+<?php // start of PHP
+    require_once 'creds.php'; // get credentials from creds.php
 
     $conn = new mysqli($host, $user, $pass, $dbname, $port); // create a new connection between MySQL and PHP with those credentials  
     
@@ -12,7 +14,7 @@
 <html>
 <head>
 	<title>Sign Up</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="signup_page.css">
 </head>
 <body>
 	<h1>Sign Up</h1>
@@ -35,10 +37,8 @@
 		<label for="c_password">Confirm Password:</label>
 		<input type="password" id="c_password" name="c_password" required>
 
-		<!-- 
 		<p>Remember your login info? <a href="login.php">Login here</a>.</p>
-		-->
-		
+
 		<label for="user_type">User Type:</label>
 		<select id="user_type" name="user_type" required onchange="displayOptions()">
 			<option value="">Select user type</option>
@@ -63,8 +63,16 @@
         <?php //  start of PHP
 
         // Query to retrieve departmentAbbrv from the department table
+
+        <?php //  start of PHP
+
+        // Query to retrieve departmentAbbrv from the department table
         $result = mysqli_query($conn, "SELECT departmentAbbrv FROM department");
 
+        // Generate "Major" options from the query. 
+        while ($row = mysqli_fetch_assoc($result)) { // while there is a connection.
+			//select the Major from the drop down menu 
+            echo '<option value="' . $row['departmentAbbrv'] . '">' . $row['departmentAbbrv'] . '</option>';
         // Generate "Major" options from the query. 
         while ($row = mysqli_fetch_assoc($result)) { // while there is a connection.
 			//select the Major from the drop down menu 
@@ -75,7 +83,7 @@
 
 	
 		</div>
-		
+
 		<div id="faculty_options" style="display: none;">
 			<label for="role">Role:</label>
 			<select id="role" name="role">
@@ -88,11 +96,18 @@
 			<label for="office">Office Number:</label>
 			<select id="office" name="office">
 				<option value="">Select office number</option>
+				<?php // PHP
 				<?php // Start of PHP
 
         // Query to retrieve locationID from the location table
         $result = mysqli_query($conn, "SELECT locationID FROM location");
+        // Query to retrieve locationID from the location table
+        $result = mysqli_query($conn, "SELECT locationID FROM location");
 
+        // Generate "Office Number" options from the query
+        while ($row = mysqli_fetch_assoc($result)) { // while there is a connection
+			// select the Office Number from the drop down menu
+            echo '<option value="' . $row['locationID'] . '">' . $row['locationID'] . '</option>';
         // Generate "Office Number" options from the query
         while ($row = mysqli_fetch_assoc($result)) { // while there is a connection
 			// select the Office Number from the drop down menu
@@ -127,16 +142,12 @@
                 } else if ($user_type == "faculty") {
                     $role = $_POST['role'];
                     $office = $_POST['office'];
-                    $sql = "INSERT INTO faculty (fname, email, lname, role, office, phone) 
-								VALUES ('$fname', '$email', '$lname',
-									(SELECT frid FROM faculty_roles WHERE faculty_roles.roles = '$role'),
-									(SELECT locationID FROM (SELECT locationID, buildAbbrv, roomNum
-															FROM location JOIN building ON location.buildID = building.buildID
-																JOIN rooms ON location.roomID = rooms.roomID) AS temp 
-																WHERE CONCAT(temp.buildAbbrv, temp.roomNUM) = '$office'), '$phone')";
+
+                    $sql = "INSERT INTO faculty (fname, email, lname,role, office, phone) 
+								VALUES ('$fname', '$email', '$lname',(SELECT frid from faculty_roles WHERE faculty_roles.roles = '$role'), $office, '$phone')";
                     // Insert password into "faculty_passwords" table
                     $sql_password = "INSERT INTO faculty_passwords (password, facultyID)
-                                        VALUES('$password', (SELECT fid FROM faculty WHERE faculty.email = '$email'))";
+                                        VALUES('$password', (SELECT fid from faculty WHERE faculty.email = '$email'))";
                 }
 
                 // Execute SQL query
@@ -177,4 +188,5 @@
 		}
 	</script>
 </body>
+
 </html>
