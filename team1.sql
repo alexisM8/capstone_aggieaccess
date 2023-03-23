@@ -240,7 +240,7 @@ CREATE TABLE `faculty` (
   CONSTRAINT `faculty_ibfk_3` FOREIGN KEY (`departmentID`) REFERENCES `department` (`departmentID`),
   CONSTRAINT `faculty_ibfk_1` FOREIGN KEY (`role`) REFERENCES `faculty_roles` (`frid`),
   CONSTRAINT `faculty_ibfk_2` FOREIGN KEY (`office`) REFERENCES `location` (`locationID`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -249,7 +249,7 @@ CREATE TABLE `faculty` (
 
 LOCK TABLES `faculty` WRITE;
 /*!40000 ALTER TABLE `faculty` DISABLE KEYS */;
-INSERT INTO `faculty` VALUES (1,'Chao','cz@cameron.edu','Zhao',1,6,NULL,1),(2,'Muhammad','mj@cameron.edu','Javed',3,7,NULL,2),(3,'Jawad','jd@cameron.edu','Drissi',1,8,NULL,1),(4,'Abbus','aj@cameron.edu','Johari',1,8,NULL,2),(5,'Teressa','th@cameron.edu','Hickerson',1,6,NULL,2),(6,'Feridoon','fm@cameron.edu','Moinian',1,6,NULL,1),(7,'Mike','me@cameron.edu','Estep',1,7,NULL,1),(9,'Harry','hk@cameron.edu','Kimberling',1,8,NULL,2),(10,'Ioannis','ia@cameron.edu','Argyros',1,8,NULL,3),(11,'Gregory','gh@cameron.edu','Herring',1,8,NULL,3),(12,'Hong','hl@cameron.edu','Li',1,6,NULL,3),(13,'Christopher','cs@cameron.edu','Sauer',1,7,NULL,3);
+INSERT INTO `faculty` VALUES (1,'Chao','cz@cameron.edu','Zhao',1,6,NULL,1),(2,'Muhammad','mj@cameron.edu','Javed',3,7,NULL,2),(3,'Jawad','jd@cameron.edu','Drissi',1,8,NULL,1),(4,'Abbus','aj@cameron.edu','Johari',1,8,NULL,2),(5,'Teressa','th@cameron.edu','Hickerson',1,6,NULL,2),(6,'Feridoon','fm@cameron.edu','Moinian',1,6,NULL,1),(7,'Mike','me@cameron.edu','Estep',1,7,NULL,1),(9,'Harry','hk@cameron.edu','Kimberling',1,8,NULL,2),(10,'Ioannis','ia@cameron.edu','Argyros',1,8,NULL,3),(11,'Gregory','gh@cameron.edu','Herring',1,8,NULL,3),(12,'Hong','hl@cameron.edu','Li',1,6,NULL,3),(13,'Christopher','cs@cameron.edu','Sauer',1,7,NULL,3),(14,'jamie','jh@cameron.edu','Hatcher',2,7,'777-777-7777',NULL);
 /*!40000 ALTER TABLE `faculty` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -344,7 +344,7 @@ CREATE TABLE `major` (
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
+
 -- Dumping data for table `major`
 --
 
@@ -474,4 +474,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-03-22 18:03:11
+-- Dump completed on 2023-03-23 14:36:42
