@@ -10,7 +10,7 @@
 <html>
 <head>
 	<title>Insert User</title>
-    <link rel="stylesheet" href="signup_page.css">
+    <link rel="stylesheet" href="admin.css">
 </head>
 <body>
 	<h1>Insert User</h1>

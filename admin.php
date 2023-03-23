@@ -282,7 +282,7 @@
 
 		input[type="submit"]:hover {
 
-			background-color: #fff;
+			background-color: #009688;
 
 			color: #009688;
 
@@ -305,6 +305,12 @@
 				<h1>Admin</h1>
 
 			</li>
+
+			<li><a href="?page=AdminView"
+
+					class="<?php if (isset($_GET['page']) && $_GET['page'] === 'AdminView')
+
+						echo 'active'; ?>">View Users</a></li>
 
 			<li><a href="?page=AdminInsert"
 
@@ -336,7 +342,11 @@
 
 		<?php if (isset($_GET['page'])) {
 
-			if ($_GET['page'] === 'AdminInsert')
+			if ($_GET['page'] === 'AdminView')
+
+				include('Admin/view.php');
+
+			elseif ($_GET['page'] === 'AdminInsert')
 
 				include('Admin/insert.php');
 
