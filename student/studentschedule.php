@@ -43,6 +43,7 @@
     echo 
     '<table>
         <tr>
+            <th>Action</th>
             <th>Course Title</th>
             <th>Instrcutor</th> 
             <th>Meeting Time</th>
@@ -53,6 +54,7 @@
     
     foreach($rows as $row){
         echo'<tr>
+                <td><button onclick="removeRow(this)">Remove</button></td> 
                 <td>'.$row['Course_Title'].'</td> 
                 <td>'.$row['Instructor'].'</td> 
                 <td>'.$row['Time'].'</td> 
@@ -64,6 +66,7 @@
         echo '<br>';
     }
     echo'</table>';
+    echo'<button class="print_btn" onclick="window.print()">Print Schedule</button>';
     echo '</html>';
     $result->close();
     $conn->close();
