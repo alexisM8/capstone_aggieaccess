@@ -10,7 +10,7 @@
 <html>
 <head>
 	<title>Sign Up</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="signup_page.css">
 </head>
 <body>
 	<h1>Sign Up</h1>
@@ -33,10 +33,8 @@
 		<label for="c_password">Confirm Password:</label>
 		<input type="password" id="c_password" name="c_password" required>
 
-		<!-- 
 		<p>Remember your login info? <a href="login.php">Login here</a>.</p>
-		-->
-		
+
 		<label for="user_type">User Type:</label>
 		<select id="user_type" name="user_type" required onchange="displayOptions()">
 			<option value="">Select user type</option>
@@ -63,14 +61,14 @@
 
         // Generate "Major" select element options
         while ($row = mysqli_fetch_assoc($result)) {
-            echo '<option value="'.$row['departmentAbbrv'].'">'.$row['departmentAbbrv'].'</option>';
+            echo '<option value="' . $row['departmentAbbrv'] . '">' . $row['departmentAbbrv'] . '</option>';
         }
         ?>
     </select>
 
 	
 		</div>
-		
+
 		<div id="faculty_options" style="display: none;">
 			<label for="role">Role:</label>
 			<select id="role" name="role">
@@ -86,13 +84,11 @@
 				<?php
 
         // Retrieve data from "location" table
-		$result = mysqli_query($conn, "SELECT buildAbbrv, roomNum
-		FROM location JOIN building ON location.buildID = building.buildID
-		JOIN rooms ON location.roomID = rooms.roomID where RIGHT(roomNUM, 1) in ('A', 'B', 'C', 'D')");
+        $result = mysqli_query($conn, "SELECT locationID FROM location");
 
         // Generate "Office Number" select element options
         while ($row = mysqli_fetch_assoc($result)) {
-            echo '<option value="'.$row['buildAbbrv'].$row['roomNum'].'">'.$row['buildAbbrv'].$row['roomNum'].'</option>';
+            echo '<option value="' . $row['locationID'] . '">' . $row['locationID'] . '</option>';
         }
         ?>
 			</select>
@@ -102,6 +98,7 @@
         <?php
 
             if(isset($_POST['submit'])){
+
                 $fname = $_POST['fname'];
                 $lname = $_POST['lname'];
                 $email = $_POST['email'];
@@ -122,16 +119,12 @@
                 } else if ($user_type == "faculty") {
                     $role = $_POST['role'];
                     $office = $_POST['office'];
-                    $sql = "INSERT INTO faculty (fname, email, lname, role, office, phone) 
-								VALUES ('$fname', '$email', '$lname',
-									(SELECT frid FROM faculty_roles WHERE faculty_roles.roles = '$role'),
-									(SELECT locationID FROM (SELECT locationID, buildAbbrv, roomNum
-															FROM location JOIN building ON location.buildID = building.buildID
-																JOIN rooms ON location.roomID = rooms.roomID) AS temp 
-																WHERE CONCAT(temp.buildAbbrv, temp.roomNUM) = '$office'), '$phone')";
+
+                    $sql = "INSERT INTO faculty (fname, email, lname,role, office, phone) 
+								VALUES ('$fname', '$email', '$lname',(SELECT frid from faculty_roles WHERE faculty_roles.roles = '$role'), $office, '$phone')";
                     // Insert password into "faculty_passwords" table
                     $sql_password = "INSERT INTO faculty_passwords (password, facultyID)
-                                        VALUES('$password', (SELECT fid FROM faculty WHERE faculty.email = '$email'))";
+                                        VALUES('$password', (SELECT fid from faculty WHERE faculty.email = '$email'))";
                 }
 
                 // Execute SQL query
@@ -172,4 +165,5 @@
 		}
 	</script>
 </body>
+
 </html>
