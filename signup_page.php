@@ -1,7 +1,5 @@
 <?php // start of PHP
     require_once 'creds.php'; // get credentials from creds.php
-<?php // start of PHP
-    require_once 'creds.php'; // get credentials from creds.php
 
     $conn = new mysqli($host, $user, $pass, $dbname, $port); // create a new connection between MySQL and PHP with those credentials  
     
@@ -63,16 +61,8 @@
         <?php //  start of PHP
 
         // Query to retrieve departmentAbbrv from the department table
-
-        <?php //  start of PHP
-
-        // Query to retrieve departmentAbbrv from the department table
         $result = mysqli_query($conn, "SELECT departmentAbbrv FROM department");
 
-        // Generate "Major" options from the query. 
-        while ($row = mysqli_fetch_assoc($result)) { // while there is a connection.
-			//select the Major from the drop down menu 
-            echo '<option value="' . $row['departmentAbbrv'] . '">' . $row['departmentAbbrv'] . '</option>';
         // Generate "Major" options from the query. 
         while ($row = mysqli_fetch_assoc($result)) { // while there is a connection.
 			//select the Major from the drop down menu 
@@ -97,17 +87,10 @@
 			<select id="office" name="office">
 				<option value="">Select office number</option>
 				<?php // PHP
-				<?php // Start of PHP
 
         // Query to retrieve locationID from the location table
         $result = mysqli_query($conn, "SELECT locationID FROM location");
-        // Query to retrieve locationID from the location table
-        $result = mysqli_query($conn, "SELECT locationID FROM location");
 
-        // Generate "Office Number" options from the query
-        while ($row = mysqli_fetch_assoc($result)) { // while there is a connection
-			// select the Office Number from the drop down menu
-            echo '<option value="' . $row['locationID'] . '">' . $row['locationID'] . '</option>';
         // Generate "Office Number" options from the query
         while ($row = mysqli_fetch_assoc($result)) { // while there is a connection
 			// select the Office Number from the drop down menu
