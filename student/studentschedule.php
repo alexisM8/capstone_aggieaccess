@@ -1,3 +1,5 @@
+<script type="text/javascript" src="remove_button.js"></script>
+
 <?php
     require_once 'creds.php';
 
@@ -45,7 +47,7 @@
         <tr>
             <th>Action</th>
             <th>Course Title</th>
-            <th>Instrcutor</th> 
+            <th>Instructor</th> 
             <th>Meeting Time</th>
             <th>Meeting Days</th>
             <th>Start Date</th>
