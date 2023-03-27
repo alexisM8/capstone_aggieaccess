@@ -161,7 +161,7 @@
 				echo 'active'; ?>">Home Page</a></li>
 			<li><a href="?page=studentadviser" class="<?php if (isset($_GET['page']) && $_GET['page'] === 'studentadviser')
 				echo 'active'; ?>">Contact
-					Adviser</a></li>
+					Advisor</a></li>
 			<li><a href="?page=studentschedule" class="<?php if (isset($_GET['page']) && $_GET['page'] === 'studentschedule')
 				echo 'active'; ?>">View
 					Schedule</a></li>

@@ -32,7 +32,35 @@
         INNER JOIN location AS l ON cl.locationID = l.locationID 
         INNER JOIN rooms AS r ON l.roomID = r.roomID
         WHERE s.sid = '$student_id'";
-        
+     
+    $sql = "SELECT s.email ,s.fname,s.lname,s.classification,s.major,s.phone
+            FROM student AS s
+            WHERE s.sid = '$student_id'";
+
+    $result = mysqli_query($conn, $sql);   
+    
+    if (!$result) {
+        die("Query failed: " . mysqli_error($connection));
+    }
+
+    if (mysqli_num_rows($result) > 0) {
+        // Output data of each row
+        $row = mysqli_fetch_assoc($result);
+        echo "<h1>Schedule</h1>";
+        echo "<table>";
+        echo "<tr><th>First Name</th><th>Last Name</th><th>Student Name</th></tr>";
+        echo "<tr><td>" . $row["fname"] . "</td><td>" . $row["lname"] . "</td><td>" . $row["email"] . "</td></tr>";
+        echo "</table>";
+        echo "<table>";
+        echo "<tr><th>Major</th><th>Classification</th><th>Phone Number</th></tr>";
+        echo "<tr><td>" . $row["major"] . "</td><td>" . $row["classification"] . "</td><td>" . $row["phone"] . "</td></tr>";
+        echo "</table>";  
+    } else {
+        echo "<table>";
+        echo "<tr><th>No results found</th></tr>";
+        echo "</table>";
+      }
+
     $result = $conn->query($query);
     if(!$result){
         die("Fatal Error at query");
@@ -65,7 +93,7 @@
                 <td>'.$row['End_Date'].'</td> 
                 <td>'.$row['Room'].'</td> 
             </tr>';
-        echo '<br>';
+        echo '</br>';
     }
     echo'</table>';
     echo'<button class="print_btn" onclick="window.print()">Print Schedule</button>';
