@@ -11,12 +11,12 @@ if ($conn->connect_error) {
 <html>
 <head>
     <title>View Users</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="admin.css">
 </head>
 <body>
     <h1>All Users</h1>
 
-    <h2 id="ahead">&nbsp &nbsp &nbsp &nbsp Students</h2>
+    <h2 id="ahead">Students</h2>
     <table>
         <thead>
             <tr>

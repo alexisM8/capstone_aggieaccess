@@ -196,8 +196,8 @@
 
 		h2 {
 
-			margin-left: 400px;
-
+			
+			text-align: center;
 
 
 		}
