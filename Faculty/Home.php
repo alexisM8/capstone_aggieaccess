@@ -33,13 +33,8 @@ if (mysqli_num_rows($result) > 0) {
     // Output data of each row
     $row = mysqli_fetch_assoc($result);
     echo "<tr><td>" . $row["fname"] . "</td><td>" . $row["lname"] . "</td></tr>";
-    echo '</br>';
-    echo '</br>';
-    echo '</br>';
-    echo '</br>';
-    echo '</br>';
-    echo '</br>';
     echo "</table>";
+    
     echo "<table>";
     echo "<tr><th>Faculty Email</th><th>Phone Number</th></tr>";
     echo "<tr><td>" . $row["email"] . "</td><td>" . $row["phone"] . "</td></tr>";
