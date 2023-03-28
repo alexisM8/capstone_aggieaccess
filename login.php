@@ -63,7 +63,7 @@
     }
 
     form input[type="submit"]:hover {
-        background-color: #008e80;
+        background-color: #009688;
     }
 
     /* Style for form message */

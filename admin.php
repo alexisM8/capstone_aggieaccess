@@ -196,8 +196,8 @@
 
 		h2 {
 
-			margin-left: 400px;
-
+			
+			text-align: center;
 
 
 		}
@@ -282,7 +282,7 @@
 
 		input[type="submit"]:hover {
 
-			background-color: #fff;
+			background-color: #009688;
 
 			color: #009688;
 
@@ -306,6 +306,12 @@
 
 			</li>
 
+			<li><a href="?page=AdminView"
+
+					class="<?php if (isset($_GET['page']) && $_GET['page'] === 'AdminView')
+
+						echo 'active'; ?>">View Users</a></li>
+
 			<li><a href="?page=AdminInsert"
 
 					class="<?php if (isset($_GET['page']) && $_GET['page'] === 'AdminInsert')
@@ -316,7 +322,7 @@
 
 					class="<?php if (isset($_GET['page']) && $_GET['page'] === 'AdminDelete')
 
-						echo 'active'; ?>">Delete Insert</a></li>
+						echo 'active'; ?>">Delete User</a></li>
 
 			<li><a href="?page=logout"
 
@@ -336,7 +342,11 @@
 
 		<?php if (isset($_GET['page'])) {
 
-			if ($_GET['page'] === 'AdminInsert')
+			if ($_GET['page'] === 'AdminView')
+
+				include('Admin/view.php');
+
+			elseif ($_GET['page'] === 'AdminInsert')
 
 				include('Admin/insert.php');
 
