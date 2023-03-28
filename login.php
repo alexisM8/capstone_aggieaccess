@@ -116,7 +116,7 @@ if ($conn->connect_error) {
 session_start();
 session_destroy();
 setcookie('pin', "", time() - 3600,"/");
-if (isset($_POST['submit']) && $_POST['email'] == 'Admin@gmail.com' && $_POST['password'] == 'Admin12345') {
+if (isset($_POST['submit']) && $_POST['email'] == 'admin@gmail.com' && $_POST['password'] == '1234') {
     session_start();
     $_SESSION['email'] = $_POST['email'];
     $redirect = "Admin.php";
