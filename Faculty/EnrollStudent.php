@@ -6,6 +6,12 @@
     if($conn->connect_error){
         die("Fatal Error");
     }?>
+    <!--Style tag-->
+    <style> 
+
+    </style>
+    <!--End of Style tag-->
+
 <!DOCTYPE html>
 <html>
 
@@ -20,6 +26,10 @@
             echo "<option value='" . $row["email"] . "'>" . $row["email"] . "</option>";
         }
         echo "</select>";
+    }
+
+    if(isset($_POST['submit'])){
+
     }
     ?>
 
@@ -40,4 +50,30 @@
 
     <input type="submit" value="Submit">
 </form>
+
+<br>
+<?php echo " <strong>Information For Chosen Classes: </strong>" ?>
+<table>
+    <br>
+    <tr>
+    <th>Action</th>
+            <th>Course Title</th>
+            <th>Instructor</th> 
+            <th>Meeting Time</th>
+            <th>Meeting Days</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Room Number</th>
+            <!--submit button must have a value of the queries to show the value of those queries  
+            to display in the table -->
+            <!--fetch associated rows of the queries and display the info of the queries -->
+    </tr>
+
+</table>
 </html>
+
+
+    <input type="submit" value="Submit">
+</form>
+</html>
+
