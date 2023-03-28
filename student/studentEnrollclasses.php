@@ -64,12 +64,12 @@ else
         <?php
 echo '<form method="POST" action="EnrollStudent.php">';
 echo '<label>Choose Class</label>';
-$sql = "SELECT * FROM class";
+$sql = "SELECT class.classID, course.courseTitle FROM class JOIN course ON class.courseID = course.courseID";
 $result = $conn->query($sql);
 if ($result->num_rows > 0) {
     echo "<select name='your_select_name'>";
     while($row = $result->fetch_assoc()) {
-        echo "<option value='" . $row["classID"] . "'>" ."Class ". $row["classID"] . "</option>";
+        echo "<option value='" . $row["classID"] . "'>" . $row["courseTitle"] . "</option>";
     }
     echo "</select>";
 } else {
