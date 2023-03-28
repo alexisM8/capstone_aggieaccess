@@ -1,124 +1,186 @@
-<?php //Start of PHP 
-    require_once 'creds.php'; // require the file that contains the database credentials
 
-//Establish a connection to the mySQL database
-    $conn = new mysqli($host, $user, $pass, $dbname, $port);
-
-// Check to see if there is a connection
-    if($conn->connect_error){ 
-        die("Fatal Error"); // kill the connection if there was an error
-    }
-
-//Retrieve the CS student's and instructor columns from the database
-    $query = "SELECT s.fname AS first_name, s.lname AS last_name, f.lname AS advisor
-    FROM student s JOIN faculty f ON s.advisorID = f.fid";
-
-//execute the SQL query
-    $result = mysqli_query($conn, $query);
-
-    if(!$result){ // If the query fails to execute
-        die("Fatal Error at query"); // Error at the query 
-    }   
-
-//TODO Create a Contact Form for communication 
-/* either do it with html or php for the contact form */
-
-//END of PHP
-?>
-
-<!--Start of HTML -->
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Secretary Page</title>
+	<title>Student Enrollment</title>
+	<style>
+		body {
+			margin: 20;
+			padding: 0;
+			font-family: Arial, sans-serif;
+		}
+
+		nav {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 200px;
+			height: 100%;
+			background-color: #f1f1f1;
+			padding: 20px;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+			background-color: #009688;
+		}
+
+		nav ul {
+			list-style: none;
+			padding: 0;
+			margin: 0;
+		}
+
+		nav li {
+			margin-bottom: 10px;
+
+		}
+
+		nav h1 {
+
+			padding: 10px;
+		}
+
+		nav a {
+			display: block;
+			padding: 10px;
+			color: #333;
+			text-decoration: none;
+			transition: background-color 0.3s ease;
+			border-radius: 20px;
+		}
+
+		nav a:hover {
+			background-color: #ccc;
+		}
+
+		nav a.active {
+			background-color: #ddd;
+		}
+
+		/* Main content styles */
+		main {
+			margin-left: 220px;
+			padding: 20px;
+		}
+
+		/* Page title styles */
+		h1 {
+			margin-top: 0;
+			font-size: 36px;
+			text-align: center;
+		}
+
+		/* Table styles */
+		table {
+			width: 100%;
+			border-collapse: collapse;
+			margin-bottom: 20px;
+		}
+
+		th,
+		td {
+			padding: 10px;
+			text-align: left;
+			border: 1px solid #ccc;
+		}
+
+		th {
+			background-color: #009688;
+			color: #fff;
+		}
+
+		/* Form styles */
+		form {
+			width: 80%;
+			margin: 0 auto;
+			border: 1px solid #ccc;
+			padding: 20px;
+			border-radius: 10px;
+		}
+
+		h2 {
+			margin-left: 400px;
+
+		}
+
+		label {
+			display: block;
+			margin-bottom: 10px;
+		}
+
+		input[type="text"],
+		input[type="email"],
+		input[type="password"],
+		select,
+		textarea {
+			width: 100%;
+			padding: 10px;
+			margin-bottom: 20px;
+			border: 1px solid #ccc;
+			border-radius: 5px;
+		}
+
+		input[type="submit"] {
+			background-color: #009688;
+			color: #fff;
+			border: none;
+			padding: 10px 20px;
+			border-radius: 5px;
+			cursor: pointer;
+			transition: all 0.3s ease;
+		}
+
+		button {
+			background-color: #009688;
+			color: #fff;
+			border: none;
+			padding: 10px 20px;
+			border-radius: 5px;
+			cursor: pointer;
+			transition: all 0.3s ease;
+			margin-left: 450px;
+		}
+
+		input[type="submit"]:hover {
+			background-color: #fff;
+			color: #009688;
+		}
+	</style>
 </head>
-<!--Start of Style tag-->
-<style>
-/*Style for the table */
-table{
-        border-collapse: collapse; /*takes the double borders away*/
-        border: 1px solid black; /*border is a thin solid black */
-        width: 75%;
-        
-    }
-
-/*Style for the table header */
-    th{
-        border:2px solid;
-        width: 5px 20px;
-        text-align: center;
-    } 
-
-    td{
-        text-align: left;
-        border:2px solid;
-        width: 5px 20px;
-    }
-    ul{
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-        overflow: hidden;
-        background-color: #333;
-    }
-
-    li{
-        float: left;
-    }
-    .navbar{
-        display:block;
-        color: white;
-        text-align: center;
-        padding: 14px 16px;
-        text-decoration: none;
-    }
-
-    .navbar:hover{
-        background-color: #111;
-        color: white;
-    }
-    /*styling for the sign */
-/* .sign{
-        text-align: right;
-        color: white;
-    } */
-
-</style>
-<!--End of Style tag-->
-
-<!--Body of the Secretary Page -->
 <body>
-    <h1>Secretary Page</h1>
+	<nav>
         <ul>
-            <div>
-            <li class = "navbar"> Home </li> 
-            <li class = "navbar student">Student Contact</li> 
-            <li class = "navbar advisor">Advisor Contact</li> 
-            <li class= "navbar sign" style=" float:right"> Sign Out</li> 
-            </div>
+		  <li><h1>Secretary</h1></li>
+		  <li><a href="?page=Home" class="<?php if (isset($_GET['page']) && $_GET['page'] === 'Home')
+						echo 'active'; ?>">Home Page</a></li>
+          <li><a href="?page=ListCsStudent" class="<?php if(isset($_GET['page']) && $_GET['page'] === 'ListcsStudent') echo 'active'; ?>">Computer Science Student List</a></li>
+          <li><a href="?page=ListItStudent" class="<?php if(isset($_GET['page']) && $_GET['page'] === 'ListitStudent') echo 'active'; ?>">IT Student List</a></li>
+          <li><a href="?page=LisrAdvisor" class="<?php if(isset($_GET['page']) && $_GET['page'] === 'ListAdvisor') echo 'active'; ?>">Advisor List</a></li>
+          <li><a href="?page=ContactStudent" class="<?php if(isset($_GET['page']) && $_GET['page'] === 'ContactStudent') echo 'active'; ?>">Contact Student</a></li>
+          <li><a href="?page=ContactTeacher" class="<?php if(isset($_GET['page']) && $_GET['page'] === 'ContactTeacher') echo 'active'; ?>">Contact Teacher</a></li>
+          <li><a href="?page=logout" class="<?php if(isset($_GET['page']) && $_GET['page'] === 'logout') echo 'active'; ?>">Logout</a></li>
         </ul>
+      </nav>
+	  <main>
+		<?php if (isset($_GET['page'])) {
+			if ($_GET['page'] === 'Home')
+			include('Secretary/Home.php');
+			elseif ($_GET['page'] === 'ListCsStudent')
+				include('Secretary/ListCsStudent.php');
+			elseif ($_GET['page'] === 'ListItStudent')
+				include('Secretary/ListItStudent.php');
+			elseif ($_GET['page'] === 'LisrAdvisor')
+				include('Secretary/LisrAdvisor.php');
+			elseif ($_GET['page'] === 'ContactStudent')
+				include('Secretary/ContactStudent.php');
+			elseif ($_GET['page'] === 'ContactTeacher')
+				include('Secretary/ContactTeacher.php');
+			elseif ($_GET['page'] === 'logout')
+				include('Secretary/logout.php');
+		} ?>
+	</main>
 
-    <h2>Information</h2>
-    <table>
-        <tr>
-            <th>Students</th>
-            <th>Advisors</th>
-        </tr>
-        <!--display the queries in tables-->
-        <?php while($row = mysqli_fetch_assoc($result)){ ?>
-        <tr> 
-            <td><?php echo $row['first_name']; ?></td>
-            <td><?php echo $row['advisor'];?> </td>
-        </tr>
-      
-        <?php }?>
-    </table>
+
+
+
+
 </body>
 </html>
-<!--End of HTML -->
-
-
-
