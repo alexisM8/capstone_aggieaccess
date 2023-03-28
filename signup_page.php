@@ -1,11 +1,13 @@
-<?php
-    require_once 'creds.php';
+<?php // start of PHP
+    require_once 'creds.php'; // get credentials from creds.php
 
-    $conn = new mysqli($host, $user, $pass, $dbname, $port);
+    $conn = new mysqli($host, $user, $pass, $dbname, $port); // create a new connection between MySQL and PHP with those credentials  
     
-    if($conn->connect_error){
-        die("Fatal Error");
-    }?>
+    if($conn->connect_error){ // if there is a connection error
+        die("Fatal Error"); // kill the connection, and display error
+	}
+	// end of PHP
+	?> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -55,12 +57,15 @@
 			<label for="major">Major:</label>
 			<select id="major" name="major">
         <option value="">Select major</option>
-        <?php
-        // Retrieve data from "department" table
+
+        <?php //  start of PHP
+
+        // Query to retrieve departmentAbbrv from the department table
         $result = mysqli_query($conn, "SELECT departmentAbbrv FROM department");
 
-        // Generate "Major" select element options
-        while ($row = mysqli_fetch_assoc($result)) {
+        // Generate "Major" options from the query. 
+        while ($row = mysqli_fetch_assoc($result)) { // while there is a connection.
+			//select the Major from the drop down menu 
             echo '<option value="' . $row['departmentAbbrv'] . '">' . $row['departmentAbbrv'] . '</option>';
         }
         ?>
@@ -81,20 +86,21 @@
 			<label for="office">Office Number:</label>
 			<select id="office" name="office">
 				<option value="">Select office number</option>
-				<?php
+				<?php // PHP
 
-        // Retrieve data from "location" table
+        // Query to retrieve locationID from the location table
         $result = mysqli_query($conn, "SELECT locationID FROM location");
 
-        // Generate "Office Number" select element options
-        while ($row = mysqli_fetch_assoc($result)) {
+        // Generate "Office Number" options from the query
+        while ($row = mysqli_fetch_assoc($result)) { // while there is a connection
+			// select the Office Number from the drop down menu
             echo '<option value="' . $row['locationID'] . '">' . $row['locationID'] . '</option>';
         }
         ?>
 			</select>
 		</div>
 
-		
+
         <?php
 
             if(isset($_POST['submit'])){
