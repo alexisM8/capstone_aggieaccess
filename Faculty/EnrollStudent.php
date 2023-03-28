@@ -11,6 +11,7 @@
 
     </style>
     <!--End of Style tag-->
+
 <!DOCTYPE html>
 <html>
 
@@ -26,6 +27,7 @@
         }
         echo "</select>";
     }
+
     if(isset($_POST['submit'])){
 
     }
@@ -69,3 +71,9 @@
 
 </table>
 </html>
+
+
+    <input type="submit" value="Submit">
+</form>
+</html>
+

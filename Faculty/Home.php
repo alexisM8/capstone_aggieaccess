@@ -33,16 +33,10 @@ if (mysqli_num_rows($result) > 0) {
     $row = mysqli_fetch_assoc($result);
     echo "<h1>Welcome Professor " . $row["fname"] . "!</h1>";
     echo "<tr><td>" . $row["fname"] . "</td><td>" . $row["lname"] . "</td></tr>";
-    echo "Your information:";
-    echo '</br>';
-    echo '</br>';
-    // echo '</br>';
-    // echo '</br>';
-    // echo '</br>';
-    // echo '</br>';
     echo "</table>";
+    
     echo "<table>";
-    echo "<tr><th>faculty Email</th><th>Phone Number</th></tr>";
+    echo "<tr><th>Faculty Email</th><th>Phone Number</th></tr>";
     echo "<tr><td>" . $row["email"] . "</td><td>" . $row["phone"] . "</td></tr>";
     echo "</table>";
 
