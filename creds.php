@@ -2,6 +2,6 @@
     $host = 'localhost';
     $dbname = 'team1';
     $user = 'root';
-    $pass = '';
+    $pass = 'root';
     $port = '3306';
 ?>
