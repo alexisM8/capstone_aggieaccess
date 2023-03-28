@@ -1,7 +1,7 @@
 
 <?php
     require_once 'creds.php';
-    
+ 
     $conn = new mysqli($host, $user, $pass, $dbname, $port);
     
     if($conn->connect_error){
@@ -24,21 +24,18 @@ if (!$result) {
   die("Query failed: " . mysqli_error($connection));
 }
 
+
+
 // Process the result
 if (mysqli_num_rows($result) > 0) {
-    
-    echo "<table>";
-    echo "<tr><th>First Name</th><th>Last Name</th><th>Student Name</th></tr>";
-    
     // Output data of each row
     $row = mysqli_fetch_assoc($result);
+    echo "<h1>Welcome " . $row["fname"] . "!</h1>";
+    echo "</br>";
+    echo "Your student information: ";
+    echo "<table>";
+    echo "<tr><th>First Name</th><th>Last Name</th><th>Student Name</th></tr>";
     echo "<tr><td>" . $row["fname"] . "</td><td>" . $row["lname"] . "</td><td>" . $row["email"] . "</td></tr>";
-    echo '</br>';
-    echo '</br>';
-    echo '</br>';
-    echo '</br>';
-    echo '</br>';
-    echo '</br>';
     echo "</table>";
     echo "<table>";
     echo "<tr><th>Major</th><th>Classification</th><th>Phone Number</th></tr>";
