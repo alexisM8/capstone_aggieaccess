@@ -24,13 +24,19 @@
           $selected_value = $_POST['your_select_name'];
           $selected_value1 = $_POST['your_select_name1'];
           $selected_value2 = $_SESSION['id'];
-          $sql_select = "INSERT INTO enrollment(studentID, facultyID, classID)
-          VALUES ('$selected_value2','$selected_value1', '$selected_value')";
+
+          //This code is broken good luck - Rachel + Alexis
+          $query4 = "SELECT classID from class JOIN course on course.courseID = class.courseID WHERE course.courseTitle = '$selected_value'";
+          $getClassID = $conn->query($query4);
+          $row = $getClassID->fetch_assoc();
+          $myClass = $row["classID"];
+          $sql_select = "INSERT INTO enrollment(studentID, facultyID, classID) VALUES ('$selected_value2','$selected_value1',$myClass)";
+          
           $result3 = $conn->query($sql_select);
           if (!$result3) {
               echo "Error: " . $sql_select . "<br>" . $conn->error;
           } else {
-            $error_msg="Student Enroll";
+              $error_msg = "Student Enrolled";
           }
       }
         
@@ -67,7 +73,7 @@ $result = $conn->query($sql);
 if ($result->num_rows > 0) {
     echo "<select name='your_select_name'>";
     while($row = $result->fetch_assoc()) {
-        echo "<option value='" . $row["classID"] . "'>" ."Class ". $row["courseTitle"] . "</option>";
+        echo "<option value='" . $row["classID"] . "'>" . $row["courseTitle"] . "</option>";
     }
     echo "</select>";
 } else {
