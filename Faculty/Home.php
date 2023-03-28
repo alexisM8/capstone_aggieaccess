@@ -41,7 +41,7 @@ if (mysqli_num_rows($result) > 0) {
     echo '</br>';
     echo "</table>";
     echo "<table>";
-    echo "<tr><th>faculty Email</th><th>Phone Number</th></tr>";
+    echo "<tr><th>Faculty Email</th><th>Phone Number</th></tr>";
     echo "<tr><td>" . $row["email"] . "</td><td>" . $row["phone"] . "</td></tr>";
     echo "</table>";
 

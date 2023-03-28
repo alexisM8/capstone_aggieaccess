@@ -8,8 +8,31 @@ if ($conn->connect_error) {
     die("Fatal Error");
 }
 session_start();
-    if((isset($_SESSION['loggedin']) || $_SESSION['loggedin'] === true) &&($_SESSION['user_type']==='faculty'))
-  {
+$f_id=$_SESSION['id'];
+$student_id = $_SESSION['id'];
+$student_user = $_SESSION['user_type'];
+$login_check=$_SESSION['loggedin'];
+
+$sql = "SELECT f.email ,f.fname,f.lname,f.phone
+        FROM  faculty AS f
+        WHERE f.fid = '$student_id'";
+
+$result = mysqli_query($conn, $sql);
+
+echo "Your Information:";
+echo "<table>";
+echo "<tr><th>First Name</th><th>Last Name</th></tr>";
+
+$row = mysqli_fetch_assoc($result);
+echo "<tr><td>" . $row["fname"] . "</td><td>" . $row["lname"] . "</td></tr>";
+echo "</table>";
+
+echo "<table>";
+echo "<tr><th>Faculty Email</th><th>Phone Number</th></tr>";
+echo "<tr><td>" . $row["email"] . "</td><td>" . $row["phone"] . "</td></tr>";
+echo "</table>";
+
+    if((isset($_SESSION['loggedin']) || $_SESSION['loggedin'] === true) &&($_SESSION['user_type']==='faculty')){
     echo '
     <form action="?page=ListTeachingSchedule" method="POST">
     <label for="username">Enter Teacher Last name:</label>
@@ -41,8 +64,8 @@ $result = $conn->query($sql_select);
 // Check for errors in the SELECT query
 if (!$result) {
     echo "Error selecting record: " . $conn->error;
-} if (mysqli_num_rows($result) >0) {
-    
+} 
+if (mysqli_num_rows($result) > 0) {    
     echo "<table>";
     echo "<tr><th>Faculty Name</th><th>Course Tilte</th><th>Time</th><th>Start Date</th><th>end Date</th><th>room Num</th></tr>";
     while($row = $result->fetch_assoc()) {

@@ -80,7 +80,8 @@
             <th>Meeting Days</th>
             <th>Start Date</th>
             <th>End Date</th>
-            <th>Room Number</th>';
+            <th>Room Number</th>
+        </tr>';
     
     foreach($rows as $row){
         echo'<tr>
