@@ -11,7 +11,7 @@
     if((isset($_SESSION['loggedin']) || $_SESSION['loggedin'] === true) &&($_SESSION['user_type']==='faculty'))
   {
     // Define the SQL query
-     $sql = "SELECT f.email ,f.fname,f.lname
+     $sql = "SELECT DISTINCT f.email ,f.fname,f.lname
         FROM student AS s
         JOIN faculty AS f ON s.advisorID = f.fid";
     $result = mysqli_query($conn, $sql);

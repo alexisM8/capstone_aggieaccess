@@ -51,7 +51,7 @@
     '<table>
         <tr>
             <th>Course Title</th>
-            <th>Instrcutor</th> 
+            <th>Instructor</th> 
             <th>Meeting Time</th>
             <th>Meeting Days</th>
             <th>Start Date</th>
