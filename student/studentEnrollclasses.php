@@ -9,95 +9,122 @@
     session_start();
     $student_user = $_SESSION['user_type'];
     $login_check=$_SESSION['loggedin'];
-    if(($_SESSION['user_type']==='student'))
-  {
-    if(isset($_POST['submit'])){
-    if (isset($_COOKIE['pin'])) {
-        $username = $_COOKIE['pin'];
-        $pin = $_POST['pin'];
-        if($username==$pin)
-        {
-        
-        
-        if(isset($_POST['submit'])) {
-          setcookie('pin', $username, time() - 3600,"/");
-          $selected_value = $_POST['your_select_name'];
-          $selected_value1 = $_POST['your_select_name1'];
-          $selected_value2 = $_SESSION['id'];
-
-          //This code is broken good luck - Rachel + Alexis
-          $query4 = "SELECT classID from class JOIN course on course.courseID = class.courseID WHERE course.courseTitle = '$selected_value'";
-          $getClassID = $conn->query($query4);
-          $row = $getClassID->fetch_assoc();
-          $myClass = $row["classID"];
-          $sql_select = "INSERT INTO enrollment(studentID, facultyID, classID) VALUES ('$selected_value2','$selected_value1',$myClass)";
-          
-          $result3 = $conn->query($sql_select);
-          if (!$result3) {
-              echo "Error: " . $sql_select . "<br>" . $conn->error;
-          } else {
-              $error_msg = "Student Enrolled";
-          }
-      }
-        
-        }
-        else
-        {
-          $error_msg="Wrong pin";
-        }
-      } else {
-        $error_msg="Please request for a pin";
-      }
+    if(($_SESSION['user_type']==='student')){
+        //removed
+    } else {
+        header("Location: login.php");
     }
-}
-else
-{
-  header("Location: login.php");
-}
 ?>
 <!DOCTYPE html>
 <html>
+<script> 
+function enroll(studentID, facultyID, classID) {
+    
+}
+</script>
 <head>
     <title>Enroll Classes</title>
 </head>
 <body>
     <h1>Enroll Classes</h1>
-    <form action="?page=studentEnrollclasses" method="POST">
-        <label for="pin">Enroll Pin:</label>
-        <input type="type" id="pin" name="pin" required>
+    <form action ="" method="POST">
+    <label>Filter by Department</label>
         <?php
-echo '<form method="POST" action="EnrollStudent.php">';
-echo '<label>Choose Class</label>';
-$sql = "SELECT course.courseTitle FROM course JOIN class ON course.courseID = class.courseID";
-$result = $conn->query($sql);
-if ($result->num_rows > 0) {
-    echo "<select name='your_select_name'>";
-    while($row = $result->fetch_assoc()) {
-        echo "<option value='" . $row["classID"] . "'>" . $row["courseTitle"] . "</option>";
-    }
-    echo "</select>";
-} else {
-    echo "No results found.";
-}
-echo '<br><br>';
-echo '<label>Choose Teacher Email</label>';
-$sql1 = "SELECT * FROM faculty";
-$result1 = $conn->query($sql1);
-if ($result1->num_rows > 0) {
-    echo "<select name='your_select_name1'>";
-    while($row = $result1->fetch_assoc()) {
-        echo "<option value='" . $row["fid"] . "'>" . $row["email"] . "</option>";
-    }
-    echo "</select>";
-} else {
-    echo "No results found.";
-}
-echo '<br><br>';
-?>
-<?php if(isset($error_msg)){ ?>
-            <p class="error"><?php echo $error_msg; ?></p>
-        <?php } ?>
-        <input type="submit" name="submit" value="Enroll Class">
+        $sql = "SELECT departmentAbbrv FROM department";
+        $result = $conn->query($sql);
+        if ($result->num_rows > 0) {
+            echo "<select name='department_abbriviation'>";
+            while($row = $result->fetch_assoc()) {
+                echo "<option value='" . $row["departmentAbbrv"] . "'>" . $row["departmentAbbrv"] . "</option>";
+            }
+            echo "</select>";
+        } else {
+            echo "No results found.";
+        }
+        ?>
+        <input type="submit" name="submit_classes" vlaue="findClasses">
     </form>
+    <?php
+    if(isset($_POST['submit_classes'])){
+        $departmentAbbrv = $_POST['department_abbriviation'];
+        $sql = "SELECT DISTINCT cl.classID AS CLID, f.fid AS FID, c.courseTitle AS Course_Title,
+                f.lname AS Instructor,        
+                t.timerange AS Time,        
+                d.days AS Meeting_Days,        
+                dt.startDate AS Start_Date,        
+                dt.endDate AS End_Date,        
+                r.roomNum AS Room 
+            FROM course AS c INNER JOIN class AS cl ON c.courseID = cl.courseID 
+            INNER JOIN enrollment AS e ON cl.classID = e.classID 
+            INNER JOIN student AS s ON e.studentID = s.sid
+            INNER JOIN enrollment AS z ON cl.classID = z.classID AND z.studentID = s.sid
+            INNER JOIN faculty AS f ON z.facultyID = f.fid 
+            INNER JOIN time AS t ON cl.timeID = t.timeID 
+            INNER JOIN day AS d ON cl.dayID = d.daysID 
+            INNER JOIN date AS dt ON cl.dateID = dt.dateID 
+            INNER JOIN location AS l ON cl.locationID = l.locationID 
+            INNER JOIN rooms AS r ON l.roomID = r.roomID
+            INNER JOIN department on c.departmentID = department.departmentID
+            WHERE department.departmentAbbrv = '$departmentAbbrv'";
+                
+            $result = mysqli_query($conn, $sql);
+
+            // Check if there are any results
+            if ($result) {
+                if (mysqli_num_rows($result) > 0) {
+                    // Create a table to display the results
+                    echo "<table>";
+                    echo "<tr>
+                            <th>Action</th>
+                            <th>Course Name</th>
+                            <th>Course Instructor</th>
+                            <th>Course Time</th>
+                            <th>Meeting Days</th>
+                            <th>Session Start</th>
+                            <th>Session End</th>
+                            <th>Room Number</th>
+                        </tr>";
+                    // Loop through the results and display them in the table
+                    while($row = $result->fetch_assoc()) {
+                        echo "<tr>
+                                <td><button onclick="?>
+                                <?php 
+                                    $studentID = $_SESSION['id'];
+                                    $facultyID = $row['FID'];
+                                    $classID = $row['CLID'];
+                                    $sql_check_enrollment = "SELECT * FROM enrollment WHERE classID = '$classID' AND facultyID = '$facultyID' AND studentID = '$studentID'";
+                                    $result_check_enrollment = mysqli_query($conn, $sql_check_enrollment);
+                                    if(mysqli_num_rows($result_check_enrollment) == 0){
+                                        $sql_enroll = "INSERT INTO enrollment (studentID, facultyID, classID) VALUES ('$studentID', '$facultyID', '$classID')";
+                                        if ($conn->query($sql_enroll) === TRUE) {
+                                            echo 'Enrollment successful!';
+                                        } else {
+                                            echo 'Enrollment failed!';
+                                        }
+                                    }else{
+                                        echo 'Already Enrolled in: '.$row['Course_Title'];
+                                    }
+                        
+                                echo">Enroll</button></td>
+                                <td>" . $row["Course_Title"] . "</td>
+                                <td>"  . $row["Instructor"] ."</td>
+                                <td>"  . $row["Time"] ."</td>
+                                <td>"  . $row["Meeting_Days"] ."</td>
+                                <td>"  . $row["Start_Date"] ."</td>
+                                <td>"  . $row["Start_Date"] ."</td>
+                                <td>"  . $row["Room"] ."</td>
+                            </tr>";
+                    }
+                    
+                    echo "</table>";
+                } else {
+                    echo "No classes found for specified department";
+                }
+            } else {
+                // display error message if query execution failed
+                echo 'Error executing query: ' . mysqli_error($conn);
+            }
+    }
+    ?>
 </body>
 </html>
