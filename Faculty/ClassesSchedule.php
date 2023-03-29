@@ -9,6 +9,9 @@ if ($conn->connect_error) {
 }
 session_start();
 $f_id=$_SESSION['id'];
+$student_id = $_SESSION['id'];
+$student_user = $_SESSION['user_type'];
+$login_check=$_SESSION['loggedin'];
     if((isset($_SESSION['loggedin']) || $_SESSION['loggedin'] === true) &&($_SESSION['user_type']==='faculty'))
   {
 
@@ -22,15 +25,36 @@ JOIN rooms ON location.roomID = rooms.roomID
 JOIN building ON location.buildID = building.buildID
 JOIN faculty ON class.profID = faculty.fid
 where faculty.fid='$f_id'";
-$result = $conn->query($sql_select);
+
+$sql = "SELECT f.email ,f.fname,f.lname,f.phone
+        FROM  faculty AS f
+        WHERE f.fid = '$student_id'";
+
+$result = mysqli_query($conn, $sql);
 
 // Check for errors in the SELECT query
 if (!$result) {
     echo "Error selecting record: " . $conn->error;
-} if (mysqli_num_rows($result) >0) {
-    
+} 
+
+if (mysqli_num_rows($result) > 0) {
     echo "<table>";
-    echo "<tr><th>Course title</th><th>Course CRN</th><th>Faculty Name</th><th>Time</th><th>Start Date</th><th>end Date</th><th>room Num</th><th>build Abbrv</th></tr>";
+    echo "<tr><th>First Name</th><th>Last Name</th></tr>";
+    
+    // Output data of each row
+    $row = mysqli_fetch_assoc($result);
+    echo "<tr><td>" . $row["fname"] . "</td><td>" . $row["lname"] . "</td></tr>";
+    echo "</table>";
+
+    echo "<table>";
+    echo "<tr><th>Faculty Email</th><th>Phone Number</th></tr>";
+    echo "<tr><td>" . $row["email"] . "</td><td>" . $row["phone"] . "</td></tr>";
+    echo "</table>";
+
+    $result = $conn->query($sql_select);
+
+    echo "<table>";
+    echo "<tr><th>Course Title</th><th>Course CRN</th><th>Faculty Name</th><th>Time</th><th>Start Date</th><th>End Date</th><th>Room</th><th>Building Abbrv.</th></tr>";
     while($row = $result->fetch_assoc()) {
         echo "<tr><td>" . $row["courseTitle"] . "</td><td>" . $row["CRN"] . "</td><td>" .
         $row["fname"] . " " . $row["lname"] . "</td><td>" . $row["timeRange"] . "</td><td>" . 

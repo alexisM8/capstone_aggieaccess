@@ -17,6 +17,8 @@ echo '<html>';
     <input type="text" id="username" name="username">
     <label for="username1">Enter Student Last Name:</label>
     <input type="text" id="username1" name="username1">
+    Message:
+    <textarea name="message"></textarea><br><br>
     <input type="submit" name="submit" value="Contact">
     </form>';
     if(isset($_POST['submit'])){
