@@ -17,11 +17,6 @@
 ?>
 <!DOCTYPE html>
 <html>
-<script> 
-function enroll(studentID, facultyID, classID) {
-    
-}
-</script>
 <head>
     <title>Enroll Classes</title>
 </head>
@@ -86,23 +81,23 @@ function enroll(studentID, facultyID, classID) {
                         </tr>";
                     // Loop through the results and display them in the table
                     while($row = $result->fetch_assoc()) {
+                        $studentID = $_SESSION['id'];
+                        $facultyID = $row['FID'];
+                        $classID = $row['CLID'];
+                        $sql_check_enrollment = "SELECT * FROM enrollment WHERE classID = '$classID' AND facultyID = '$facultyID' AND studentID = '$studentID'";
+                        $result_check_enrollment = mysqli_query($conn, $sql_check_enrollment);
                         echo "<tr>
-                                <td><button onclick="?>
+                                <td><button id='$classID' name='testbtn' onclick="?>
                                 <?php 
-                                    $studentID = $_SESSION['id'];
-                                    $facultyID = $row['FID'];
-                                    $classID = $row['CLID'];
-                                    $sql_check_enrollment = "SELECT * FROM enrollment WHERE classID = '$classID' AND facultyID = '$facultyID' AND studentID = '$studentID'";
-                                    $result_check_enrollment = mysqli_query($conn, $sql_check_enrollment);
                                     if(mysqli_num_rows($result_check_enrollment) == 0){
                                         $sql_enroll = "INSERT INTO enrollment (studentID, facultyID, classID) VALUES ('$studentID', '$facultyID', '$classID')";
                                         if ($conn->query($sql_enroll) === TRUE) {
-                                            echo 'Enrollment successful!';
+                                            echo 'alert("Enrollment successful!")';
                                         } else {
-                                            echo 'Enrollment failed!';
+                                            echo 'alert("Enrollment failed!")';
                                         }
                                     }else{
-                                        echo 'Already Enrolled in: '.$row['Course_Title'];
+                                        echo 'alert("Already Enrolled in: ' . $row['Course_Title'] . '")'; 
                                     }
                         
                                 echo">Enroll</button></td>
