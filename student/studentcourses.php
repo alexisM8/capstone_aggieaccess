@@ -47,7 +47,7 @@ else {
     // display error message if query execution failed
     echo 'Error executing query: ' . mysqli_error($conn);
 }
-
+//This is a test
 // Close the database connection
 $conn->close();
 }
