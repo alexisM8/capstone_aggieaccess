@@ -48,8 +48,6 @@
 
 <!DOCTYPE html>
 <html>
-
-
 <form method="post" action="?page=EnrollStudent">
     <label>Choose Student Email</label>
     <?php
@@ -108,10 +106,9 @@
 
     $result = mysqli_query($conn, $sql);
     
-}
-// Display table of classes in the selected department
-// Check if there are any results
-if ($result) {
+    // Display table of classes in the selected department
+    // Check if there are any results
+    if ($result) {
     if (mysqli_num_rows($result) > 0) {
         // Create a table to display the results
         echo "<table>";
@@ -126,7 +123,7 @@ if ($result) {
                 <th>Room Number</th>
             </tr>";
         // Loop through the results and display them in the table
-        while($row = $result->fetch_assoc()) {
+    while($row = $result->fetch_assoc()) {
             echo "<tr>
                     <td>
                         <form method='POST' class= 'enroll_form'>
@@ -153,6 +150,7 @@ if ($result) {
 } else {
     // display error message if query execution failed
     echo 'Error executing query: ' . mysqli_error($conn);
+}
 }
 
 ?>
