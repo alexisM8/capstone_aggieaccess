@@ -14,14 +14,28 @@
     } else {
         header("Location: login.php");
     }
+
+    if(isset($_POST['enroll']) && isset($_POST['classID']) && isset($_POST['facultyID']) && isset($_POST['className'])){
+        $studentID = $_SESSION['id'];
+        $facultyID = $_POST['facultyID'];
+        $classID = $_POST['classID'];
+        $courseName = $_POST['className'];
+        $sql_check_enrollment = "SELECT * FROM enrollment WHERE classID = '$classID' AND facultyID = '$facultyID' AND studentID = '$studentID'";
+        $result_check_enrollment = mysqli_query($conn, $sql_check_enrollment);
+        if(mysqli_num_rows($result_check_enrollment) == 0){
+            $sql_enroll = "INSERT INTO enrollment (studentID, facultyID, classID) VALUES ('$studentID', '$facultyID', '$classID')";
+            if ($conn->query($sql_enroll) === TRUE) {
+                echo 'Enrollment successful!';
+            } else {
+                echo 'Enrollment failed!';
+            }
+        } else {
+            echo 'Already Enrolled in: ' . $courseName;
+        }
+    }
 ?>
 <!DOCTYPE html>
 <html>
-<script> 
-function enroll(studentID, facultyID, classID) {
-    
-}
-</script>
 <head>
     <title>Enroll Classes</title>
 </head>
@@ -87,25 +101,14 @@ function enroll(studentID, facultyID, classID) {
                     // Loop through the results and display them in the table
                     while($row = $result->fetch_assoc()) {
                         echo "<tr>
-                                <td><button onclick="?>
-                                <?php 
-                                    $studentID = $_SESSION['id'];
-                                    $facultyID = $row['FID'];
-                                    $classID = $row['CLID'];
-                                    $sql_check_enrollment = "SELECT * FROM enrollment WHERE classID = '$classID' AND facultyID = '$facultyID' AND studentID = '$studentID'";
-                                    $result_check_enrollment = mysqli_query($conn, $sql_check_enrollment);
-                                    if(mysqli_num_rows($result_check_enrollment) == 0){
-                                        $sql_enroll = "INSERT INTO enrollment (studentID, facultyID, classID) VALUES ('$studentID', '$facultyID', '$classID')";
-                                        if ($conn->query($sql_enroll) === TRUE) {
-                                            echo 'Enrollment successful!';
-                                        } else {
-                                            echo 'Enrollment failed!';
-                                        }
-                                    }else{
-                                        echo 'Already Enrolled in: '.$row['Course_Title'];
-                                    }
-                        
-                                echo">Enroll</button></td>
+                                <td>
+                                    <form method='POST'>
+                                        <input type='hidden' name='classID' value='" . $row['CLID'] . "'>
+                                        <input type='hidden' name='facultyID' value='". $row['FID'] . "'>
+                                        <input type='hidden' name='className' value='". $row['Course_Title'] . "'>
+                                        <button type='submit' name='enroll' value='enroll'>Enroll</button>
+                                    </form>
+                                </td>
                                 <td>" . $row["Course_Title"] . "</td>
                                 <td>"  . $row["Instructor"] ."</td>
                                 <td>"  . $row["Time"] ."</td>
