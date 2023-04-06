@@ -31,7 +31,9 @@ if ($conn->connect_error) {
         </thead>
         <tbody>
             <?php
-            $result = mysqli_query($conn, "SELECT * FROM student");
+            $result = mysqli_query($conn, "                
+            select s.sid, s.fname, s.lname, s.email, s.phone, s.classification, m.majorAbbrv
+            from student s join major m on s.majorID = m.majorID");
             while ($row = mysqli_fetch_assoc($result)) {
                 echo "<tr>";
                 echo "<td>" . $row['sid'] . "</td>";
@@ -40,7 +42,7 @@ if ($conn->connect_error) {
                 echo "<td>" . $row['email'] . "</td>";
                 echo "<td>" . $row['phone'] . "</td>";
                 echo "<td>" . $row['classification'] . "</td>";
-                echo "<td>" . $row['major'] . "</td>";
+                echo "<td>" . $row['majorAbbrv'] . "</td>";
                 echo "</tr>";
             }
             ?>
