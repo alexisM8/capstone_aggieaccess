@@ -23,7 +23,8 @@
         $sql_check_enrollment = "SELECT * FROM enrollment WHERE classID = '$classID' AND facultyID = '$facultyID' AND studentID = '$studentID'";
         $result_check_enrollment = mysqli_query($conn, $sql_check_enrollment);
         if(mysqli_num_rows($result_check_enrollment) == 0){
-            $sql_enroll = "INSERT INTO enrollment (studentID, facultyID, classID) VALUES ('$studentID', '$facultyID', '$classID')";
+            $sql_enroll = "INSERT INTO enrollment (studentID, facultyID, classID) 
+                            VALUES ('$studentID', '$facultyID', '$classID')";
             if ($conn->query($sql_enroll) === TRUE) {
                 echo 'Enrollment successful!';
             } else {
