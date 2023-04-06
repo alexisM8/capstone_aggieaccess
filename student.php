@@ -137,8 +137,17 @@
 			border-radius: 5px;
 			cursor: pointer;
 			transition: all 0.3s ease;
+		} 
+		.buttonCenter {
+			background-color: #009688;
+			color: #fff;
+			display: block;
+			text-align:center;
+			margin: 0 auto;
+			border-radius: 5px;
+			cursor: pointer;
+			transition: all 0.3s ease;
 		}
-
 		.print_btn{
         margin-top: 10px;
         float: right;
