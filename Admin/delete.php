@@ -19,8 +19,6 @@
 		<label for="email">Email:</label>
 		<input type="email" id="email" name="email" required>
 
-		
-
 		<label for="user_type">User Type:</label>
 		<select id="user_type" name="user_type" required onchange="displayOptions()">
 			<option value="">Select user type</option>
@@ -33,13 +31,10 @@
         <?php
 
             if(isset($_POST['submit'])){
-
                 $user_type = $_POST['user_type'];
                 $email = $_POST['email'];
                 // Insert user data into appropriate table
                 if ($user_type == "student") {
-                    
-
                     $sql_enrollment = "delete from enrollment where studentID in (select sid from student where email = '$email')";
                     // Insert password into "student_passwords" table
                     $sql_password = "delete from student_passwords where studentID in (select sid from student where email = '$email')";
@@ -84,7 +79,7 @@
             }
 
             ?>
-        <input name = "submit" type="submit" value="Add User">
+        <input name = "submit" type="submit" value="Delete User">
 	</form>
 
 	<script>
