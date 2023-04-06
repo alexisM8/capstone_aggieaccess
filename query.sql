@@ -32,9 +32,9 @@ form. we access form values by using post array. ex
 $fname = $_POST['fname']; 
 */
 
-INSERT INTO student (fname, email, lname, major, classification, phone, advisorID, majorID)
+INSERT INTO student (fname, email, lname, classification, phone, advisorID, majorID)
 SELECT 
-    '$fname', '$email', '$lname', '$major', '$classification', '$phone',
+    '$fname', '$email', '$lname', '$classification', '$phone',
      (SELECT majorID FROM major WHERE majorAbbrv = '$majorAbbrv'),
      advisor_counts.advisorID 
 FROM 
