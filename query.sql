@@ -32,9 +32,9 @@ form. we access form values by using post array. ex
 $fname = $_POST['fname']; 
 */
 
-INSERT INTO student (fname, email, lname, major, classification, phone, advisorID, majorID)
+INSERT INTO student (fname, email, lname, classification, phone, advisorID, majorID)
 SELECT 
-    '$fname', '$email', '$lname', '$major', '$classification', '$phone',
+    '$fname', '$email', '$lname', '$classification', '$phone',
      (SELECT majorID FROM major WHERE majorAbbrv = '$majorAbbrv'),
      advisor_counts.advisorID 
 FROM 
@@ -248,3 +248,46 @@ ON course.courseID = temp.courseID;
 update course table
 */
 
+
+
+
+/*
+Add to date table
+*/
+
+INSERT INTO date (startDate, endDate)
+VALUES ('$startDate', 'endDate');
+
+
+/*
+Delete from date Table
+*/
+
+DELETE FROM date
+WHERE dateID = your_date_id;
+
+
+/*
+Update from date table
+*/
+
+UPDATE date
+SET startDate = 'new_start_date', endDate = 'new_end_date'
+WHERE dateID = your_date_id;
+
+
+/*
+Show all classes in a department
+*/
+
+SELECT course.courseTitle, course.CRN, faculty.lname, time.timeRange, date.startDate, date.endDate, rooms.roomNum, building.buildAbbrv
+FROM course 
+JOIN class ON course.courseID = class.courseID 
+JOIN time ON class.timeID = time.timeID 
+JOIN date ON class.dateID = date.dateID 
+JOIN location ON class.locationID = location.locationID 
+JOIN rooms ON location.roomID = rooms.roomID
+JOIN building ON location.buildID = building.buildID
+JOIN faculty ON class.profID = faculty.fid
+JOIN department ON course.departmentID = department.departmentID
+WHERE department.departmentAbbrv = "departmentAbbrv";

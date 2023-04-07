@@ -9,13 +9,13 @@ if ($conn->connect_error) {
 }
 session_start();
 
-// List the email and phone of the professor in a table
+
         $sql = "SELECT f.email ,f.fname,f.lname,f.phone
         FROM  faculty AS f";
 
     $result = mysqli_query($conn, $sql);
 
-    echo "<b>Your Information:</b>";
+
     echo "<table>";
     echo "<tr><th>Faculty Email</th><th>Phone Number</th></tr>";
     $row = mysqli_fetch_assoc($result);
@@ -43,13 +43,6 @@ INNER JOIN date AS dt ON cl.dateID = dt.dateID
 INNER JOIN location AS l ON cl.locationID = l.locationID 
 INNER JOIN rooms AS r ON l.roomID = r.roomID";
 $result = $conn->query($sql_select);
-
-// List the first name and last name of the professor in a table
-        echo "<table>";
-        echo "<tr><th>First Name </th> <th>Last Name </th></tr> "; 
-        $row = mysqli_fetch_assoc($result);
-        echo "<tr><td>" .$row["FirstName"].  "</td><td>" .$row["LastName"]. "</td></tr>";
-        echo "</table>";
 
 // Check for errors in the SELECT query
 if (!$result) {
