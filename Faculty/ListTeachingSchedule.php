@@ -19,7 +19,7 @@ $sql = "SELECT f.email ,f.fname,f.lname,f.phone
 
 $result = mysqli_query($conn, $sql);
 
-echo "Your Information:";
+echo "<b>Your Information:</b>";
 echo "<table>";
 echo "<tr><th>First Name</th><th>Last Name</th></tr>";
 
