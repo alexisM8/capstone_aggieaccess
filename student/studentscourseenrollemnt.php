@@ -36,8 +36,9 @@ if (mysqli_num_rows($result) > 0) {
     $pin = substr(md5($email . time()), 0, 6); // generate a 6-digit PIN based on the email and current timestamp
     echo "<h1>" . $pin . "</h1>";
     setcookie("pin", $pin, time() + 60 * 60 * 24, "/");
+
     // set the cookie with the PIN and a 24-hour expiry time
-    echo '<button onclick="copyToClipboard(\'' . $pin . '\')">Copy text</button>';
+    echo '<button class = "buttonCenter" onclick="copyToClipboard(\'' . $pin . '\')">Copy text</button>';
 
     // JavaScript function to copy the text to the clipboard
     echo '<script>
