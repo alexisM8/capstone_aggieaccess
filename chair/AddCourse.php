@@ -13,17 +13,25 @@ session_start();
 echo '<html>';
     echo '
     <form action="AddCourse.php" method="POST">
-    <label for="username">Enter Student Email:</label>
-    <input type="email" id="username" name="username">
-    <label for="faculty">Enter Teacher Email:</label>
-    <input type="email" id="faculty" name="faculty">
-    <input type="submit" name="submit" value="Assign Advisor">
+
+    <label for="courseTitle">Enter Course Title:</label>
+    <input type="text" id="courseTitle" name="courseTitle">
+
+    <label for="crn">Enter Course Reference Number (CRN):</label>
+    <input type="text" id="crn" name="crn">
+
+    <label for="deptID">Enter Department ID:</label>
+    <input type="text" id="dept_id" name="deptid">
+
+    <input type="submit" name="submit" value="Create Course">
     </form>';
     if(isset($_POST['submit'])){
-    $teacher_email = $_POST['faculty'];
-    $email = $_POST['username'];
+    $course_title = $_POST['courseTitle'];
+    $course_CRN = $_POST['crn'];
+    $dept_
+
 // Define the SQL query
-$sql_select = "SELECT * FROM faculty WHERE email='$teacher_email'";
+$sql_select = "SELECT * FROM crn WHERE crn='$teacher_email'";//change from fac to crn
 $result = $conn->query($sql_select);
 
 // Check for errors in the SELECT query
