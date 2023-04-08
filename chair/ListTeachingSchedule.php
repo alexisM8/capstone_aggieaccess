@@ -13,8 +13,15 @@ session_start();
         $sql = "SELECT f.email ,f.fname,f.lname,f.phone
         FROM  faculty AS f";
 
-    $result = mysqli_query($conn, $sql);
+    $result = $conn->query($sql);
 
+    $row = mysqli_fetch_assoc($result);
+    echo "<b>Your Information:</b>";
+    echo "<table>";
+    echo "<tr><th>First Name</th><th>Last Name</th></tr>";
+    
+    echo "<tr><td>" . $row["fname"] . "</td><td>" . $row["lname"] . "</td></tr>";
+    echo "</table>";
 
     echo "<table>";
     echo "<tr><th>Faculty Email</th><th>Phone Number</th></tr>";
