@@ -14,7 +14,7 @@
 </head>
 <body>
 	<h1>Insert User</h1>
-	<form action="signup_page.php" method="POST">
+	<form action="?page=AdminInsert" method="POST">
 		<label for="fname">First Name:</label>
 		<input type="text" id="fname" name="fname" required>
 

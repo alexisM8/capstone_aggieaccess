@@ -14,7 +14,7 @@
 </head>
 <body>
 	<h1>Delete User</h1>
-	<form action="delete.php" method="POST">
+	<form action="?page=AdminDelete" method="POST">
 
 		<label for="email">Email:</label>
 		<input type="email" id="email" name="email" required>
@@ -35,41 +35,40 @@
                 $email = $_POST['email'];
                 // Insert user data into appropriate table
                 if ($user_type == "student") {
-                    $sql_enrollment = "delete from enrollment where studentID in (select sid from student where email = '$email')";
-                    // Insert password into "student_passwords" table
-                    $sql_password = "delete from student_passwords where studentID in (select sid from student where email = '$email')";
-                    $sql_student="delete from student where sid in (select sid from student where email = '$email')";
+                    //enter pass into student table
+                    $sql_enrollment = "DELETE e FROM enrollment e JOIN student s ON e.studentID = s.sid WHERE s.email = '$email'";
+                    $sql_password = "DELETE sp FROM student_passwords sp JOIN student s ON sp.studentID = s.sid WHERE s.email = '$email'";
+                    $sql_student = "DELETE FROM student WHERE email = '$email'";
                     if (mysqli_query($conn, $sql_enrollment)) {
                         if(mysqli_query($conn, $sql_password)){
                             if(mysqli_query($conn, $sql_student))
                             {
-                                
-                                
-                                echo "User created successfully";
+                                echo "User deleted successfully";
                             }
                             else{
-                                echo "Error creating user: " . mysqli_error($conn);
+                                echo "Error deleting user: " . mysqli_error($conn);
                             }
                         }else{
-                            echo "Error creating user: " . mysqli_error($conn);
+                            echo "Error deleting user: " . mysqli_error($conn);
                         }
                     } else {
-                        echo "Error creating user: " . mysqli_error($conn);
+                        echo "Error deleting user: " . mysqli_error($conn);
                     }
                 } else if ($user_type == "faculty") {
-                    $sql = "delete from faculty where fid in (select fid from faculty where email = '$email')";
-                    // Insert password into "faculty_passwords" table
-                    $sql_password = "delete from faculty_passwords where facultyID in (select fid from faculty where email = '$email')";
+                    //enter pass into fact table
+                    $sql = "DELETE fp FROM faculty_passwords fp JOIN faculty f ON fp.facultyID = f.fid WHERE f.email = '$email'";
+                    $sql_password = "DELETE FROM faculty WHERE email = '$email'";
                     if (mysqli_query($conn, $sql)) {
                         if(mysqli_query($conn, $sql_password)){
-                           echo "User created successfully";
+                            echo "User deleted successfully";
                         }else{
-                            echo "Error creating user: " . mysqli_error($conn);
+                            echo "Error deleting user: " . mysqli_error($conn);
                         }
                     } else {
-                        echo "Error creating user: " . mysqli_error($conn);
+                        echo "Error deleting user: " . mysqli_error($conn);
                     }
                 }
+                
 
                 // Execute SQL query
                 
