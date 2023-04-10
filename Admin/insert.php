@@ -55,11 +55,11 @@
         <option value="">Select major</option>
         <?php
         // Retrieve data from "department" table
-        $result = mysqli_query($conn, "SELECT departmentAbbrv FROM department");
+        $result = mysqli_query($conn, "SELECT majorAbbrv FROM major");
 
         // Generate "Major" select element options
         while ($row = mysqli_fetch_assoc($result)) {
-            echo '<option value="' . $row['departmentAbbrv'] . '">' . $row['departmentAbbrv'] . '</option>';
+            echo '<option value="' . $row['majorAbbrv'] . '">' . $row['majorAbbrv'] . '</option>';
         }
         ?>
     </select>
@@ -107,9 +107,27 @@
                 // Insert user data into appropriate table
                 if ($user_type == "student") {
                     $classification = $_POST['classification'];
-                    $major = $_POST['major'];
+                    $majorAbbrv = $_POST['majorAbbrv'];
 
-                    $sql = "INSERT INTO student (fname, lname, email, phone, classification, major) VALUES ('$fname', '$lname', '$email', '$phone', '$classification', '$major')";
+                    $sql = "INSERT INTO student (fname, email, lname, classification, phone, advisorID, majorID)
+					SELECT 
+						'$fname', '$email', '$lname', '$classification', '$phone',
+						 (SELECT majorID FROM major WHERE majorAbbrv = '$majorAbbrv'),
+						 advisor_counts.advisorID 
+					FROM 
+						(SELECT 
+							f.fid AS advisorID, COUNT(s.advisorID) AS count
+						 FROM 
+							faculty f
+							LEFT JOIN student s ON s.advisorID = f.fid
+							JOIN department d ON f.departmentID = d.departmentID
+						 WHERE 
+							d.departmentAbbrv = '$majorAbbrv'
+						 GROUP BY 
+							f.fid
+						 ORDER BY 
+							count ASC
+						 LIMIT 1) advisor_counts;";
                     // Insert password into "student_passwords" table
                     $sql_password = "INSERT INTO student_passwords (password, studentID) 
                                         VALUES ('$password', (SELECT sid FROM student WHERE student.email = '$email'))";
