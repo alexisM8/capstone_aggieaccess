@@ -13,9 +13,10 @@
     // Replace the student email with the desired student's email
 
 // Prepare the SQL statement
-$sql = "SELECT student.fname, student.lname, student.email,student.major 
-        FROM   student
-        WHERE student.major = 'CS'";
+$sql = "SELECT s.fname, s.lname, s.email, m.majorAbbrv 
+    FROM student AS s
+    JOIN major AS m ON s.majorID = m.majorID
+    WHERE m.majorAbbrv = 'CS'";
 
 // Execute the SQL statement and get the result
 $result = mysqli_query($conn, $sql);
