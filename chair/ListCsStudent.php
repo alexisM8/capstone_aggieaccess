@@ -32,7 +32,7 @@ if (mysqli_num_rows($result) >0) {
 
     // Loop through the results and display them in the table
     while($row = $result->fetch_assoc()) {
-        echo "<tr><td>" . $row["fname"] . " " . $row["lname"] . "</td><td>" . $row["email"] . "</td><td>" . $row["major"] . "</td></tr>";
+        echo "<tr><td>" . $row["fname"] . " " . $row["lname"] . "</td><td>" . $row["email"] . "</td><td>" . $row["majorAbbrv"] . "</td></tr>";
     }
 
     echo "</table>";
