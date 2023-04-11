@@ -291,3 +291,4 @@ JOIN building ON location.buildID = building.buildID
 JOIN faculty ON class.profID = faculty.fid
 JOIN department ON course.departmentID = department.departmentID
 WHERE department.departmentAbbrv = "departmentAbbrv";
+

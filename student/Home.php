@@ -14,9 +14,10 @@
     if((isset($_SESSION['loggedin']) || $_SESSION['loggedin'] === true) &&($_SESSION['user_type']==='student'))
   {
 // Define the SQL query
-$sql = "SELECT s.email ,s.fname,s.lname,s.classification,s.major,s.phone
-        FROM student AS s
-        WHERE s.sid = '$student_id'";
+$sql = "SELECT s.email, s.fname, s.lname, s.classification, m.major, s.phone
+    FROM student AS s
+    JOIN major AS m ON s.majorID = m.majorID
+    WHERE s.sid = '$student_id'";
     $result = mysqli_query($conn, $sql);
 
 // Check if the query was successful
