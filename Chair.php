@@ -152,7 +152,9 @@
 		<li><h1>Chair</h1></li>
 		<li><a href="?page=Home" class="<?php if (isset($_GET['page']) && $_GET['page'] === 'Home')
 						echo 'active'; ?>">Home Page</a></li>
+		<li><a href="?page=AddClass" class="<?php if(isset($_GET['page']) && $_GET['page'] === 'AddClass') echo 'active'; ?>">Add Class</a></li>
 		<li><a href="?page=ListCsStudent" class="<?php if(isset($_GET['page']) && $_GET['page'] === 'ListCsStudent') echo 'active'; ?>">Computer Science Student List</a></li>
+		<li><a href="?page=studentschedule" class="<?php if(isset($_GET['page']) && $_GET['page'] === 'studentschedule') echo 'active'; ?>">Student Schedule</a></li>
 		<li><a href="?page=ListItStudent" class="<?php if(isset($_GET['page']) && $_GET['page'] === 'ListItStudent') echo 'active'; ?>">IT Student List</a></li>
 		<li><a href="?page=AssignAdvisor" class="<?php if(isset($_GET['page']) && $_GET['page'] === 'AssignAdvisor') echo 'active'; ?>">Assign Advisor</a></li>
 		<li><a href="?page=ListAdvisor" class="<?php if(isset($_GET['page']) && $_GET['page'] === 'ListAdvisor') echo 'active'; ?>">List Advisor</a></li>
@@ -169,8 +171,12 @@
     <main>
 		<?php if (isset($_GET['page'])) {
 			if ($_GET['page'] === 'Home')include('chair/Home.php');
+			elseif ($_GET['page'] === 'AddClass')
+				include('chair/AddClass.php');
 			elseif ($_GET['page'] === 'ListCsStudent')
 				include('chair/ListCsStudent.php');
+			elseif ($_GET['page'] === 'studentschedule')
+				include('chair/studentschedule.php');
 			elseif ($_GET['page'] === 'ListItStudent')
 				include('chair/ListItStudent.php');
 			elseif ($_GET['page'] === 'AssignAdvisor')
