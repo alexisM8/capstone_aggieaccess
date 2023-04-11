@@ -63,21 +63,22 @@ if ($conn->connect_error) {
             </tr>
         </thead>
         <tbody>
-            <?php
-            $result = mysqli_query($conn, "SELECT f.fid, f.fname, f.lname, f.email, f.phone, fr.roles, f.office FROM faculty AS f INNER JOIN faculty_roles AS fr ON f.role = fr.frid");
-            while ($row = mysqli_fetch_assoc($result)) {
-                echo "<tr>";
-                echo "<td>" . $row['fid'] . "</td>";
-                echo "<td>" . $row['fname'] . "</td>";
-                echo "<td>" . $row['lname'] . "</td>";
-                echo "<td>" . $row['email'] . "</td>";
-                echo "<td>" . $row['phone'] . "</td>";
-                echo "<td>" . $row['roles'] . "</td>";
-                echo "<td>" . $row['office'] . "</td>";
-                echo "</tr>";
-            }
-            ?>
-        </tbody>
+        <?php
+        $sql_faculty = "SELECT f.fid, f.fname, f.lname, f.email, fr.roles, b.buildAbbrv, r.roomNum, f.phone FROM faculty f JOIN faculty_roles fr ON f.role = fr.frid JOIN location l ON f.office = l.locationID JOIN building b ON l.buildID = b.buildID JOIN rooms r ON l.roomID = r.roomID;";
+        $result = mysqli_query($conn, $sql_faculty);
+        while ($row = mysqli_fetch_assoc($result)) {
+            echo "<tr>";
+            echo "<td>" . $row['fid'] . "</td>";
+            echo "<td>" . $row['fname'] . "</td>";
+            echo "<td>" . $row['lname'] . "</td>";
+            echo "<td>" . $row['email'] . "</td>";
+            echo "<td>" . $row['phone'] . "</td>";
+            echo "<td>" . $row['roles'] . "</td>";
+            echo "<td>" . $row['buildAbbrv'] . " " . $row['roomNum'] . "</td>";
+            echo "</tr>";
+        }
+        ?>
+    </tbody>
     </table>
 
     <?php
