@@ -11,7 +11,7 @@
   {
     echo '<html>';
     echo '
-    <form action="faculty.php?page=studentschedule" method="POST">
+    <form action="chair.php?page=studentschedule" method="POST">
     <label for="email">Enter Student Email:</label>
     <input type="email" id="email" name="email">
     <input type="submit" name="submit" value="Search">
