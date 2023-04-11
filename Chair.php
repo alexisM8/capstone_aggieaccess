@@ -192,7 +192,6 @@
 				include('chair/ContactTeacher.php');
 			elseif ($_GET['page'] === 'GrantOverride')
 				include('chair/GrantOverride.php');
-				
 			elseif ($_GET['page'] === 'logout')
 				include('chair/logout.php');
 		} ?>
