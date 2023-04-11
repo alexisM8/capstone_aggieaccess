@@ -7,7 +7,7 @@ if ($conn->connect_error) {
 if (isset($_COOKIE['newcount'])) {
     $count = $_COOKIE['newcount'];
 }
-echo "<h1>"."Allow Seat upto    :" .$count."</h1>";
+echo "<h2>"."Allow Seat up to    :" .$count."</h2>";
 echo '<form method="POST" action="?page=GrantOverride">';
 echo '<input type="submit" name="submit" value="Grant Override">';
 echo '</form>';
