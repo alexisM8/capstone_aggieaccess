@@ -35,8 +35,8 @@
         INNER JOIN rooms AS r ON l.roomID = r.roomID
         WHERE s.sid = '$student_id'";
      
-    $sql = "SELECT s.email ,s.fname,s.lname,s.classification,s.major,s.phone
-            FROM student AS s
+    $sql = "SELECT s.email ,s.fname,s.lname,s.classification,s.phone, m.major
+            FROM student s join major m on s.majorID = m.majorID
             WHERE s.sid = '$student_id'";
 
     $result = mysqli_query($conn, $sql);   
