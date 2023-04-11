@@ -13,13 +13,13 @@ session_start();
   {
     echo '
     <form action="?page=ClassListing" method="POST">
-    <label for="username">Enter Class ID:</label>
-    <input type="text" id="username" name="username">
+    <label>Enter CRN:</label>
+    <input type="text" id="classname" name="classname">
     <input type="submit" name="submit" value="Search">
     </form>';
     if(isset($_POST['submit'])){
-$classname = $_POST['username'];
-$sql_select = "SELECT course.courseTitle, course.CRN, faculty.lname,faculty.fname, time.timeRange, date.startDate, date.endDate, rooms.roomNum, building.buildAbbrv
+$classname = $_POST['classname'];
+$sql_select = "SELECT course.courseTitle, course.CRN, faculty.fname, faculty.lname, time.timeRange, date.startDate, date.endDate, rooms.roomNum, building.buildAbbrv
 FROM course 
 JOIN class ON course.courseID = class.courseID 
 JOIN time ON class.timeID = time.timeID 
@@ -28,7 +28,7 @@ JOIN location ON class.locationID = location.locationID
 JOIN rooms ON location.roomID = rooms.roomID
 JOIN building ON location.buildID = building.buildID
 JOIN faculty ON class.profID = faculty.fid
-where class.classID='$classname'";
+WHERE course.CRN = '$classname'";
 $result = $conn->query($sql_select);
 
 // Check for errors in the SELECT query
