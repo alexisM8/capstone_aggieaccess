@@ -153,7 +153,7 @@
 						echo 'active'; ?>">Home Page</a></li>
           <li><a href="?page=ListCsStudent" class="<?php if(isset($_GET['page']) && $_GET['page'] === 'ListcsStudent') echo 'active'; ?>">Computer Science Student List</a></li>
           <li><a href="?page=ListItStudent" class="<?php if(isset($_GET['page']) && $_GET['page'] === 'ListitStudent') echo 'active'; ?>">IT Student List</a></li>
-          <li><a href="?page=LisrAdvisor" class="<?php if(isset($_GET['page']) && $_GET['page'] === 'ListAdvisor') echo 'active'; ?>">List Advisor</a></li>
+          <li><a href="?page=LisrAdvisor" class="<?php if(isset($_GET['page']) && $_GET['page'] === 'ListAdvisor') echo 'active'; ?>">Advisor List</a></li>
           <li><a href="?page=ContactStudent" class="<?php if(isset($_GET['page']) && $_GET['page'] === 'ContactStudent') echo 'active'; ?>">Contact Student</a></li>
           <li><a href="?page=ContactTeacher" class="<?php if(isset($_GET['page']) && $_GET['page'] === 'ContactTeacher') echo 'active'; ?>">Contact Teacher</a></li>
           <li><a href="?page=logout" class="<?php if(isset($_GET['page']) && $_GET['page'] === 'logout') echo 'active'; ?>">Logout</a></li>
