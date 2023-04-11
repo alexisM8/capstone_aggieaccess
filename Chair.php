@@ -158,6 +158,7 @@
 		<li><a href="?page=ListItStudent" class="<?php if(isset($_GET['page']) && $_GET['page'] === 'ListItStudent') echo 'active'; ?>">IT Student List</a></li>
 		<li><a href="?page=AssignAdvisor" class="<?php if(isset($_GET['page']) && $_GET['page'] === 'AssignAdvisor') echo 'active'; ?>">Assign Advisor</a></li>
 		<li><a href="?page=ListAdvisor" class="<?php if(isset($_GET['page']) && $_GET['page'] === 'ListAdvisor') echo 'active'; ?>">List Advisor</a></li>
+		<li><a href="?page=AddCourse" class="<?php if(isset($_GET['page']) && $_GET['page'] === 'AddCourse') echo 'active'; ?>">Add Course</a></li>
 		<li><a href="?page=ClassListing" class="<?php if(isset($_GET['page']) && $_GET['page'] === 'ClassListing') echo 'active'; ?>">Find Class Listing</a></li>
         <li><a href="?page=ListTeachingSchedule" class="<?php if(isset($_GET['page']) && $_GET['page'] === 'ListTeachingSchedule') echo 'active'; ?>">List Teaching Schedule</a></li>
 		<li><a href="?page=EnrollStudent" class="<?php if(isset($_GET['page']) && $_GET['page'] === 'EnrollStudent') echo 'active'; ?>">Enroll a Student</a></li>
@@ -183,6 +184,8 @@
 				include('chair/AssignAdvisor.php');
 			elseif ($_GET['page'] === 'ListAdvisor')
 				include('chair/ListAdvisor.php');
+			elseif ($_GET['page'] === 'AddCourse')
+				include('chair/AddCourse.php');
 			elseif ($_GET['page'] === 'ClassListing')
 				include('chair/ClassListing.php');
 			elseif ($_GET['page'] === 'ListTeachingSchedule')
@@ -195,7 +198,6 @@
 				include('chair/ContactTeacher.php');
 			elseif ($_GET['page'] === 'GrantOverride')
 				include('chair/GrantOverride.php');
-				
 			elseif ($_GET['page'] === 'logout')
 				include('chair/logout.php');
 		} ?>
