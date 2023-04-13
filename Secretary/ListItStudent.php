@@ -13,9 +13,10 @@
     // Replace the student email with the desired student's email
 
 // Prepare the SQL statement
-$sql = "SELECT student.fname, student.lname, student.email,student.major 
-        FROM   student
-        WHERE student.major = 'IT'";
+$sql = "SELECT s.fname, s.lname, s.email, m.majorAbbrv 
+FROM student AS s
+JOIN major AS m ON s.majorID = m.majorID
+WHERE m.majorAbbrv = 'IT'";
 
 // Execute the SQL statement and get the result
 $result = mysqli_query($conn, $sql);
@@ -31,7 +32,7 @@ if (mysqli_num_rows($result) >0) {
 
     // Loop through the results and display them in the table
     while($row = $result->fetch_assoc()) {
-        echo "<tr><td>" . $row["fname"] . " " . $row["lname"] . "</td><td>" . $row["email"] . "</td><td>" . $row["major"] . "</td></tr>";
+        echo "<tr><td>" . $row["fname"] . " " . $row["lname"] . "</td><td>" . $row["email"] . "</td><td>" . $row["majorAbbrv"] . "</td></tr>";
     }
 
     echo "</table>";

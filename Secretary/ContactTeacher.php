@@ -8,8 +8,8 @@ if ($conn->connect_error) {
     die("Fatal Error");
 }
 session_start();
-if((isset($_SESSION['loggedin']) || $_SESSION['loggedin'] === true) &&($_SESSION['user_type']==='faculty'))
-{
+    if((isset($_SESSION['loggedin']) || $_SESSION['loggedin'] === true) &&($_SESSION['user_type']==='faculty'))
+  {
 echo '<html>';
     echo '
     <form action="?page=ContactTeacher" method="POST">
@@ -17,6 +17,8 @@ echo '<html>';
     <input type="text" id="username" name="username">
     <label for="username1">Enter Teacher Last Name:</label>
     <input type="text" id="username1" name="username1">
+    Message:
+    <textarea name="message"></textarea><br><br>
     <input type="submit" name="submit" value="Contact">
     </form>';
     if(isset($_POST['submit'])){

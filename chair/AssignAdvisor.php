@@ -12,7 +12,7 @@ session_start();
   {
 echo '<html>';
     echo '
-    <form action="AssignAdvisor.php" method="POST">
+    <form action="?page=AssignAdvisor" method="POST">
     <label for="username">Enter Student Email:</label>
     <input type="email" id="username" name="username">
     <label for="faculty">Enter Teacher Email:</label>
