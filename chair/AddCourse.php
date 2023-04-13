@@ -12,6 +12,11 @@ if ($conn->connect_error)
 session_start();
   if((isset($_SESSION['loggedin']) || $_SESSION['loggedin'] === true) &&($_SESSION['user_type']==='faculty'))
   {
+
+    $sql_dept = "SELECT departmentName FROM department";
+    $dept_result = $conn->query($sql_dept);
+
+
     echo '<html>';
         echo '
         <form method="POST">
@@ -25,8 +30,11 @@ session_start();
         <label for="deptID">Enter Department ID:</label>
         <input type="text" id="deptID" name="deptID">
 
+        
         <input type="submit" name="submit" value="Create Course">
         </form>';
+
+
             //once submit is clicked
             if(isset($_POST['submit']))
             {
@@ -54,7 +62,7 @@ session_start();
                     $crn_results = $conn -> query($sql_check_crn);
                     $crn_exist = $crn_results->fetch_assoc(); //this is an associative array 
  
-                    //If that course title is already used 
+                    //If that course title is already used
                     if ($name_exist['COUNT(courseTitle)'] > 0)
                     {
                     echo "<table>";
