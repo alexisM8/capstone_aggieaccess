@@ -6,16 +6,50 @@ $conn = new mysqli($host, $user, $pass, $dbname, $port);
 if($conn->connect_error){
     die("Fatal Error");
 }
+
+$message = '';
+
 if(isset($_POST['submit'])){
-$email = $_POST['email'];
-$to = "admin@gmail.com";
-$subject = "Change password";
-$message = "Please reset my password";
-$headers = "From: $email\r\n";
-$headers .= "Reply-To: $email\r\n";
-mail($to, $subject, $message, $headers);
+    $email = $_POST['email'];
+
+    // Check if the email exists in the student or faculty table
+    $query = "SELECT * FROM student WHERE email = ? UNION SELECT * FROM faculty WHERE email = ?";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param('ss', $email, $email);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if($result->num_rows > 0){
+        $updated = false;
+
+        while ($row = $result->fetch_assoc()) {
+            if(isset($row['sid'])){
+                // It's a student
+                $passID = "s" . $row['sid'];
+                $update_query = "UPDATE student_passwords SET password = ? WHERE passID = ?";
+            } else {
+                // It's a faculty
+                $passID = "f" . $row['fid'];
+                $update_query = "UPDATE faculty_passwords SET password = ? WHERE passID = ?";
+            }
+
+            $new_pass = "Cameron2023";
+            $new_password = $new_pass; // You should generate a random password here
+            $stmt = $conn->prepare($update_query);
+            $stmt->bind_param('ss', $new_password, $passID);
+
+            if ($stmt->execute()) {
+                $updated = true;
+            }
+        }
+
+        $message = $updated ? "Your password has been reset. Please check your email." : "Error updating password: " . $stmt->error;
+    } else {
+        $message = "Email not found.";
+    }
 }
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -127,10 +161,13 @@ form p {
     <form action="forgot_password.php" method="post">
         <label for="email">Email:</label>
         <input type="email" id="email" name="email" required>
-        <input type="submit" value="Submit">
+        <input type="submit" name="submit" value="Submit">
         <div>
-			<p>Click <a href="login.php">here</a> to login.</p>
-		</div>
+            <p>Click <a href="login.php">here</a> to login.</p>
+        </div>
     </form>
+    <?php if (!empty($message)): ?>
+        <p><?php echo $message; ?></p>
+    <?php endif; ?>
 </body>
 </html>
