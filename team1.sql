@@ -363,7 +363,7 @@ DROP TABLE IF EXISTS `pending_override`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `pending_override` (
-  `pending_overrideID` int(11) NOT NULL DEFAULT '0',
+  `pending_overrideID` int(11) NOT NULL AUTO_INCREMENT,
   `studentID` int(11) NOT NULL,
   `facultyID` int(11) NOT NULL,
   `classID` int(11) NOT NULL,
@@ -506,4 +506,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-04-14 15:30:50
+-- Dump completed on 2023-04-15  9:40:22
