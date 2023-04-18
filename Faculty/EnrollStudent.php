@@ -116,9 +116,11 @@ if(isset($_POST['send_request']) && isset($_POST['request_classID']) && isset($_
     $facultyID = $_POST['request_facultyID'];
     $classID = $_POST['request_classID'];
     $seatLimit = $_POST['request_seatLimit'];
-    $sql_request_override = "INSERT INTO pending_enrollment (studentID, facultyID, classID, seatLimit)
+    $sql_request_override = "INSERT INTO pending_override (studentID, facultyID, classID, oldSeatLimit)
                             VALUES('$studentID','$facultyID', '$classID', '$seatLimit')";
-    echo "<html><script>console.log('ans: ".$ans."')</script></html>";
+                            ?>
+    <html><script>console.log('ans: ".$ans."')</script></html>
+    <?php
     if ($ans == 'yes' && $conn->query($sql_request_override) === TRUE) {
         echo 'Enrollment override requested!';
     } else {

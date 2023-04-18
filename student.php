@@ -96,6 +96,12 @@
 			border-radius: 10px;
 		}
 
+		.rmv_btn{
+			padding: 0px;
+			border: none;
+			margin: 0px;
+		}
+
 		h2 {
 			margin-left: 400px;
 			
@@ -150,6 +156,7 @@
 		}
 		.print_btn{
         margin-top: 10px;
+		margin-bottom: 10px;
         float: right;
     	}
 
