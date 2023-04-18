@@ -89,6 +89,7 @@ else
     echo "</table>";
 
 }
+}
 else
 {
     echo "<table>";
