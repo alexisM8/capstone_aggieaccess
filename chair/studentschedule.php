@@ -45,6 +45,24 @@
     if(!$result){
         die("Fatal Error at query");
     }
+    if(isset($_POST['remove']) && isset($_POST['classID']) && isset($_POST['facultyID']) && isset($_POST['className'])){
+        $studentID = $_SESSION['id'];
+        $facultyID = $_POST['facultyID'];
+        $classID = $_POST['classID'];
+        $courseName = $_POST['className'];
+        $sql_check_enrollment = "SELECT * FROM enrollment WHERE classID = '$classID' AND facultyID = '$facultyID' AND studentID = '$studentID'";
+        $result_check_enrollment = mysqli_query($conn, $sql_check_enrollment);
+        if(mysqli_num_rows($result_check_enrollment) >= 1){
+            $sql_remove = "DELETE FROM enrollment WHERE classID = '$classID' AND studentID = '$studentID' AND facultyID = '$facultyID'";
+            if ($conn->query($sql_remove) === TRUE) {
+                echo 'Successfuly Removed: '.$courseName.'!';
+            } else {
+                echo 'Failed to Remove: '.$courseName.'!';
+            }
+        } else {
+            echo 'Not Enrolled in: ' . $courseName;
+        }
+    }
     
     if (mysqli_num_rows($result) >0) {
     $rows = $result->fetch_all(MYSQLI_ASSOC);
@@ -54,6 +72,7 @@
     echo 
     '<table>
         <tr>
+            <th>Action</th>
             <th>Course Title</th>
             <th>Instrcutor</th> 
             <th>Meeting Time</th>
@@ -65,6 +84,14 @@
     
     foreach($rows as $row){
         echo'<tr>
+                <td>
+                    <form class="rmv_btn" method="POST">
+                        <input type="hidden" name="classID" value="'.$row["CLID"].'">
+                        <input type="hidden" name="facultyID" value="'.$row["FID"].'">
+                        <input type="hidden" name="className" value="'.$row["Course_Title"].'">
+                        <button type="submit" name="remove" value="remove">Remove</button>
+                    </form>
+                </td> 
                 <td>'.$row['Course_Title'].'</td> 
                 <td>'.$row['Instructor'].'</td> 
                 <td>'.$row['Time'].'</td> 
@@ -77,6 +104,7 @@
         echo '<br>';
     }
     echo'</table>';
+    echo'<button class="print_btn" onclick="window.print()">Print Schedule</button>';
     echo '</html>';
     $result->close();
     $conn->close();
