@@ -30,7 +30,7 @@
             $seatLimit = $result_check_seat_availible['seatLimit'];
             echo "<html><script>console.log('seats availible: ".$seatLimit."')</script></html>";
 
-            $sql_request_override = "INSERT INTO pending_enrollment (studentID, facultyID, classID, seatLimit)
+            $sql_request_override = "INSERT INTO pending_override (studentID, facultyID, classID, oldSeatLimit)
                                      VALUES('$studentID','$facultyID', '$classID', '$seatLimit')";
 
             if($studentsEnrolled < $seatLimit){
