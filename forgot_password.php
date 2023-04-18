@@ -8,37 +8,31 @@ if($conn->connect_error){
 }
 
 $message = '';
+$update_query = '';
 
 if(isset($_POST['submit'])){
     $email = $_POST['email'];
 
     // Check if the email exists in the student or faculty table
-    $query = "SELECT * FROM student WHERE email = ? UNION SELECT * FROM faculty WHERE email = ?";
-    $stmt = $conn->prepare($query);
-    $stmt->bind_param('ss', $email, $email);
-    $stmt->execute();
-    $result = $stmt->get_result();
+    $query = "SELECT * FROM student WHERE email = '$email' UNION SELECT * FROM faculty WHERE email = '$email'";
+    $result = $conn->query($query);
 
     if($result->num_rows > 0){
         $updated = false;
+        $new_pass = "pass";
 
         while ($row = $result->fetch_assoc()) {
             if(isset($row['sid'])){
                 // It's a student
-                $passID = "s" . $row['sid'];
-                $update_query = "UPDATE student_passwords SET password = ? WHERE passID = ?";
+                $passID = $row['sid'];
+                $update_query = "UPDATE student_passwords SET password = '$new_pass' WHERE passID = $passID";
             } else {
                 // It's a faculty
-                $passID = "f" . $row['fid'];
-                $update_query = "UPDATE faculty_passwords SET password = ? WHERE passID = ?";
+                $passID = $row['fid'];
+                $update_query = "UPDATE faculty_passwords SET password = '$new_pass' WHERE passID = '$passID'";
             }
 
-            $new_pass = "Cameron2023";
-            $new_password = $new_pass; // You should generate a random password here
-            $stmt = $conn->prepare($update_query);
-            $stmt->bind_param('ss', $new_password, $passID);
-
-            if ($stmt->execute()) {
+            if ($conn->query($update_query)) {
                 $updated = true;
             }
         }
