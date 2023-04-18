@@ -344,6 +344,7 @@ CREATE TABLE `major` (
   PRIMARY KEY (`majorID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
 --
 -- Dumping data for table `major`
 --
@@ -352,6 +353,38 @@ LOCK TABLES `major` WRITE;
 /*!40000 ALTER TABLE `major` DISABLE KEYS */;
 INSERT INTO `major` VALUES (1,'CS','Computer Science'),(2,'IT','Information Technology');
 /*!40000 ALTER TABLE `major` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `pending_override`
+--
+
+DROP TABLE IF EXISTS `pending_override`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `pending_override` (
+  `pending_overrideID` int(11) NOT NULL AUTO_INCREMENT,
+  `studentID` int(11) NOT NULL,
+  `facultyID` int(11) NOT NULL,
+  `classID` int(11) NOT NULL,
+  `oldSeatLimit` int(11) DEFAULT NULL,
+  PRIMARY KEY (`pending_overrideID`),
+  KEY `studentID` (`studentID`),
+  KEY `facultyID` (`facultyID`),
+  KEY `classID` (`classID`),
+  CONSTRAINT `pending_override_ibfk_1` FOREIGN KEY (`studentID`) REFERENCES `student` (`sid`),
+  CONSTRAINT `pending_override_ibfk_2` FOREIGN KEY (`facultyID`) REFERENCES `faculty` (`fid`),
+  CONSTRAINT `pending_override_ibfk_3` FOREIGN KEY (`classID`) REFERENCES `class` (`classID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `pending_override`
+--
+
+LOCK TABLES `pending_override` WRITE;
+/*!40000 ALTER TABLE `pending_override` DISABLE KEYS */;
+/*!40000 ALTER TABLE `pending_override` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -473,4 +506,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-04-06 14:36:15
+-- Dump completed on 2023-04-15  9:40:22

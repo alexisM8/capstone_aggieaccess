@@ -18,13 +18,16 @@
     </form>';
     if(isset($_POST['submit'])){
     $email = $_POST['email'];
-    $query = "SELECT c.courseTitle AS Course_Title,
+    $query = "SELECT cl.classID AS CLID, 
+            f.fid AS FID,
+            c.courseTitle AS Course_Title,
             f.lname AS Instructor,        
             t.timerange AS Time,        
             d.days AS Meeting_Days,        
             dt.startDate AS Start_Date,        
             dt.endDate AS End_Date,        
-            r.roomNum AS Room 
+            r.roomNum AS Room,
+            b.buildAbbrv AS Build_Abbrv
         FROM course AS c INNER JOIN class AS cl ON c.courseID = cl.courseID 
         INNER JOIN enrollment AS e ON cl.classID = e.classID 
         INNER JOIN student AS s ON e.studentID = s.sid
@@ -34,6 +37,7 @@
         INNER JOIN day AS d ON cl.dayID = d.daysID 
         INNER JOIN date AS dt ON cl.dateID = dt.dateID 
         INNER JOIN location AS l ON cl.locationID = l.locationID 
+        INNER JOIN building AS b ON l.buildID = b.buildID
         INNER JOIN rooms AS r ON l.roomID = r.roomID
         WHERE s.email = '$email'";
         
@@ -41,6 +45,7 @@
     if(!$result){
         die("Fatal Error at query");
     }
+    
     if (mysqli_num_rows($result) >0) {
     $rows = $result->fetch_all(MYSQLI_ASSOC);
 
@@ -55,7 +60,8 @@
             <th>Meeting Days</th>
             <th>Start Date</th>
             <th>End Date</th>
-            <th>Room Number</th>';
+            <th>Room Number</th>
+            <th>Building Abbrv.</td>';
     
     foreach($rows as $row){
         echo'<tr>
@@ -66,6 +72,7 @@
                 <td>'.$row['Start_Date'].'</td> 
                 <td>'.$row['End_Date'].'</td> 
                 <td>'.$row['Room'].'</td> 
+                <td>'.$row['Build_Abbrv'].'</td>
             </tr>';
         echo '<br>';
     }
@@ -80,6 +87,7 @@ else
     echo "<tr><th>Student Not Enroll Any Course</th></tr>";
     
     echo "</table>";
+
 }
 }
 else
