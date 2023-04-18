@@ -44,26 +44,26 @@ $sql = "SELECT f.email ,f.fname,f.lname,f.phone
 
     if(isset($_POST['submit'])){
     $lastname = $_POST['username'];
-    $sql_select = "SELECT DISTINCT c.courseTitle AS Course_Title,
+    $sql_select = "SELECT c.courseTitle AS Course_Title,
         f.fname AS FirstName,   
         f.lname AS LastName,      
         t.timerange AS Time,        
         d.days AS Meeting_Days,        
         dt.startDate AS Start_Date,        
         dt.endDate AS End_Date,        
-        r.roomNum AS Room, 
+        r.roomNum AS Room ,
         b.buildAbbrv AS Build_Abbrv
-        FROM course AS c INNER JOIN class AS cl ON c.courseID = cl.courseID 
-        INNER JOIN enrollment AS e ON cl.classID = e.classID 
-        INNER JOIN faculty AS g ON e.facultyID = g.fid AND g.lname = '$lastname'
-        INNER JOIN enrollment AS z ON cl.classID = z.classID AND z.facultyID = g.fid
-        INNER JOIN faculty AS f ON z.facultyID = f.fid 
+        FROM course AS c 
+        INNER JOIN class AS cl ON c.courseID = cl.courseID 
+        INNER JOIN faculty AS f ON cl.profID = f.fid AND f.lname = '$lastname'
         INNER JOIN time AS t ON cl.timeID = t.timeID 
         INNER JOIN day AS d ON cl.dayID = d.daysID 
         INNER JOIN date AS dt ON cl.dateID = dt.dateID 
         INNER JOIN location AS l ON cl.locationID = l.locationID 
-        INNER JOIN building AS b ON l.buildID = b.buildID
-        INNER JOIN rooms AS r ON l.roomID = r.roomID";
+        INNER JOIN rooms AS r ON l.roomID = r.roomID
+        INNER JOIN building AS b on l.buildID = b.buildID
+        GROUP BY c.courseTitle
+        ORDER BY dt.startDate;";
     $result = $conn->query($sql_select);
 
 // Check for errors in the SELECT query
