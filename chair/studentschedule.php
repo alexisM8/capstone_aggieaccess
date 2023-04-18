@@ -87,6 +87,7 @@ else
     echo "<tr><th>Student Not Enroll Any Course</th></tr>";
     
     echo "</table>";
+
 }
 }
 else

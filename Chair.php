@@ -97,6 +97,13 @@
 			border-radius: 10px;
 		}
 
+		.rmv_btn{
+			padding: 0px;
+			border: none;
+			margin: 0px;
+			float: left;
+		}
+
 		h2 {
 			margin-left: 400px;
 
@@ -137,13 +144,18 @@
 			border-radius: 5px;
 			cursor: pointer;
 			transition: all 0.3s ease;
-			margin-left: 450px;
 		}
 
 		input[type="submit"]:hover {
 			background-color: #fff;
 			color: #009688;
 		}
+
+		.print_btn{
+        margin-top: 10px;
+		margin-bottom: 10px;
+        float: right;
+    	}
 	</style>
 </head>
 <body>
