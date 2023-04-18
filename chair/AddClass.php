@@ -12,6 +12,26 @@ session_start();
 <html>
 <head>
     <title>Add Class</title>
+    <style>
+        form {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            align-items: center;
+        }
+
+        label {
+            margin-right: 5px;
+        }
+
+        .submit-btn-container {
+            grid-column: 1 / -1;
+        }
+
+        input[type="submit"] {
+            width: 100%;
+        }
+    </style>
 </head>
 <body>
 <?php if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true && $_SESSION['user_type'] === 'faculty'): ?>
@@ -49,14 +69,19 @@ session_start();
         <select id="locaton" name="location">
         <?php
         // Fetch locations from the database
-        $sql_locations = "SELECT * FROM location";
+        $sql_locations = "SELECT location.locationID, building.buildAbbrv, rooms.roomNum
+                        FROM location
+                        JOIN building ON location.buildID = building.buildID
+                        JOIN rooms ON location.roomID = rooms.roomID";
         $locations_result = $conn->query($sql_locations);
         if ($locations_result->num_rows > 0) {
             while ($location = $locations_result->fetch_assoc()) {
-                echo "<option value='{$location['locationID']}'>{$location['locationID']}</option>";
+                $display_location = "{$location['buildAbbrv']} - {$location['roomNum']}";
+                echo "<option value='{$location['locationID']}'>$display_location</option>";
             }
         }
         ?>
+
 
 
         </select>
@@ -116,7 +141,9 @@ session_start();
         }
         ?>
         </select>
+        <div class="submit-btn-container">
         <input type="submit" name="submit" value="Add Class">
+        </div>
     </form>
     <?php
         if (isset($_POST['submit'])) {
@@ -137,7 +164,7 @@ session_start();
                 echo "Error adding class: " . $conn->error;
             }
         }
-    ?>
+?>
     <?php else: ?>
         <?php header("Location: login.php"); ?>
     <?php endif; ?>
