@@ -7,8 +7,7 @@
         die("Fatal Error");
     }
     session_start();
-    if((isset($_SESSION['loggedin']) || $_SESSION['loggedin'] === true) &&($_SESSION['user_type']==='faculty'))
-  {
+    if((isset($_SESSION['loggedin']) || $_SESSION['loggedin'] === true) &&($_SESSION['user_type']==='faculty')){
     echo '<html>';
     echo '
     <form action="chair.php?page=studentschedule" method="POST">
@@ -89,6 +88,7 @@ else
     echo "</table>";
 
 }
+}
 else
 {
     echo "<table>";
@@ -101,5 +101,6 @@ else
 {
 header("Location: login.php");
 }
+
 ?>
 
