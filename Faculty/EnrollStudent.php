@@ -23,7 +23,7 @@
             from enrollment where classID = '$classID'";
             $result_check_students_enrolled = ($conn->query($sql_check_students_enrolled))->fetch_assoc();
             $studentsEnrolled = $result_check_students_enrolled['numOfStudentsEnrolled'];
-            echo "<html><script>console.log('studenst enrolled: ".$studentsEnrolled."')</script></html>";
+            echo "<html><script>console.log('students enrolled: ".$studentsEnrolled."')</script></html>";
 
             $sql_check_seat_availible = "SELECT seatLimit FROM class WHERE classID = '$classID'";
             $result_check_seat_availible = ($conn->query($sql_check_seat_availible))->fetch_assoc();
@@ -110,23 +110,7 @@
     <input name = "submit" type="submit" value="Submit">
 </form>
 <?php
-if(isset($_POST['send_request']) && isset($_POST['request_classID']) && isset($_POST['request_studentID']) && isset($_POST['request_facultyID']) && isset($_POST['request_seatLimit'])){
-    $ans = $_POST['confrim_override'];
-    $studentID = $_POST['request_studentID'];
-    $facultyID = $_POST['request_facultyID'];
-    $classID = $_POST['request_classID'];
-    $seatLimit = $_POST['request_seatLimit'];
-    $sql_request_override = "INSERT INTO pending_override (studentID, facultyID, classID, oldSeatLimit)
-                            VALUES('$studentID','$facultyID', '$classID', '$seatLimit')";
-                            ?>
-    <html><script>console.log('ans: ".$ans."')</script></html>
-    <?php
-    if ($ans == 'yes' && $conn->query($sql_request_override) === TRUE) {
-        echo 'Enrollment override requested!';
-    } else {
-        echo 'Error: Enrollment override request failed!';
-    }
-} 
+
  if (isset($_POST['submit'])) {
     $department = $_POST['department'];
     $studentID = $_POST['student_id'];
@@ -198,6 +182,25 @@ if(isset($_POST['send_request']) && isset($_POST['request_classID']) && isset($_
     echo 'Error executing query: ' . mysqli_error($conn);
 }
 }
+
+if(isset($_POST['send_request']) && isset($_POST['request_classID']) && isset($_POST['request_studentID']) && isset($_POST['request_facultyID']) && isset($_POST['request_seatLimit'])){
+    $ans = $_POST['confrim_override'];
+    $studentID = $_POST['request_studentID'];
+    $facultyID = $_POST['request_facultyID'];
+    $classID = $_POST['request_classID'];
+    $seatLimit = $_POST['request_seatLimit'];
+    $sql_request_override = "INSERT INTO pending_override(studentID, facultyID, classID, oldSeatLimit)
+                            VALUES('$studentID','$facultyID', '$classID', '$seatLimit')";
+                            
+    echo"<html><script>console.log('ans: ".$ans."')</script></html>";
+    
+    if ($ans == 'yes'){
+        $conn->query($sql_request_override);
+        echo 'Enrollment override requested!';
+    } else {
+        echo 'Error: Enrollment override request failed!';
+    }
+} 
 
 ?>
 </html>
