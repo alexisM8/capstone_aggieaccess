@@ -9,7 +9,8 @@ session_start();
 $student_user = $_SESSION['user_type'];
 $login_check=$_SESSION['loggedin'];
 
-if(isset($_POST['enroll']) && isset($_POST['classID']) && isset($_POST['facultyID']) && isset($_POST['className'])){
+if(isset($_POST['enroll']) && isset($_POST['classID']) && isset($_POST['facultyID']) && isset($_POST['className']))
+{
     $studentID = $_SESSION['id'];
     $facultyID = $_POST['facultyID'];
     $classID = $_POST['classID'];
@@ -108,7 +109,8 @@ if (isset($_POST['submit'])) {
     // Display table of classes in the selected department
     // Check if there are any results
         if ($result) {
-        if (mysqli_num_rows($result) > 0) {
+        if (mysqli_num_rows($result) > 0) 
+        {
             // Create a table to display the results
             echo "<table>";
             echo "<tr>
@@ -122,8 +124,9 @@ if (isset($_POST['submit'])) {
                 <th>Room Number</th>
             </tr>";
 
-    // Loop through the results and display them in the table
-            while($row = $result->fetch_assoc()) {
+        // Loop through the results and display them in the table
+            while($row = $result->fetch_assoc()) 
+            {
                 echo "<tr>
                     <td>
                         <form method='POST' class= 'enroll_form'>
@@ -133,7 +136,6 @@ if (isset($_POST['submit'])) {
                             <button type='submit' name='enroll' value='enroll'>Enroll</button>
                         </form>
                     </td>
-                
                     <td>" . $row["Course_Title"] . "</td>
                     <td>"  . $row["Instructor"] ."</td>
                     <td>"  . $row["Time"] ."</td>

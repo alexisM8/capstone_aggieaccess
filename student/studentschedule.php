@@ -1,5 +1,4 @@
 <script type="text/javascript" src="remove_button.js"></script>
-
 <?php
     require_once 'creds.php';
 
