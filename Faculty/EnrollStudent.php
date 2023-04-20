@@ -180,7 +180,6 @@
 }
 }
 if(isset($_POST['send_request']) && isset($_POST['request_classID']) && isset($_POST['request_studentID']) && isset($_POST['request_facultyID']) && isset($_POST['request_seatLimit'])){
-//if(isset($_POST['send_request'])){
     $ans = $_POST['confrim_override'];
     $studentID = $_POST['request_studentID'];
     $facultyID = $_POST['request_facultyID'];
