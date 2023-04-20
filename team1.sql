@@ -69,7 +69,7 @@ CREATE TABLE `class` (
   CONSTRAINT `class_ibfk_4` FOREIGN KEY (`dateID`) REFERENCES `date` (`dateID`),
   CONSTRAINT `class_ibfk_5` FOREIGN KEY (`courseID`) REFERENCES `course` (`courseID`),
   CONSTRAINT `class_ibfk_6` FOREIGN KEY (`locationID`) REFERENCES `location` (`locationID`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -78,7 +78,7 @@ CREATE TABLE `class` (
 
 LOCK TABLES `class` WRITE;
 /*!40000 ALTER TABLE `class` DISABLE KEYS */;
-INSERT INTO `class` VALUES (1,1,2,1,1,1,3,30),(2,2,3,1,5,18,1,30),(3,6,6,1,4,2,1,30),(4,1,6,1,5,11,3,30),(5,7,8,1,3,7,3,30);
+INSERT INTO `class` VALUES (1,1,2,1,1,1,3,10),(2,2,3,1,5,18,1,10),(3,6,6,1,4,2,1,10),(4,1,6,1,5,11,3,10),(5,7,8,1,3,7,3,10),(6,9,5,1,5,16,3,10),(7,9,8,1,2,19,3,10),(8,10,8,1,15,20,4,10),(9,11,7,1,16,21,3,10),(10,12,6,1,17,22,2,10);
 /*!40000 ALTER TABLE `class` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -342,7 +342,7 @@ CREATE TABLE `major` (
   `majorAbbrv` varchar(5) NOT NULL,
   `major` varchar(50) NOT NULL,
   PRIMARY KEY (`majorID`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -351,7 +351,7 @@ CREATE TABLE `major` (
 
 LOCK TABLES `major` WRITE;
 /*!40000 ALTER TABLE `major` DISABLE KEYS */;
-INSERT INTO `major` VALUES (1,'CS','Computer Science'),(2,'IT','Information Technology');
+INSERT INTO `major` VALUES (1,'CS','Computer Science'),(2,'IT','Information Technology'),(3,'MATH','Mathematics');
 /*!40000 ALTER TABLE `major` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -506,4 +506,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-04-15  9:40:22
+-- Dump completed on 2023-04-20 14:48:31
