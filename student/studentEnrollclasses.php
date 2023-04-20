@@ -1,39 +1,35 @@
 <?php
-    require_once 'creds.php';
+require_once 'creds.php';
 
-    $conn = new mysqli($host, $user, $pass, $dbname, $port);
-    
-    if($conn->connect_error){
-        die("Fatal Error");
-    }
-    session_start();
-    $student_user = $_SESSION['user_type'];
-    $login_check=$_SESSION['loggedin'];
-    if(($_SESSION['user_type']==='student')){
-        //removed
+$conn = new mysqli($host, $user, $pass, $dbname, $port);
+
+if ($conn->connect_error) {
+    die("Fatal Error");
+}
+session_start();
+$student_user = $_SESSION['user_type'];
+$login_check = $_SESSION['loggedin'];
+if (($_SESSION['user_type'] === 'student')) {
+    // removed
+} else {
+    header("Location: login.php");
+}
+
+// Check if the PIN form has been submitted
+if (isset($_POST['submit_pin'])) {
+    $entered_pin = $_POST['pin'];
+    $stored_pin = isset($_COOKIE['pin']) ? $_COOKIE['pin'] : '';
+
+    if ($entered_pin === $stored_pin) {
+        $_SESSION['pin_verified'] = true;
     } else {
-        header("Location: login.php");
+        $_SESSION['pin_verified'] = false;
+        echo 'Incorrect PIN. Please try again.';
     }
+}
 
-    if(isset($_POST['enroll']) && isset($_POST['classID']) && isset($_POST['facultyID']) && isset($_POST['className'])){
-        $studentID = $_SESSION['id'];
-        $facultyID = $_POST['facultyID'];
-        $classID = $_POST['classID'];
-        $courseName = $_POST['className'];
-        $sql_check_enrollment = "SELECT * FROM enrollment WHERE classID = '$classID' AND facultyID = '$facultyID' AND studentID = '$studentID'";
-        $result_check_enrollment = mysqli_query($conn, $sql_check_enrollment);
-        if(mysqli_num_rows($result_check_enrollment) == 0){
-            $sql_enroll = "INSERT INTO enrollment (studentID, facultyID, classID) 
-                            VALUES ('$studentID', '$facultyID', '$classID')";
-            if ($conn->query($sql_enroll) === TRUE) {
-                echo 'Enrollment successful!';
-            } else {
-                echo 'Enrollment failed!';
-            }
-        } else {
-            echo 'Already Enrolled in: ' . $courseName;
-        }
-    }
+// Wrap the content in a new if statement checking if the PIN has been verified
+if (isset($_SESSION['pin_verified']) && $_SESSION['pin_verified'] === true) {
 ?>
 <!DOCTYPE html>
 <html>
@@ -57,7 +53,7 @@
             echo "No results found.";
         }
         ?>
-        <input type="submit" name="submit_classes" vlaue="findClasses">
+        <input type="submit" name="submit_classes" value="findClasses">
     </form>
     <?php
     if(isset($_POST['submit_classes'])){
@@ -112,7 +108,7 @@
                                 <td>"  . $row["Time"] ."</td>
                                 <td>"  . $row["Meeting_Days"] ."</td>
                                 <td>"  . $row["Start_Date"] ."</td>
-                                <td>"  . $row["Start_Date"] ."</td>
+                                <td>"  . $row["End_Date"] ."</td>
                                 <td>"  . $row["Room"] ."</td>
                             </tr>";
                     }
@@ -127,5 +123,15 @@
             }
     }
     ?>
-</body>
-</html>
+    </body>
+    </html>
+    <?php
+    } else {
+        // Display the form to input the PIN
+        echo '<form action="" method="POST">';
+        echo '<label for="pin">Enter PIN:</label>';
+        echo '<input type="text" id="pin" name="pin" required>';
+        echo '<input type="submit" name="submit_pin" value="Submit PIN">';
+        echo '</form>';
+    }
+    ?>
