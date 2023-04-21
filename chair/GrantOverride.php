@@ -23,7 +23,6 @@
     </head>
     <body>
         <h1>Grant Override</h1>
-        <form  method="POST">
         <label>Pending Overrides</label>
             <?php
             //select all pending overrides 
@@ -60,10 +59,12 @@
 
                     echo "<tr>
                             <td>
-                                <input type='hidden' name='classID' value='" . $row['classID'] . "'>
-                                <input type='hidden' name='facultyID' value='". $row['fid'] . "'>
-                                <input type='hidden' name='studentID' value='". $row['sid'] . "'>
-                                <button type='submit' name='enroll' value='enroll'>Enroll</button>
+                                <form method='post' action='?page=GrantOverride' class='rmv_btn'>
+                                    <input type='hidden' name='class' value='" . $row['classID'] . "'>
+                                    <input type='hidden' name='faculty' value='". $row['fid'] . "'>
+                                    <input type='hidden' name='student' value='". $row['sid'] . "'>
+                                    <button type='submit' name='enroll' value='submit'>Enroll</button>
+                                </form>
                             </td>
 
                             <td>".$row['fname']." ". $row['lname']."</td>
@@ -72,65 +73,71 @@
                             <td>".$row['seatLimit']."</td>
                         </tr>";
                 }
-                            //when someone clicks the enroll button
-                            if(isset($_POST['enroll']) && isset($_POST['classID']) && isset($_POST['facultyID']) && isset($_POST['studentID']))
+                //when someone clicks the enroll button
+                if(isset($_POST['enroll']) && isset($_POST['class']) && isset($_POST['faculty']) && isset($_POST['student']))
+                {
+                    $studentID = $_POST['student'];
+                    $facultyID = $_POST['faculty'];
+                    $classID = $_POST['class'];
+
+                    echo"<html><script>console.log('studentID: ".$studentID."')</script></html>";
+                    echo"<html><script>console.log('facultyID: ".$facultyID."')</script></html>";
+                    echo"<html><script>console.log('classID: ".$classID."')</script></html>";
+
+                    //check if the student is alreayd enrolled 
+                    $sql_check_enrollment = "SELECT * FROM enrollment WHERE classID = '$classID' AND facultyID = '$facultyID' AND studentID = '$studentID'";
+                    $result_check_enrollment = mysqli_query($conn, $sql_check_enrollment);
+
+                    //if the student is not already enrolled 
+                    if(mysqli_num_rows($result_check_enrollment) == 0)
+                    {
+                        //enroll the student
+                        $sql_enroll = "INSERT INTO enrollment (studentID, facultyID, classID) VALUES ('$studentID', '$facultyID', '$classID')";
+
+                        //verify enrollment success
+                        if ($conn->query($sql_enroll) === TRUE) 
+                        {
+                            $sql_removeOverride1 =  "DELETE FROM pending_override WHERE classID = '$classID' AND studentID = '$studentID' AND facultyID = '$facultyID'";
+                            $removeOverride1_results =  mysqli_query($conn, $sql_removeOverride1);
+
+                            if ($removeOverride1_results === TRUE) 
                             {
-                                $studentID = $_POST['studentID'];
-                                $facultyID = $_POST['facultyID'];
-                                $classID = $_POST['classID'];
-
-                                //check if the student is alreayd enrolled 
-                                $sql_check_enrollment = "SELECT * FROM enrollment WHERE classID = '$classID' AND facultyID = '$facultyID' AND studentID = '$studentID'";
-                                $result_check_enrollment = mysqli_query($conn, $sql_check_enrollment);
-
-                                //if the student is not already enrolled 
-                                if(mysqli_num_rows($result_check_enrollment) > 0)
-                                {
-                                    //enroll the student
-                                    $sql_enroll = "INSERT INTO enrollment (studentID, facultyID, classID) VALUES ('$studentID', '$facultyID', '$classID')";
-
-                                    //verify enrollment success
-                                    if ($conn->query($sql_enroll) === TRUE) 
-                                    {
-                                        echo 'Enrollment successful!';
-                                        $sql_removeOverride1 =  "DELETE FROM pending_override WHERE classID = '$classID' AND studentID = '$studentID' AND facultyID = '$facultyID'";
-                                        $removeOverride1_results =  mysqli_query($conn, $sql_removeOverride1);
-
-                                        if ($removeOverride1_results === TRUE) 
-                                        {
-                                            echo 'Successfuly Removed: ';
-                                          //  echo"<html><script>location.reload()</script></html>";
-                                        }else{
-                                            echo 'Failed to Remove: ';
-                                        }
-                                    } 
-                                    //if enrollment fails 
-                                    else 
-                                    {
-                                        echo 'Enrollment failed!';
-                                    }
-                                } 
-                                //If student is already entrolled 
-                                else 
-                                {
-                                    echo 'Already Enrolled in course I will remove them from here<br>' ;
-                                    $sql_removeOverride =  "DELETE FROM pending_override WHERE classID = '$classID' AND studentID = '$studentID' AND facultyID = '$facultyID'";
-                                    if ($conn->query($sql_removeOverride) === TRUE) 
-                                    {
-                                        echo 'Successfuly Removed: ';
-                                    } 
-                                    else 
-                                    {
-                                        echo 'Failed to Remove: ';
-                                    }
-                                }
+                                echo"<html><script>location.reload()</script></html>";
+                                echo 'Enrollment successful!';
+                                //echo 'Successfuly Removed: ';
+                            }else{
+                                echo 'Failed to Remove: ';
                             }
+                        } 
+                        //if enrollment fails 
+                        else 
+                        {
+                            echo 'Enrollment failed!';
+                        }
+                    } 
+                    //If student is already entrolled 
+                    else 
+                    {
+                        echo 'Already Enrolled in course I will remove them from here<br>' ;
+                        $sql_removeOverride =  "DELETE FROM pending_override WHERE classID = '$classID' AND studentID = '$studentID' AND facultyID = '$facultyID'";
+                        if ($conn->query($sql_removeOverride) === TRUE) 
+                        {
+                            echo 'Successfuly Removed: ';
+                        } 
+                        else 
+                        {
+                            echo 'Failed to Remove: ';
+                        }
+                    }
+                }
+                
             }
             //if there are no pending overrides 
             else 
             {
                 echo "No Pending Overrides.";
             }
+            
             ?>
     </body>
     </html>
