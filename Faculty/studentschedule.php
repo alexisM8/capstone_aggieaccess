@@ -7,8 +7,7 @@
         die("Fatal Error");
     }
     session_start();
-    if((isset($_SESSION['loggedin']) || $_SESSION['loggedin'] === true) &&($_SESSION['user_type']==='faculty'))
-  {
+    if((isset($_SESSION['loggedin']) || $_SESSION['loggedin'] === true) &&($_SESSION['user_type']==='faculty')){
     echo '<html>';
     echo '
     <form action="faculty.php?page=studentschedule" method="POST">
@@ -17,8 +16,8 @@
     <input type="submit" name="submit" value="Search">
     </form>';
 
-    if(isset($_POST['remove']) && isset($_POST['classID']) && isset($_POST['facultyID']) && isset($_POST['className'])){
-        $studentID = $_SESSION['id'];
+    if(isset($_POST['remove']) && isset($_POST['classID']) && isset($_POST['facultyID']) && isset($_POST['className']) && isset($_POST['student'])){
+        $studentID = $_POST['student'];
         $facultyID = $_POST['facultyID'];
         $classID = $_POST['classID'];
         $courseName = $_POST['className'];
@@ -47,7 +46,8 @@
             dt.startDate AS Start_Date,        
             dt.endDate AS End_Date,        
             r.roomNum AS Room,
-            b.buildAbbrv AS Build_Abbrv
+            b.buildAbbrv AS Build_Abbrv,
+            s.sid AS studentID
         FROM course AS c INNER JOIN class AS cl ON c.courseID = cl.courseID 
         INNER JOIN enrollment AS e ON cl.classID = e.classID 
         INNER JOIN student AS s ON e.studentID = s.sid
@@ -88,6 +88,7 @@
         echo'<tr>
                  <td>
                     <form class="rmv_btn" method="POST">
+                        <input type="hidden" name="student" value="'.$row["studentID"].'">
                         <input type="hidden" name="classID" value="'.$row["CLID"].'">
                         <input type="hidden" name="facultyID" value="'.$row["FID"].'">
                         <input type="hidden" name="className" value="'.$row["Course_Title"].'">
@@ -132,5 +133,6 @@ else
 {
 header("Location: login.php");
 }
+
 ?>
 
