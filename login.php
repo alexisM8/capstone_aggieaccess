@@ -234,7 +234,6 @@ if (isset($_POST['submit']) && $_POST['email'] == 'admin@gmail.com' && $_POST['p
 
         <input type="submit" name="submit" value="Login">
 
-        <p>Don't have an account? <a href="signup_page.php">Sign Up</a></p>
         <p><a href="forgot_password.php">Forgot Password</a></p>
     </form>
     <script>
