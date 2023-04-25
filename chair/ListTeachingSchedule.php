@@ -62,8 +62,7 @@ $sql = "SELECT f.email ,f.fname,f.lname,f.phone
         INNER JOIN location AS l ON cl.locationID = l.locationID 
         INNER JOIN rooms AS r ON l.roomID = r.roomID
         INNER JOIN building AS b on l.buildID = b.buildID
-        GROUP BY c.courseTitle
-        ORDER BY dt.startDate;";
+        ORDER BY dt.startDate";
     $result = $conn->query($sql_select);
 
 // Check for errors in the SELECT query

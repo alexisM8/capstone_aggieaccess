@@ -100,6 +100,7 @@
                 $email = $_POST['email'];
                 $phone = $_POST['phone'];
                 $password = $_POST['password'];
+				$c_password = $_POST['c_password'];
                 $user_type = $_POST['user_type'];
                 
                 // Insert user data into appropriate table
@@ -134,16 +135,19 @@
                 }
 
                 // Execute SQL query
-                if (mysqli_query($conn, $sql)) {
-					if(mysqli_query($conn, $sql_password)){
-						echo "User created successfully";
-					}else{
+				if($c_password != $password){
+					echo 'passowrds must match!';
+				}else{
+					if (mysqli_query($conn, $sql)) {
+						if(mysqli_query($conn, $sql_password)){
+							echo "User created successfully";
+						}else{
+							echo "Error creating user: " . mysqli_error($conn);
+						}
+					} else {
 						echo "Error creating user: " . mysqli_error($conn);
 					}
-                } else {
-                    echo "Error creating user: " . mysqli_error($conn);
-                }
-
+				}
                 // Close database connection
                 mysqli_close($conn);
             }
