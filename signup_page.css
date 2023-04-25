@@ -13,9 +13,10 @@ body {
 }
 
 h1 {
-    color: #009688;
+    color: #FEC52E;
+    text-shadow: black 1px 1px;
     text-align: center;
-    margin-top: 100px;
+    margin-top: 50px;
 }
 
 /* Style for form */
@@ -46,7 +47,7 @@ form input[type="text"], form input[type="email"], form input[type="password"], 
 }
 
 form input[type="submit"] {
-    background-color: #009688;
+    background-color: black;
     border: none;
     border-radius: 2px;
     color: #ffffff;
@@ -58,7 +59,7 @@ form input[type="submit"] {
 }
 
 form input[type="submit"]:hover {
-    background-color: #008e80;
+    background-color: #FEC52E; ;
 }
 
 /* Style for form message */

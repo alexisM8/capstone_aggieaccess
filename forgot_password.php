@@ -41,7 +41,7 @@ if(isset($_POST['submit'])){
                 }
             }
 
-            $message = $updated ? '<p style="color:green;">Your password has been reset. Please check your email.</p>' : '<p style="color:red;">Error updating password: ' . $conn->error . '</p>';
+            $message = $updated ? '<p>Your password has been reset. Please check your email.</p>' : '<p style="color:red;">Error updating password: ' . $conn->error . '</p>';
         } else {
             $message = '<p style="color:red;">Email not found.</p>';
         }
@@ -70,7 +70,8 @@ body {
 }
 
 h1 {
-    color: white;
+    color: #FEC52E;
+    text-shadow: black 1px 1px;
     text-align: center;
     margin-top: 100px;
 }
@@ -103,7 +104,7 @@ form input[type="text"], form input[type="email"], form input[type="password"], 
 }
 
 form input[type="submit"] {
-    background-color: #009688;
+    background-color: black;
     border: none;
     border-radius: 2px;
     color: #ffffff;
@@ -115,7 +116,7 @@ form input[type="submit"] {
 }
 
 form input[type="submit"]:hover {
-    background-color: #008e80;
+    background-color: #FEC52E;;
 }
 
 /* Style for form message */
@@ -164,13 +165,32 @@ form p {
         <input type="password" id="password" name="password" required>
         <label for="confirm_password">Confirm Password:</label>
         <input type="password" id="confirm_password" name="confirm_password" required>
-        <input type="submit" name="submit" value="Submit">
+        <input type="checkbox" onclick="conceal()">Show Password
+        <input type="submit" name="submit" value="Submit">  
+        
+        <?php if (!empty($message)): ?>
+            <p><?php echo $message; ?></p>
+        <?php endif; ?>
+        
         <div>
-            <p>Click <a href="login.php">here</a> to login.</p>
+            <p>Return to <a href="login.php">login</a></p>
         </div>
     </form>
-    <?php if (!empty($message)): ?>
-        <p><?php echo $message; ?></p>
-    <?php endif; ?>
+
+    <script>
+    // function to show and hide password  
+    function conceal(){
+        var x = document.getElementById("password");
+        var y = document.getElementById("confirm_password");
+        
+        if(x.type === "password" || y.type === "password") {
+            x.type = "text";
+            y.type = "text";
+        } else {
+            x.type = "password";
+            y.type = "password";
+        }
+    }
+</script>
 </body>
 </html>
