@@ -12,7 +12,7 @@ setcookie("count", 15,time() + 60 * 60* 60* 24, "/");
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>nav bar</title>
+    <title>Welcome</title>
     <link rel="stylesheet" href="Welcome.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
@@ -24,7 +24,7 @@ setcookie("count", 15,time() + 60 * 60* 60* 24, "/");
             <i class="material-icons">menu</i>
         </span>
         <!-- <div class=""> -->
-        <a href="#" class="logo"><img src="CameronLogo.png" alt="">
+        <a href="Welcome.php" class="logo"><img src="CameronLogo.png" alt="Cameron University Logo">
             <p>Student Enrollment</p>
         </a>
         <!-- </div> -->
@@ -33,7 +33,7 @@ setcookie("count", 15,time() + 60 * 60* 60* 24, "/");
             <li><a href="signup_page.php" class="nav-links">Sign Up</a></li>
         </ul>
     </nav>
-    <div id="welcome">Welcome to Cameron University</div>
+    <div id="welcome">Welcome to Cameron University Enrollment!</div>
     <script>
         let mainNav = document.getElementById('main-nav');
         let toggleNav = document.getElementById('toggle-nav');
