@@ -211,7 +211,7 @@ if (isset($_POST['submit']) && $_POST['email'] == 'admin@gmail.com' && $_POST['p
 
         <label for="password">Password:</label>
         <input type="password" id="password" name="password" required>
-        <!--Checkbox function-->
+        <!--Checkbox -->
         <input type="checkbox" onclick="conceal()">Show Password
         <label for="user_type">User Type:</label>
         <select id="user_type" name="user_type">
