@@ -85,24 +85,22 @@ if (isset($_POST['submit'])) {
 
 // Query to select all classes in a department
     $sql = "SELECT DISTINCT cl.classID AS CLID, f.fid AS FID, c.courseTitle AS Course_Title,
-        f.lname AS Instructor,        
-        t.timerange AS Time,        
-        d.days AS Meeting_Days,        
-        dt.startDate AS Start_Date,        
-        dt.endDate AS End_Date,        
-        r.roomNum AS Room 
-            FROM course AS c INNER JOIN class AS cl ON c.courseID = cl.courseID 
-            INNER JOIN enrollment AS e ON cl.classID = e.classID 
-            INNER JOIN student AS s ON e.studentID = s.sid
-            INNER JOIN enrollment AS z ON cl.classID = z.classID AND z.studentID = s.sid
-            INNER JOIN faculty AS f ON z.facultyID = f.fid 
-            INNER JOIN time AS t ON cl.timeID = t.timeID 
-            INNER JOIN day AS d ON cl.dayID = d.daysID 
-            INNER JOIN date AS dt ON cl.dateID = dt.dateID 
-            INNER JOIN location AS l ON cl.locationID = l.locationID 
-            INNER JOIN rooms AS r ON l.roomID = r.roomID
-            INNER JOIN department on c.departmentID = department.departmentID
-            WHERE department.departmentAbbrv = '$department'";
+            f.lname AS Instructor,        
+            t.timerange AS Time,        
+            d.days AS Meeting_Days,        
+            dt.startDate AS Start_Date,        
+            dt.endDate AS End_Date,        
+            r.roomNum AS Room,
+            cl.seatLimit AS seatLimit
+        FROM course AS c INNER JOIN class AS cl ON c.courseID = cl.courseID  
+        INNER JOIN faculty AS f ON cl.profID = f.fid 
+        INNER JOIN time AS t ON cl.timeID = t.timeID 
+        INNER JOIN day AS d ON cl.dayID = d.daysID 
+        INNER JOIN date AS dt ON cl.dateID = dt.dateID 
+        INNER JOIN location AS l ON cl.locationID = l.locationID 
+        INNER JOIN rooms AS r ON l.roomID = r.roomID
+        INNER JOIN department on c.departmentID = department.departmentID
+        WHERE department.departmentAbbrv = '$department'";
 
     $result = mysqli_query($conn, $sql);
 

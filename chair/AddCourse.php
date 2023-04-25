@@ -41,7 +41,6 @@
         }
         ?>
         <input type="submit" name="submit" value="Create Course">
-        
     </form>
     <?php
 
@@ -55,7 +54,7 @@ if(isset($_POST['submit']))
 
     // Define the SQL query
     $sql_insert = "INSERT into course (courseTitle,CRN,departmentID)
-    VALUES('$course_title',$crn_num,$dept_ID)";
+    VALUES('$course_title','$crn_num',$dept_ID)";
 
 
     // check if all fields are filled in first 
