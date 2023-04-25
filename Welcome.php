@@ -30,7 +30,6 @@ setcookie("count", 15,time() + 60 * 60* 60* 24, "/");
         <!-- </div> -->
         <ul class="main-nav" id="main-nav">
             <li><a href="login.php" class="nav-links">Login</a></li>
-            <li><a href="signup_page.php" class="nav-links">Sign Up</a></li>
         </ul>
     </nav>
     <div id="welcome">Welcome to Cameron University Enrollment!</div>
