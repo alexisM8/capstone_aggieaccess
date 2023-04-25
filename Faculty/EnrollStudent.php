@@ -28,6 +28,9 @@
 
             echo "<html><script>console.log('seats availible: ".$seatLimit."')</script></html>";
 
+            $sql_request_override = "INSERT INTO pending_override (studentID, facultyID, classID, oldSeatLimit)
+                                     VALUES('$studentID','$facultyID', '$classID', '$seatLimit')";
+
             if($studentsEnrolled < $seatLimit){
                 echo "<html><script>console.log('in studentenrolled < seatLimit')</script></html>";
                 $sql_enroll = "INSERT INTO enrollment (studentID, facultyID, classID) VALUES ('$studentID', '$facultyID', '$classID')";

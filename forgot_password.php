@@ -12,34 +12,39 @@ $update_query = '';
 
 if(isset($_POST['submit'])){
     $email = $_POST['email'];
+    $new_pass = $_POST['password'];
+    $confirm_pass = $_POST['confirm_password'];
 
-    // Check if the email exists in the student or faculty table
-    $query = "SELECT * FROM student WHERE email = '$email' UNION SELECT * FROM faculty WHERE email = '$email'";
-    $result = $conn->query($query);
-
-    if($result->num_rows > 0){
-        $updated = false;
-        $new_pass = "pass";
-
-        while ($row = $result->fetch_assoc()) {
-            if(isset($row['sid'])){
-                // It's a student
-                $passID = $row['sid'];
-                $update_query = "UPDATE student_passwords SET password = '$new_pass' WHERE passID = $passID";
-            } else {
-                // It's a faculty
-                $passID = $row['fid'];
-                $update_query = "UPDATE faculty_passwords SET password = '$new_pass' WHERE passID = '$passID'";
-            }
-
-            if ($conn->query($update_query)) {
-                $updated = true;
-            }
-        }
-
-        $message = $updated ? "Your password has been reset. Please check your email." : "Error updating password: " . $stmt->error;
+    if ($new_pass !== $confirm_pass) {
+        $message = '<p style="color:red;">Passwords do not match.</p>';
     } else {
-        $message = "Email not found.";
+        // Check if the email exists in the student or faculty table
+        $query = "SELECT * FROM student WHERE email = '$email' UNION SELECT * FROM faculty WHERE email = '$email'";
+        $result = $conn->query($query);
+
+        if($result->num_rows > 0){
+            $updated = false;
+
+            while ($row = $result->fetch_assoc()) {
+                if(isset($row['sid'])){
+                    // It's a student
+                    $passID = $row['sid'];
+                    $update_query = "UPDATE student_passwords SET password = '$new_pass' WHERE passID = $passID";
+                } else {
+                    // It's a faculty
+                    $passID = $row['fid'];
+                    $update_query = "UPDATE faculty_passwords SET password = '$new_pass' WHERE passID = '$passID'";
+                }
+
+                if ($conn->query($update_query)) {
+                    $updated = true;
+                }
+            }
+
+            $message = $updated ? '<p style="color:green;">Your password has been reset. Please check your email.</p>' : '<p style="color:red;">Error updating password: ' . $conn->error . '</p>';
+        } else {
+            $message = '<p style="color:red;">Email not found.</p>';
+        }
     }
 }
 ?>
@@ -155,6 +160,10 @@ form p {
     <form action="forgot_password.php" method="post">
         <label for="email">Email:</label>
         <input type="email" id="email" name="email" required>
+        <label for="password">New Password:</label>
+        <input type="password" id="password" name="password" required>
+        <label for="confirm_password">Confirm Password:</label>
+        <input type="password" id="confirm_password" name="confirm_password" required>
         <input type="submit" name="submit" value="Submit">
         <div>
             <p>Click <a href="login.php">here</a> to login.</p>

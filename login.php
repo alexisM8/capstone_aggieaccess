@@ -212,7 +212,8 @@ if (isset($_POST['submit']) && $_POST['email'] == 'admin@gmail.com' && $_POST['p
 
         <label for="password">Password:</label>
         <input type="password" id="password" name="password" required>
-
+        <!--Checkbox function-->
+        <input type="checkbox" onclick="conceal()">Show Password
         <label for="user_type">User Type:</label>
         <select id="user_type" name="user_type">
             <option value="">Select User Type</option>
@@ -236,6 +237,16 @@ if (isset($_POST['submit']) && $_POST['email'] == 'admin@gmail.com' && $_POST['p
         <p>Don't have an account? <a href="signup_page.php">Sign Up Here</a></p>
         <p><a href="forgot_password.php">Forgot Password</a></p>
     </form>
+    <script>
+    // function to show and hide password  
+            function conceal(){
+                var x = document.getElementById("password");
+                    if(x.type === "password") {
+                        x.type = "text";
+                    }else{
+                            x.type = "password";
+                        }
+    } </script>
 </body>
 
 </html>
