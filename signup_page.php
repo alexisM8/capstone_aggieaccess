@@ -12,7 +12,108 @@
 <html>
 <head>
 	<title>Sign Up</title>
-    <link rel="stylesheet" href="signup_page.css">
+	<style>
+		/* Style for body and h1 tags */
+		body {
+			background-color: #f2f2f2;
+			font-family: Arial, sans-serif;
+			margin: 0;
+			background-repeat: no-repeat;
+			background-position: center center;
+			margin: 0;
+			padding: 0;
+			font-family: Arial, sans-serif;
+			background-image: url(loginImage.jpg);
+
+		}
+
+		h1 {
+			color: #FEC52E;
+			text-shadow: black 1px 1px;
+			text-align: center;
+			margin-top: 50px;
+		}
+
+		/* Style for form */
+		form {
+			background-color: #ffffff;
+			border-radius: 5px;
+			box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+			margin: 20px auto;
+			max-width: 500px;
+			padding: 20px;
+		}
+
+		/* Style for form labels */
+		form label {
+			display: block;
+			font-size: 14px;
+			font-weight: bold;
+			margin-top: 10px;
+		}
+
+		/* Style for form inputs */
+		form input[type="text"], form input[type="email"], form input[type="password"], form select {
+			border: none;
+			border-radius: 2px;
+			box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1);
+			padding: 10px;
+			width: 100%;
+		}
+
+		form input[type="submit"] {
+			background-color: black;
+			border: none;
+			border-radius: 2px;
+			color: #ffffff;
+			cursor: pointer;
+			font-size: 16px;
+			margin-top: 20px;
+			padding: 10px;
+			width: 100%;
+		}
+
+		form input[type="submit"]:hover {
+			background-color: #FEC52E; ;
+		}
+
+		/* Style for form message */
+		form p {
+			font-size: 14px;
+			margin-top: 20px;
+			text-align: center;
+		}
+
+		/* Style for user type options */
+		#user_type {
+			margin-top: 20px;
+		}
+
+		/* Style for student and faculty options */
+		#student_options, #faculty_options {
+			margin-top: 20px;
+			padding: 10px;
+		}
+
+		#student_options label, #faculty_options label {
+			display: inline-block;
+			margin-right: 10px;
+		}
+
+		#student_options select, #faculty_options select {
+			margin-right: 20px;
+			width: 120px;
+		}
+
+		#major {
+			width: 200px;
+		}
+
+		#office {
+			width: 100px;
+		}
+
+	</style>
 </head>
 <body>
 	<h1>Sign Up</h1>
@@ -35,11 +136,13 @@
 		<label for="c_password">Confirm Password:</label>
 		<input type="password" id="c_password" name="c_password" required>
 
-		<p>Remember your login info? <a href="login.php">Login here</a>.</p>
+		<input type="checkbox" onclick="conceal()">Show Password
+
+		<p>Return to <a href="login.php">login</a>.</p>
 
 		<label for="user_type">User Type:</label>
 		<select id="user_type" name="user_type" required onchange="displayOptions()">
-			<option value="">Select user type</option>
+			<option value="">Select User Type</option>
 			<option value="faculty">Faculty</option>
 			<option value="student">Student</option>
 		</select>
@@ -56,7 +159,7 @@
 
 			<label for="major">Major:</label>
 			<select id="major" name="major">
-        <option value="">Select major</option>
+        <option value="">Select Major</option>
 
         <?php //  start of PHP
 
@@ -77,7 +180,7 @@
 		<div id="faculty_options" style="display: none;">
 			<label for="role">Role:</label>
 			<select id="role" name="role">
-				<option value="">Select role</option>
+				<option value="">Select Role</option>
 				<option value="professor">Professor</option>
 				<option value="secretary">Secretary</option>
 				<option value="chair">Chair</option>
@@ -85,7 +188,7 @@
 
 			<label for="office">Office Number:</label>
 			<select id="office" name="office">
-				<option value="">Select office number</option>
+				<option value="">Select Office Number</option>
 				<?php // PHP
 
         // Query to retrieve locationID from the location table
@@ -169,6 +272,19 @@
 				facultyOptions.style.display = "none";
 			}
 		}
+
+		function conceal(){
+        var x = document.getElementById("password");
+        var y = document.getElementById("c_password");
+        
+        if(x.type === "password" || y.type === "password") {
+            x.type = "text";
+            y.type = "text";
+        } else {
+            x.type = "password";
+            y.type = "password";
+        }
+    }
 	</script>
 </body>
 

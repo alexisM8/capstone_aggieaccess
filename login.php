@@ -6,16 +6,17 @@
         font-family: Arial, sans-serif;
         margin: 0;
         background-repeat: no-repeat;
-    background-position: center center;
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-    background-image: url('loginImage.jpg');
+        background-position: center center;
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        background-image: url('loginImage.jpg');
 
     }
 
     h1 {
-        color: #009688;
+        color: #FEC52E;
+        text-shadow: black 1px 1px;
         text-align: center;
         margin-top: 100px;
     }
@@ -51,7 +52,7 @@
     }
 
     form input[type="submit"] {
-        background-color: #009688;
+        background-color: black;
         border: none;
         border-radius: 2px;
         color: #ffffff;
@@ -63,7 +64,7 @@
     }
 
     form input[type="submit"]:hover {
-        background-color: #009688;
+        background-color: #FEC52E;
     }
 
     /* Style for form message */
@@ -215,7 +216,7 @@ if (isset($_POST['submit']) && $_POST['email'] == 'admin@gmail.com' && $_POST['p
         <input type="checkbox" onclick="conceal()">Show Password
         <label for="user_type">User Type:</label>
         <select id="user_type" name="user_type">
-            <option value="">Select user type</option>
+            <option value="">Select User Type</option>
             <option value="faculty">Faculty</option>
             <option value="student">Student</option>
         </select>
@@ -233,8 +234,8 @@ if (isset($_POST['submit']) && $_POST['email'] == 'admin@gmail.com' && $_POST['p
 
         <input type="submit" name="submit" value="Login">
 
-        <p>Don't have an account? <a href="signup_page.php">Sign up here</a>.</p>
-        <p>Or you forget password <a href="forgot_password.php">Forget password</a>.</p>
+        <p>Don't have an account? <a href="signup_page.php">Sign Up</a></p>
+        <p><a href="forgot_password.php">Forgot Password</a></p>
     </form>
     <script>
     // function to show and hide password  

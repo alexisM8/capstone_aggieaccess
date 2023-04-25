@@ -47,10 +47,6 @@ input[type="submit"] {
     font-size: 16px;
 }
 
-input[type="submit"]:hover {
-    background-color: #009688;
-}
-
 label {
     display: block;
     font-weight: bold;
