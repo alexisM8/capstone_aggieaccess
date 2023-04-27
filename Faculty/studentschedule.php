@@ -26,9 +26,9 @@
         if(mysqli_num_rows($result_check_enrollment) >= 1){
             $sql_remove = "DELETE FROM enrollment WHERE classID = '$classID' AND studentID = '$studentID' AND facultyID = '$facultyID'";
             if ($conn->query($sql_remove) === TRUE) {
-                echo 'Successfuly Removed: '.$courseName.'!';
+                echo 'Successfully Removed: '.$courseName.' !';
             } else {
-                echo 'Failed to Remove: '.$courseName.'!';
+                echo 'Failed to Remove: '.$courseName.' !';
             }
         } else {
             echo 'Not Enrolled in: ' . $courseName;
@@ -76,7 +76,7 @@
         <tr>
             <th>Action</th>
             <th>Course Title</th>
-            <th>Instrcutor</th> 
+            <th>Instructor</th> 
             <th>Meeting Time</th>
             <th>Meeting Days</th>
             <th>Start Date</th>
@@ -115,19 +115,14 @@
 }
 else
 {
+    echo '<br>';
     echo "<table>";
     echo "<tr><th>Student Not Enroll Any Course</th></tr>";
     
     echo "</table>";
 }
 }
-else
-{
-    echo "<table>";
-    echo "<tr><th>Please Enter Student Id</th></tr>";
-    
-    echo "</table>";
-}
+
 }
 else
 {

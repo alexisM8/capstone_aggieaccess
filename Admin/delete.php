@@ -8,9 +8,84 @@
     }?>
 <!DOCTYPE html>
 <html>
+<style>
+    /* Style for body and h1 tags */
+body {
+    background-color: #f2f2f2;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background-repeat: no-repeat;
+    background-position: center center;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+
+}
+
+h1 {
+    color: #000000;
+    text-align: center;
+    margin-top: 100px;
+}
+
+/* Style for form */
+form {
+    background-color: #ffffff;
+    border-radius: 5px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+    margin: 20px auto;
+    max-width: 500px;
+    padding: 20px;
+}
+
+/* Style for form labels */
+form label {
+    display: block;
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+/* Style for form inputs */
+form input[type="text"], form input[type="email"], form input[type="password"], form select {
+    border: none;
+    border-radius: 2px;
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    width: 100%;
+}
+
+form input[type="submit"] {
+    background-color: #000000;
+    border: none;
+    border-radius: 2px;
+    color: #ffffff;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 20px;
+    padding: 10px;
+    width: 100%;
+}
+
+form input[type="submit"]:hover {
+    background-color:#FEC52E;
+	color: #000000;
+}
+
+/* Style for form message */
+form p {
+    font-size: 14px;
+    margin-top: 20px;
+    text-align: center;
+}
+
+/* Style for user type options */
+#user_type {
+    margin-top: 20px;
+}
+</style>
 <head>
 	<title>Delete</title>
-    <link rel="stylesheet" href="admin.css">
 </head>
 <body>
 	<h1>Delete User</h1>

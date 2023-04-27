@@ -6,7 +6,7 @@
 
 <head>
 
-	<title>Student Enrollment</title>
+	<title>Admin</title>
 
 	<style>
 
@@ -40,7 +40,7 @@
 
 			box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 
-			background-color: #009688;
+			background-color: #000000;
 
 		}
 
@@ -70,7 +70,7 @@
 
 		nav h1 {
 
-
+			color:#FEC52E;
 
 			padding: 10px;
 
@@ -84,7 +84,7 @@
 
 			padding: 10px;
 
-			color: #333;
+			color: #FEC52E;
 
 			text-decoration: none;
 
@@ -107,6 +107,7 @@
 		nav a.active {
 
 			background-color: #ddd;
+			text-shadow: #000000 1px 1px;
 
 		}
 
@@ -168,7 +169,7 @@
 
 		th {
 
-			background-color: #009688;
+			background-color: #000000;
 
 			color: #fff;
 
@@ -196,7 +197,6 @@
 
 		h2 {
 
-			
 			text-align: center;
 
 
@@ -302,7 +302,7 @@
 
 			<li>
 
-				<h1>Admin</h1>
+			<img src="Aggies.png" style="width: 175px; height: 100px;"> 
 
 			</li>
 
@@ -333,7 +333,7 @@
 			</li>
 
 
-
+			<!-- <li><h1>Admin</h1></li> -->
 		</ul>
 
 	</nav>

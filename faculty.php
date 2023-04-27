@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Student Enrollment</title>
+	<title>Faculty</title>
 	<style>
 		body {
 			margin: 20;
@@ -17,7 +17,7 @@
 			background-color: #f1f1f1;
 			padding: 20px;
 			box-shadow: 0 0 10px rgba(0,0,0,0.3);
-			background-color: #009688;
+      background-color: #000000;
 		}
 		nav ul {
 			list-style: none;
@@ -35,7 +35,7 @@
 		nav a {
 			display: block;
 			padding: 10px;
-			color: #333;
+			color: #FEC52E;
 			text-decoration: none;
 			transition: background-color 0.3s ease;
 			border-radius: 20px;
@@ -44,7 +44,8 @@
 			background-color: #ccc;
 		}
 		nav a.active {
-			background-color: #ddd;
+			background-color: #ccc;
+      text-shadow: #000000 1px 1px;
 		}
 		/* Main content styles */
 main {
@@ -70,11 +71,11 @@ th,
 td {
   padding: 10px;
   text-align: left;
-  border: 1px solid #ccc;
+  border: 1px solid #000000;
 }
 
 th {
-  background-color: #009688;
+  background-color: #FEC52E;
   color: #fff;
 }
 
@@ -120,7 +121,7 @@ textarea {
 }
 
 input[type="submit"] {
-  background-color: #009688;
+  background-color: #000000;
   color: #fff;
   border: none;
   padding: 10px 20px;
@@ -129,7 +130,7 @@ input[type="submit"] {
   transition: all 0.3s ease;
 }
 button{
-	background-color: #009688;
+	background-color: #000000;
   color: #fff;
   border: none;
   padding: 10px 20px;
@@ -137,9 +138,13 @@ button{
   cursor: pointer;
   transition: all 0.3s ease;
 }
+button:hover{
+  background-color: #FEC52E;
+  color: #000000;
+}
 input[type="submit"]:hover {
-  background-color: #fff;
-  color: #009688;
+  background-color: #FEC52E;
+  color: #000000;
 }
 
 .print_btn{
@@ -152,7 +157,7 @@ input[type="submit"]:hover {
 <body>
 <nav>
   <ul>
-     <li><h1>Faculty</h1></li>
+      <li> <img src="Aggies.png" style="width: 175px; height: 100px;"> </li> 
      
      <li><a href="?page=Home" class="<?php if (isset($_GET['page']) && $_GET['page'] === 'Home')
 						echo 'active'; ?>">Home Page</a></li>
@@ -166,7 +171,7 @@ input[type="submit"]:hover {
     <li><a href="?page=RequestOverride" class="<?php if(isset($_GET['page']) && $_GET['page'] === 'RequestOverride') echo 'active'; ?>">Request Override</a></li>
     <li><a href="?page=logout" class="<?php if(isset($_GET['page']) && $_GET['page'] === 'logout') echo 'active'; ?>">Logout</a></li>
   </ul>
-  
+  <li><h1>Faculty</h1></li>
  
 </nav>
 <main>
