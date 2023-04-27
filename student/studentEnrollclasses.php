@@ -66,7 +66,7 @@ if (isset($_SESSION['pin_verified']) && $_SESSION['pin_verified'] === true) {
             echo "No results found.";
         }
         ?>
-        <input type="submit" name="submit_classes" value="findClasses">
+        <input type="submit" name="submit_classes" value="Find Classes">
     </form>
     <?php
     if(isset($_POST['submit_classes'])){
@@ -127,7 +127,7 @@ $sql_check_students_enrolled = "SELECT count(enrollment.studentID) as numOfStude
                     echo "<tr>
                             <td>";
                     if (!$alreadyEnrolled && $seatsAvailable) {
-                        echo "<form method='POST'>
+                        echo "<form method='POST' class='rmv_btn'>
                                     <input type='hidden' name='classID' value='" . $row['CLID'] . "'>
                                     <input type='hidden' name='facultyID' value='". $row['FID'] . "'>
                                     <input type='hidden' name='className' value='". $row['Course_Title'] . "'>
