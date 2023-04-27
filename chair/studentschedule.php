@@ -119,13 +119,6 @@ else
     echo "</table>";
 }
 }
-else
-{
-    echo "<table>";
-    echo "<tr><th>Please Enter Student Id</th></tr>";
-    
-    echo "</table>";
-}
 }
 else
 {

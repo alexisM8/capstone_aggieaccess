@@ -97,7 +97,8 @@
 
 
 		nav a:hover {
-
+			text-shadow: #000000 1px 1px;
+			
 			background-color: #ccc;
 
 		}
@@ -147,6 +148,8 @@
 
 			border-collapse: collapse;
 
+			margin-left: 10px;
+
 			margin-bottom: 20px;
 
 		}
@@ -161,7 +164,7 @@
 
 			text-align: left;
 
-			border: 1px solid #ccc;
+			border: 1px solid #000000;
 
 		}
 
@@ -169,7 +172,7 @@
 
 		th {
 
-			background-color: #000000;
+			background-color: #FEC52E;
 
 			color: #fff;
 

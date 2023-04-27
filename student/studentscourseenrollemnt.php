@@ -27,7 +27,7 @@ if (!$result) {
 // Process the result
 if (mysqli_num_rows($result) > 0) {
 
-  echo "<h1>Pin Create on student Email:</h1>";
+  echo "<h1>Your PIN:</h1>";
 
 
   // Output data of each row
@@ -38,7 +38,7 @@ if (mysqli_num_rows($result) > 0) {
     setcookie("pin", $pin, time() + 60 * 60 * 24, "/");
 
     // set the cookie with the PIN and a 24-hour expiry time
-    echo '<button class = "buttonCenter" onclick="copyToClipboard(\'' . $pin . '\')">Copy text</button>';
+    echo '<button id = "button" class = "buttonCenter" onclick="copyToClipboard(\'' . $pin . '\')">Copy Text</button>';
 
     // JavaScript function to copy the text to the clipboard
     echo '<script>

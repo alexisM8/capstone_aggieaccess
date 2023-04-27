@@ -146,9 +146,9 @@
                 <th>Course Instructor</th>
                 <th>Course Time</th>
                 <th>Meeting Days</th>
-                <th>Session Start</th>
-                <th>Session End</th>
-                <th>Room Number</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Room</th>
             </tr>";
         // Loop through the results and display them in the table
     while($row = $result->fetch_assoc()) {
