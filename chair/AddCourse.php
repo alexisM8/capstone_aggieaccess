@@ -123,13 +123,6 @@ if(isset($_POST['submit']))
 
 }//end if submit button clicked 
 
-else //if submit button not clicked yet
-{
-echo "<table>";
-echo "<tr><th> Enter Course Information.</th></tr>";
-echo "</table>";
-}
-
     ?>
 </body>
 </html>

@@ -26,12 +26,12 @@ if (!$result) {
 
 // Process the result
 if (mysqli_num_rows($result) > 0) {
-    
     echo "<table>";
     echo "<tr><th>First Name</th><th>Last Name</th></tr>";
     
     // Output data of each row
     $row = mysqli_fetch_assoc($result);
+    echo "<h1>Welcome " . $row["fname"] . "!</h1>";
     echo "<tr><td>" . $row["fname"] . "</td><td>" . $row["lname"] . "</td></tr>";
     echo '</br>';
     echo '</br>';

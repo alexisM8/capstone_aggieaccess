@@ -41,6 +41,7 @@
 			border-radius: 20px;
 		}
 		nav a:hover {
+      text-shadow: #000000 1px 1px;
 			background-color: #ccc;
 		}
 		nav a.active {

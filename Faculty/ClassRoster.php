@@ -15,7 +15,7 @@ session_start();
     <form action="?page=ClassRoster" method="POST">
     <label for="username">Enter Course CRN:</label>
     <input type="text" id="username" name="username">
-    <input type="submit" name="submit" value="Show List Of Student">
+    <input type="submit" name="submit" value="Find Class Roster">
     </form>';
     if(isset($_POST['submit'])){
 $classname = $_POST['username'];
@@ -36,7 +36,7 @@ if (!$result) {
     echo "<table>";
     echo "<tr><th>Student Name</th><th>Student Email</th></tr>";
     while($row = $result->fetch_assoc()) {
-        echo "<tr><td>" . $row["fname"] .$row['lname']. "</td><td>" .$row['email']. "</td></tr>";
+        echo "<tr><td>" . $row['fname'] . ' ' .$row['lname']. "</td><td>" .$row['email']. "</td></tr>";
     }
 
     echo "</table>";

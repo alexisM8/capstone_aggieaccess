@@ -49,13 +49,6 @@ else {
     echo "</table>";
 }
     }
-    else
-{
-    echo "<table>";
-    echo "<tr><th>Please Enter Student First Name and Last Name</th></tr>";
-    
-    echo "</table>";
-}
 }
 else
 {
