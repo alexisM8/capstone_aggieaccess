@@ -2,7 +2,7 @@
 <html>
 
 <head>
-	<title>Student Enrollment</title>
+	<title>Student</title>
 	<style>
 		body {
 			margin: 20;
@@ -19,7 +19,7 @@
 			background-color: #f1f1f1;
 			padding: 20px;
 			box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-			background-color: #009688;
+			background-color:#000000;
 		}
 
 		nav ul {
@@ -41,7 +41,7 @@
 		nav a {
 			display: block;
 			padding: 10px;
-			color: #333;
+			color: #FEC52E;
 			text-decoration: none;
 			transition: background-color 0.3s ease;
 			border-radius: 20px;
@@ -52,7 +52,8 @@
 		}
 
 		nav a.active {
-			background-color: #ddd;
+			background-color: #ccc;
+			text-shadow: #000000 1px 1px;
 		}
 
 		/* Main content styles */
@@ -83,7 +84,7 @@
 		}
 
 		th {
-			background-color: #009688;
+			background-color: #000000;
 			color: #fff;
 		}
 
@@ -126,7 +127,7 @@
 		}
 
 		input[type="submit"] {
-			background-color: #009688;
+			background-color: #000000;
 			color: #fff;
 			border: none;
 			padding: 10px 20px;
@@ -136,7 +137,7 @@
 		}
 
 		button {
-			background-color: #009688;
+			background-color: #000000;
 			color: #fff;
 			border: none;
 			padding: 10px 20px;
@@ -144,8 +145,13 @@
 			cursor: pointer;
 			transition: all 0.3s ease;
 		} 
+
+		button:hover{
+			background-color: #FEC52E;
+			color: #000000;
+		}
 		.buttonCenter {
-			background-color: #009688;
+			background-color:  #000000;
 			color: #fff;
 			display: block;
 			text-align:center;
@@ -161,8 +167,8 @@
     	}
 
 		input[type="submit"]:hover {
-			background-color: #fff;
-			color: #009688;
+			background-color: #FEC52E;
+			color: #000000;
 		}
 	</style>
 </head>
@@ -170,8 +176,8 @@
 <body>
 	<nav>
 		<ul>
+		<li> <img src="Aggies.png" style="width: 175px; height: 100px;"> </li> 
 			<li>
-				<h1>Student</h1>
 			</li>
 			<li><a href="?page=Home" class="<?php if (isset($_GET['page']) && $_GET['page'] === 'Home')
 				echo 'active'; ?>">Home Page</a></li>

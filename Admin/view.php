@@ -9,9 +9,28 @@ if ($conn->connect_error) {
 ?>
 <!DOCTYPE html>
 <html>
+<style>
+    /* Style for body and h1 tags */
+body {
+    background-color: #f2f2f2;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background-repeat: no-repeat;
+    background-position: center center;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+
+}
+
+h1 {
+    color:  #000000;
+    text-align: center;
+    margin-top: 100px;
+}
+</style>
 <head>
     <title>View Users</title>
-    <link rel="stylesheet" href="admin.css">
 </head>
 <body>
     <h1>All Users</h1>
