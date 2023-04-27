@@ -127,7 +127,7 @@ $sql_check_students_enrolled = "SELECT count(enrollment.studentID) as numOfStude
                     echo "<tr>
                             <td>";
                     if (!$alreadyEnrolled && $seatsAvailable) {
-                        echo "<form class='rmv_btn' method='POST'>
+                        echo "<form method='POST'>
                                     <input type='hidden' name='classID' value='" . $row['CLID'] . "'>
                                     <input type='hidden' name='facultyID' value='". $row['FID'] . "'>
                                     <input type='hidden' name='className' value='". $row['Course_Title'] . "'>
