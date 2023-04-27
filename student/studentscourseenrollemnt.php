@@ -27,7 +27,7 @@ if (!$result) {
 // Process the result
 if (mysqli_num_rows($result) > 0) {
 
-  echo "<h1>Pin Create on student Email:</h1>";
+  echo "<h1>Pin Create on Student Email:</h1>";
 
 
   // Output data of each row
@@ -36,23 +36,37 @@ if (mysqli_num_rows($result) > 0) {
     $pin = substr(md5($email . time()), 0, 6); // generate a 6-digit PIN based on the email and current timestamp
     echo "<h1>" . $pin . "</h1>";
     setcookie("pin", $pin, time() + 60 * 60 * 24, "/");
-
-    // set the cookie with the PIN and a 24-hour expiry time
-    echo '<button class = "buttonCenter" onclick="copyToClipboard(\'' . $pin . '\')">Copy text</button>';
-
-    // JavaScript function to copy the text to the clipboard
+    echo '<button id="button" class="buttonCenter" onclick="copyToClipboard(\'' . $pin . '\')">Copy text</button>';
     echo '<script>
-  function copyToClipboard(text) {
-  var dummy = document.createElement("textarea");
-  document.body.appendChild(dummy);
-  dummy.value = text;
-  dummy.select();
-  document.execCommand("copy");
-  document.body.removeChild(dummy);
-
-}
-
-</script>';
+    function copyToClipboard(text) {
+      var dummy = document.createElement("textarea");
+      document.body.appendChild(dummy);
+      dummy.value = text;
+      dummy.select();
+      document.execCommand("copy");
+      document.body.removeChild(dummy);
+    
+      // Create a confirmation message element
+      const confirmation = document.createElement("div");
+      confirmation.textContent = "Text copied!";
+      confirmation.style.position = "fixed";
+      confirmation.style.bottom = "69%";
+      confirmation.style.right = "42.5%";
+      confirmation.style.top = "20%";
+      confirmation.style.transform = "translate(50%, 50%)";
+      
+      confirmation.style.color = "black";
+      confirmation.style.padding = "10px";
+      confirmation.style.borderRadius = "5px";
+      document.body.appendChild(confirmation);
+    
+      // Hide the message after 2 seconds
+      setTimeout(() => {
+        document.body.removeChild(confirmation);
+      }, 2000);
+    }';
+    echo'</script>';
+    
   
 
 
