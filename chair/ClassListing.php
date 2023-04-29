@@ -37,7 +37,7 @@ if (!$result) {
 } if (mysqli_num_rows($result) >0) {
     
     echo "<table>";
-    echo "<tr><th>Course title</th><th>Course CRN</th><th>Faculty Name</th><th>Time</th><th>Start Date</th><th>end Date</th><th>room Num</th><th>build Abbrv</th></tr>";
+    echo "<tr><th>Course Title</th><th>Course CRN</th><th>Faculty Name</th><th>Time</th><th>Start Date</th><th>End Date</th><th>Room</th><th>Building Abbrv.</th></tr>";
     while($row = $result->fetch_assoc()) {
         echo "<tr><td>" . $row["courseTitle"] . "</td><td>" . $row["CRN"] . "</td><td>" .
          $row["fname"] . " " . $row["lname"] . "</td><td>" . $row["timeRange"] . "</td><td>" . 

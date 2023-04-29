@@ -49,6 +49,7 @@
 
 		nav a:hover {
 			background-color: #ccc;
+			text-shadow: #000000 1px 1px;
 		}
 
 		nav a.active {
@@ -80,11 +81,11 @@
 		td {
 			padding: 10px;
 			text-align: left;
-			border: 1px solid #ccc;
+			border: 1px solid #000000;
 		}
 
 		th {
-			background-color: #000000;
+			background-color: #FEC52E;
 			color: #fff;
 		}
 

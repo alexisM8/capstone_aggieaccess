@@ -66,7 +66,7 @@ if (isset($_SESSION['pin_verified']) && $_SESSION['pin_verified'] === true) {
             echo "No results found.";
         }
         ?>
-        <input type="submit" name="submit_classes" value="findClasses">
+        <input type="submit" name="submit_classes" value="Search">
     </form>
     <?php
     if(isset($_POST['submit_classes'])){
@@ -104,8 +104,8 @@ echo "<tr>
 <th>Course Instructor</th>
 <th>Course Time</th>
 <th>Meeting Days</th>
-<th>Session Start</th>
-<th>Session End</th>
+<th>Start Date</th>
+<th>End Date</th>
 <th>Room Number</th>
 <th>Building Abbrv.</th>
 <th>Seat Limit</th>

@@ -32,6 +32,7 @@ if (mysqli_num_rows($result) > 0) {
     
     // Output data of each row
     $row = mysqli_fetch_assoc($result);
+    echo "<h1>Welcome Professor " . $row["lname"] . "!</h1>";
     echo "<tr><td>" . $row["fname"] . "</td><td>" . $row["lname"] . "</td></tr>";
     echo '</br>';
     echo '</br>';

@@ -35,7 +35,7 @@ echo "</table>";
     if((isset($_SESSION['loggedin']) || $_SESSION['loggedin'] === true) &&($_SESSION['user_type']==='faculty')){
     echo '
     <form action="?page=ListTeachingSchedule" method="POST">
-    <label for="username">Enter Teacher Last name:</label>
+    <label for="username">Enter Teacher Last Name:</label>
     <input type="text" id="username" name="username">
     <input type="submit" name="submit" value="Find Teacher Schedule">
     </form>';
