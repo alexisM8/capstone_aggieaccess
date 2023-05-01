@@ -42,17 +42,35 @@ if (mysqli_num_rows($result) > 0) {
 
     // JavaScript function to copy the text to the clipboard
     echo '<script>
-  function copyToClipboard(text) {
-  var dummy = document.createElement("textarea");
-  document.body.appendChild(dummy);
-  dummy.value = text;
-  dummy.select();
-  document.execCommand("copy");
-  document.body.removeChild(dummy);
-
-}
-
-</script>';
+    function copyToClipboard(text) {
+      var dummy = document.createElement("textarea");
+      document.body.appendChild(dummy);
+      dummy.value = text;
+      dummy.select();
+      document.execCommand("copy");
+      document.body.removeChild(dummy);
+    
+      // Create a confirmation message element
+      const confirmation = document.createElement("div");
+      confirmation.textContent = "Text copied!";
+      confirmation.style.position = "fixed";
+      confirmation.style.bottom = "69%";
+      confirmation.style.right = "42.5%";
+      confirmation.style.top = "20%";
+      confirmation.style.transform = "translate(50%, 50%)";
+      
+      confirmation.style.color = "black";
+      confirmation.style.padding = "10px";
+      confirmation.style.borderRadius = "5px";
+      document.body.appendChild(confirmation);
+    
+      // Hide the message after 2 seconds
+      setTimeout(() => {
+        document.body.removeChild(confirmation);
+      }, 2000);
+    }';
+    echo'</script>';
+    
   
 
 
